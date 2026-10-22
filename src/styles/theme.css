@@ -794,3 +794,25 @@
 .orbit-wrap:focus-within .orbit-node { animation-play-state: paused; }
 [data-motion="reduced"] .beat,
 [data-motion="reduced"] .rip { animation: none !important; }
+[data-motion]:not([data-motion="reduced"]) .floaty { animation: floaty 7s ease-in-out infinite; }
+@keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+
+/* --b animable (ouverture de la finale hors desktop, par transition). */
+@property --b {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+.finale-static {
+  opacity: 0;
+  transition:
+    --b 1.8s var(--ease-nuit),
+    opacity 1s;
+}
+.finale-static[data-open] {
+  --b: 1 !important;
+  opacity: 1;
+}
+[data-motion="reduced"] .finale-static {
+  opacity: 1;
+}

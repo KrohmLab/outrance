@@ -1,5 +1,5 @@
 import { useEffect, useRef, type CSSProperties } from "react";
-import type { MotionLevel } from "../../lib/useMotionLevel";
+import { useReducedMotion, type MotionLevel } from "../../lib/useMotionLevel";
 import { logoUrl } from "../../site";
 import { Newsletter } from "../Newsletter";
 import { Lotus } from "./Lotus";
@@ -14,6 +14,7 @@ export function Finale({ level }: { level: MotionLevel }) {
   const lotusRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const linked = level === "full";
+  const reduced = useReducedMotion();
 
   usePageScroll(
     ref,
@@ -40,7 +41,7 @@ export function Finale({ level }: { level: MotionLevel }) {
     const el = ref.current;
     const lotus = lotusRef.current;
     if (linked || !el || !lotus) return;
-    if (level === "reduced") {
+    if (reduced) {
       lotus.style.setProperty("--b", "1");
       return;
     }
@@ -52,7 +53,7 @@ export function Finale({ level }: { level: MotionLevel }) {
     }, { threshold: 0.35 });
     io.observe(el);
     return () => io.disconnect();
-  }, [linked, level]);
+  }, [linked, reduced]);
 
   return (
     <section ref={ref} aria-labelledby="home-finale" className="relative flex min-h-[640px] flex-col items-center justify-center overflow-hidden py-24 lg:min-h-[100vh]">

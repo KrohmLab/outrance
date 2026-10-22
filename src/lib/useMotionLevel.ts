@@ -26,3 +26,22 @@ function subscribe(cb: () => void) {
 export function useMotionLevel(): MotionLevel {
   return useSyncExternalStore(subscribe, read, () => "reduced");
 }
+
+const REDUCE = "(prefers-reduced-motion: reduce)";
+
+/**
+ * Préférence « mouvement réduit » du navigateur. Pendant le pré-rendu et l’hydratation, renvoie false :
+ * l’état initial des animations (lotus en bouton, événement caché) est le bon état de départ, alors que
+ * supposer « réduit » ferait afficher un instant l’état final (fleur ouverte) avant de se corriger.
+ */
+export function useReducedMotion(): boolean {
+  return useSyncExternalStore(
+    (cb) => {
+      const l = window.matchMedia(REDUCE);
+      l.addEventListener("change", cb);
+      return () => l.removeEventListener("change", cb);
+    },
+    () => window.matchMedia(REDUCE).matches,
+    () => false,
+  );
+}

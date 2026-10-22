@@ -3,7 +3,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, type CSSProperties } f
 import { Link } from "react-router";
 import type { LineupItem, OutranceEvent } from "../../content/schemas";
 import { formatDate } from "../../lib/dates";
-import type { MotionLevel } from "../../lib/useMotionLevel";
+import { useReducedMotion, type MotionLevel } from "../../lib/useMotionLevel";
 import { logoUrl, site } from "../../site";
 import { Lotus } from "./Lotus";
 import { Motes, MOTE_COUNT } from "./Motes";
@@ -42,7 +42,8 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
   const introRef = useRef<HTMLDivElement>(null);
   const eventRef = useRef<HTMLDivElement>(null);
   const flyTarget = useRef({ dx: 0, dy: 0, scale: 0.053 });
-  const reduced = level === "reduced";
+  // Vraie préférence du navigateur (et non le niveau provisoire du pré-rendu) : évite un flash de la fleur ouverte.
+  const reduced = useReducedMotion();
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
 

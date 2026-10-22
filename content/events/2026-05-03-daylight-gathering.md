@@ -22,4 +22,7 @@ poster: null
 cover: null
 minors: false
 ---
-<!-- Description à compléter. -->
+<!-- Description provisoire rédigée pour la présentation, à partir des seules données de ce fichier : à relire et valider par l’équipe. -->
+Un rassemblement en journée à La Rayonne, à Villeurbanne, dès 15h.
+
+De la progressive à la dark psytrance, avec Hypogeo, Akari System, Airi, Originz, Agop et Uzum.

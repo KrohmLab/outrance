@@ -20,4 +20,7 @@ poster: null       # visuel 4:5 à fournir
 cover: null        # visuel 1920×1005 à fournir
 minors: false
 ---
-<!-- Description à compléter. -->
+<!-- Description provisoire rédigée pour la présentation, à partir des seules données de ce fichier : à relire et valider par l’équipe. -->
+Le roster Outrance prend les commandes de la Péniche Loupika, à Lyon.
+
+Deux B2B, Originz vs Rayzorks et Moonwave vs Namdak, puis Klaak, Soul Edge et Trash Bandiroots.

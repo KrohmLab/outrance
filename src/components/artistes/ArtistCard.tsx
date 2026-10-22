@@ -41,11 +41,10 @@ export function ArtistCard({ artist, onOpen, ref }: Props) {
       ref={ref}
       type="button"
       aria-haspopup="dialog"
-      aria-label={`Voir la fiche ${ofName(artist.name)}`}
       onClick={onOpen}
       className={`card group w-full cursor-pointer ${lift}`}
     >
-      <span className={`zoom relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden bg-[#1d1430] ${zoomFocus}`}>
+      <span aria-hidden="true" className={`zoom relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden bg-[#1d1430] ${zoomFocus}`}>
         {artist.photo ? (
           <>
             <img src={artist.photo} alt="" loading="lazy" className="absolute inset-0 size-full object-cover" />
@@ -98,7 +97,10 @@ export function ArtistCard({ artist, onOpen, ref }: Props) {
 
       <span className="flex w-full items-end justify-between gap-3 px-3.5 pt-3 pb-3.5 sm:px-[18px] sm:pt-4 sm:pb-[18px] lg:px-[22px] lg:pt-5 lg:pb-[22px]">
         <span className="flex min-w-0 flex-col gap-1 sm:gap-2">
-          <span className="disp text-[15px] leading-[1.15] font-semibold break-words sm:text-[18px] lg:text-[22px]">{artist.name}</span>
+          <span className="disp text-[15px] leading-[1.15] font-semibold break-words sm:text-[18px] lg:text-[22px]">
+            <span className="sr-only">Voir la fiche {ofName(artist.name)} ({artist.format}) : </span>
+            {artist.name}
+          </span>
           <span className="lbl text-[10px] text-lotus lg:text-[11px]">
             {/* Coupure possible après chaque « / » pour les listes de genres longues. */}
             {artist.genres.map((g, i) => (

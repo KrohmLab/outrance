@@ -6,6 +6,7 @@ import { Venues } from "../components/presse/Venues";
 import { presse, site } from "../content/load.server";
 import { site as clientSite } from "../site";
 import type { Route } from "./+types/presse-pro";
+import { pageMeta } from "../lib/seo";
 
 export function loader() {
   // Année de création + chiffres renseignés (les valeurs null restent masquées).
@@ -16,18 +17,12 @@ export function loader() {
   return { presse, stats, contactEmail: site.emails.contact };
 }
 
-export const meta: Route.MetaFunction = ({ loaderData }) => {
-  const title = `Presse / Pro — ${clientSite.name}`;
-  const description = loaderData?.presse.blurbs.short ?? clientSite.metaDescription;
-  return [
-    { title },
-    { name: "description", content: description },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: `${clientSite.url}/presse-pro` },
-  ];
-};
+export const meta: Route.MetaFunction = ({ loaderData }) =>
+  pageMeta({
+    title: `Presse / Pro — ${clientSite.name}`,
+    description: loaderData?.presse.blurbs.short ?? clientSite.metaDescription,
+    path: "/presse-pro",
+  });
 
 export default function PressePro({ loaderData }: Route.ComponentProps) {
   const { presse, stats, contactEmail } = loaderData;

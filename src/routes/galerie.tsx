@@ -9,14 +9,14 @@ import { aftermovies, galerie } from "../content/load.server";
 import { useHydrated } from "../lib/useHydrated";
 import { site } from "../site";
 import type { Route } from "./+types/galerie";
+import { pageMeta } from "../lib/seo";
 
-export const meta: Route.MetaFunction = () => [
-  { title: `Galerie — ${site.name}` },
-  {
-    name: "description",
-    content: "Photos et aftermovies des soirées psytrance Outrance, à Lyon et en Belgique, vues par nos photographes et vidéastes.",
-  },
-];
+export const meta: Route.MetaFunction = () =>
+  pageMeta({
+    title: `Galerie — ${site.name}`,
+    description: "Photos et aftermovies des soirées psytrance Outrance, à Lyon et en Belgique, vues par nos photographes et vidéastes.",
+    path: "/galerie",
+  });
 
 export function loader() {
   return { albums: galerie.albums, aftermovies };

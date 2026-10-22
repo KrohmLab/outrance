@@ -24,18 +24,18 @@ import { useHydrated } from "../lib/useHydrated";
 import { useNow } from "../lib/useNow";
 import { site } from "../site";
 import type { Route } from "./+types/agenda";
+import { pageMeta } from "../lib/seo";
 
 export async function loader() {
   return { events: events.map(toAgendaEvent) };
 }
 
-export const meta: Route.MetaFunction = () => [
-  { title: `Agenda — ${site.name}` },
-  {
-    name: "description",
-    content: "Les prochaines soirées psytrance d’Outrance à Lyon et en Belgique, et toutes les archives depuis la première en 2014.",
-  },
-];
+export const meta: Route.MetaFunction = () =>
+  pageMeta({
+    title: `Agenda — ${site.name}`,
+    description: "Les prochaines soirées psytrance d’Outrance à Lyon et en Belgique, et toutes les archives depuis la première en 2014.",
+    path: "/agenda",
+  });
 
 // L’onglet et le filtre vivent dans l’URL : inutile de recharger les données quand ils changent.
 export function shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }: ShouldRevalidateFunctionArgs) {

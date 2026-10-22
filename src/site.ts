@@ -1,3 +1,5 @@
+import logoLarge from "../assets/logo/outrance-logo-white-1200.png";
+import logoSmall from "../assets/logo/outrance-logo-white-480.png";
 import site from "../content/site.json";
 
 export { site };
@@ -17,4 +19,7 @@ export const socials = [
   { key: "youtube", label: "YouTube", href: site.socials.youtube },
 ] as const;
 
-export { default as logoUrl } from "../assets/logo/outrance-logo-white.png";
+// Logo officiel redimensionné (sans retouche) : 480 px pour le header, le footer et les petits usages,
+// 1200 px pour les grands logos de l’accueil (écrans haute densité).
+export { default as logoUrl } from "../assets/logo/outrance-logo-white-480.png";
+export const logoSrcSet = `${logoSmall} 480w, ${logoLarge} 1200w`;

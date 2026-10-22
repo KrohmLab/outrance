@@ -36,13 +36,13 @@ export function AftermoviesTrack({ movies, level }: { movies: Aftermovie[]; leve
         <div className="wrap relative">
           <span className="lbl text-lotus">Galerie</span>
           <div className="relative">
-            <h2 id="home-aftermovies" className="disp mt-2 text-[48px] leading-none font-extrabold text-transparent [-webkit-text-stroke:1.2px_var(--color-border)] sm:text-[80px] lg:text-[120px]">
+            <h2 id="home-aftermovies" className="disp mt-2 text-[clamp(28px,9.2vw,120px)] leading-none font-extrabold text-transparent [-webkit-text-stroke:1.2px_var(--color-border)]">
               Aftermovies
             </h2>
             <span
               ref={fillRef}
               aria-hidden="true"
-              className="disp absolute top-0 left-0 mt-2 text-[48px] leading-none font-extrabold text-lotus sm:text-[80px] lg:text-[120px]"
+              className="disp absolute top-0 left-0 mt-2 text-[clamp(28px,9.2vw,120px)] leading-none font-extrabold text-lotus"
               style={{ clipPath: pinned ? "inset(0 100% 0 0)" : undefined }}
             >
               Aftermovies

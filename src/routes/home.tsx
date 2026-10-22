@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Hero, type HeroEvent } from "../components/home/Hero";
 import { useHomeIntro } from "../components/home/useHomeIntro";
+import { Motes, MOTE_COUNT } from "../components/home/Motes";
 import { HomeAgenda } from "../components/home/HomeAgenda";
 import { RosterMarquee } from "../components/home/RosterMarquee";
 import { RosterOrbit } from "../components/home/RosterOrbit";
@@ -16,10 +17,21 @@ import { useMotionLevel } from "../lib/useMotionLevel";
 import { useNow } from "../lib/useNow";
 import { site } from "../site";
 import type { Route } from "./+types/home";
+import { pageMeta } from "../lib/seo";
 
 export const meta: Route.MetaFunction = () => [
-  { title: `${site.name} — ${site.tagline}` },
-  { name: "description", content: site.metaDescription },
+  ...pageMeta({ title: `${site.name} — ${site.tagline}`, description: site.metaDescription, path: "/" }),
+  {
+    "script:ld+json": {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+      logo: `${site.url}/og/outrance.png`,
+      email: site.emails.contact,
+      sameAs: [site.socials.instagram, site.socials.facebook, site.socials.soundcloud, site.socials.youtube],
+    },
+  },
 ];
 
 export function loader() {
@@ -57,7 +69,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const intro = useHomeIntro();
 
   return (
-    <div ref={rootRef} data-motion={level} className={`relative ${intro ? "home-intro" : ""}`}>
+    <div ref={rootRef} data-motion={level} className={`relative isolate ${intro ? "home-intro" : ""}`}>
+      {/* Ciel de l’accueil (comme la fenêtre de la maquette) : lucioles fixes derrière toute la page,
+          visibles partout où une section n’a pas son propre fond. */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10">
+        <Motes count={MOTE_COUNT[level]} />
+      </div>
       <Hero event={featured?.event ?? null} upcoming={featured?.upcoming ?? false} level={level} intro={intro} />
       <RosterMarquee names={loaderData.roster.map((a) => a.name)} level={level} />
       <HomeAgenda featured={featured?.event ?? null} upcoming={featured?.upcoming ?? false} past={past} />

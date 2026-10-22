@@ -12,6 +12,7 @@ import { fullTitle } from "../lib/calendar";
 import { useHydrated } from "../lib/useHydrated";
 import { site as clientSite } from "../site";
 import type { Route } from "./+types/artistes";
+import { pageMeta } from "../lib/seo";
 
 // Artistes (Artistes.dc.html, -tablette, -mobile) : roster, fiche en panneau (?artiste=slug), booking.
 export function loader() {
@@ -22,10 +23,8 @@ export function loader() {
   return { roster, intro: site.association.story[2] ?? "" };
 }
 
-export const meta: Route.MetaFunction = ({ loaderData }) => [
-  { title: `Artistes — ${clientSite.name}` },
-  { name: "description", content: loaderData?.intro ?? clientSite.metaDescription },
-];
+export const meta: Route.MetaFunction = ({ loaderData }) =>
+  pageMeta({ title: `Artistes — ${clientSite.name}`, description: loaderData?.intro ?? clientSite.metaDescription, path: "/artistes" });
 
 // Le panneau vit dans l’URL : l’ouvrir ou le fermer ne recharge pas les données.
 export function shouldRevalidate({ currentUrl, nextUrl, defaultShouldRevalidate }: ShouldRevalidateFunctionArgs) {

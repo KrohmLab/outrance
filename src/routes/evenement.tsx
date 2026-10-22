@@ -8,10 +8,11 @@ import { NewsletterCta } from "../components/evenement/NewsletterCta";
 import { StickyTicketBar } from "../components/evenement/StickyTicketBar";
 import { artists, galerie, getEvent, site } from "../content/load.server";
 import { fullTitle } from "../lib/calendar";
-import { isUpcoming } from "../lib/dates";
+import { formatDate, isUpcoming } from "../lib/dates";
 import { useNow } from "../lib/useNow";
 import { site as clientSite } from "../site";
 import type { Route } from "./+types/evenement";
+import { pageMeta } from "../lib/seo";
 
 // Fiche événement (Evenement.dc.html, -tablette, -mobile), pré-rendue pour chaque slug publié.
 export async function loader({ params }: Route.LoaderArgs) {
@@ -30,15 +31,17 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export const meta: Route.MetaFunction = ({ loaderData }) => {
-  if (!loaderData) return [{ title: `Événement introuvable — ${clientSite.name}` }];
-  const title = `${fullTitle(loaderData.event)} — ${clientSite.name}`;
+  if (!loaderData) return [{ title: `Événement introuvable — ${clientSite.name}` }, { name: "robots", content: "noindex" }];
+  const { event } = loaderData;
   return [
-    { title },
-    { name: "description", content: loaderData.description },
-    { property: "og:title", content: title },
-    { property: "og:description", content: loaderData.description },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: `${clientSite.url}/evenements/${loaderData.event.slug}` },
+    ...pageMeta({
+      title: `${fullTitle(event)} — ${clientSite.name}`,
+      description: loaderData.description,
+      path: `/evenements/${event.slug}`,
+      image: `/og/evenements/${event.slug}.png`,
+      imageAlt: `${fullTitle(event)}, ${formatDate(event.date)}`,
+      type: "article",
+    }),
     { "script:ld+json": loaderData.jsonLd },
   ];
 };

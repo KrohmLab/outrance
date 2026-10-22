@@ -5,6 +5,7 @@ import { Team } from "../components/association/Team";
 import { Timeline } from "../components/association/Timeline";
 import { aftermovies, site, team, timeline } from "../content/load.server";
 import type { Route } from "./+types/association";
+import { pageMeta } from "../lib/seo";
 
 // L’association (Association.dc.html, -tablette, -mobile) : histoire, chiffres, timeline, équipe, aftermovies.
 export function loader() {
@@ -18,10 +19,8 @@ export function loader() {
   };
 }
 
-export const meta: Route.MetaFunction = ({ loaderData }) => [
-  { title: "L’association — Outrance" },
-  { name: "description", content: loaderData?.association.intro ?? "" },
-];
+export const meta: Route.MetaFunction = ({ loaderData }) =>
+  pageMeta({ title: "L’association — Outrance", description: loaderData?.association.intro ?? "", path: "/association" });
 
 export default function Association({ loaderData }: Route.ComponentProps) {
   const { association, stats, emails, timeline, team, aftermovies } = loaderData;

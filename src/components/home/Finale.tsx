@@ -3,7 +3,6 @@ import { useReducedMotion, type MotionLevel } from "../../lib/useMotionLevel";
 import { logoSrcSet, logoUrl } from "../../site";
 import { Newsletter } from "../Newsletter";
 import { Lotus } from "./Lotus";
-import { Motes, MOTE_COUNT } from "./Motes";
 import { clamp01, easeInOut } from "./motion-math";
 import { usePageScroll } from "./usePageScroll";
 
@@ -57,7 +56,6 @@ export function Finale({ level }: { level: MotionLevel }) {
 
   return (
     <section ref={ref} aria-labelledby="home-finale" className="relative flex min-h-[640px] flex-col items-center justify-center overflow-hidden py-24 lg:min-h-[100vh]">
-      <Motes count={MOTE_COUNT[level]} seed={7} big />
       <div
         ref={lotusRef}
         aria-hidden="true"

@@ -6,7 +6,6 @@ import { formatDate } from "../../lib/dates";
 import { useReducedMotion, type MotionLevel } from "../../lib/useMotionLevel";
 import { logoSrcSet, logoUrl, site } from "../../site";
 import { Lotus } from "./Lotus";
-import { Motes, MOTE_COUNT } from "./Motes";
 import { heroPhases, lerp } from "./motion-math";
 
 // Hero « Floraison » (Main.dc.html, Accueil-tablette, Accueil-mobile) :
@@ -143,7 +142,6 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
             <div className="cglow" />
           </div>
         )}
-        <Motes count={MOTE_COUNT[level]} />
 
         {/* Halo, ondes et cercles concentriques. */}
         {/* Au-dessus du voile de chargement : ses cercles naissent du bouton au premier battement. */}

@@ -568,3 +568,44 @@
   opacity: 1;
   transform: none;
 }
+
+/* Fiche artiste : fond qui s’assombrit, panneau du bas (mobile) ou latéral (≥ 640px). */
+.artist-overlay {
+  visibility: hidden;
+  transition: visibility 0.55s;
+}
+.artist-overlay[data-open] {
+  visibility: visible;
+  transition: visibility 0s;
+}
+.artist-backdrop {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.artist-overlay[data-open] .artist-backdrop {
+  opacity: 1;
+}
+.artist-panel {
+  transform: translateY(105%);
+  transition: transform 0.45s cubic-bezier(0.3, 1.25, 0.5, 1);
+}
+.artist-overlay[data-open] .artist-panel {
+  transform: none;
+}
+.artist-content {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s 0.15s,
+    transform 0.6s 0.15s var(--ease-nuit);
+}
+.artist-overlay[data-open] .artist-content {
+  opacity: 1;
+  transform: none;
+}
+@media (min-width: 640px) {
+  .artist-panel {
+    transform: translateX(104%);
+    transition: transform 0.55s var(--ease-nuit);
+  }
+}

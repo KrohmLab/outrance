@@ -7,4 +7,5 @@ city: null         # À VÉRIFIER
 country: "FR"
 lineup: []
 ---
-Une carte blanche sur la Moon Stage du festival Reperkusound.
+<!-- Description complétée avec les textes déjà présents dans content/timeline.json et content/aftermovies.json : à relire par l’équipe. -->
+Une carte blanche sur la Moon Stage du festival Reperkusound, au Double Mixte.

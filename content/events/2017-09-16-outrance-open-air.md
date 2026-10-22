@@ -7,4 +7,7 @@ city: "Châtillon-la-Palud (01)"
 country: "FR"
 lineup: []
 ---
-Notre premier événement en plein air.
+<!-- Description complétée avec les textes déjà présents dans content/timeline.json et content/aftermovies.json : à relire par l’équipe. -->
+Notre premier événement en plein air, à Châtillon-la-Palud (01).
+
+L’aftermovie de cette journée, signé NO7HINK, est à voir dans la galerie.

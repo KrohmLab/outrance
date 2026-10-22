@@ -609,3 +609,281 @@
     transition: transform 0.55s var(--ease-nuit);
   }
 }
+
+/* ───────────── Accueil ───────────── */
+
+/* Lotus : --b (0 bouton → 1 ouvert) sur un ancêtre ; formules de lotus(b) de Main.dc.html. */
+.lotus-petal {
+  transform-origin: 0 0;
+  transform: translate(0px, calc((1 - var(--b, 1)) * 60px))
+    rotate(calc(var(--oa) * 1deg * (var(--kf) + (1 - var(--kf)) * var(--b, 1))))
+    translateY(calc(-1px * (var(--d0) + (var(--d1) - var(--d0)) * var(--b, 1))))
+    scale(calc(var(--s0) + (var(--s1) - var(--s0)) * var(--b, 1)));
+}
+.lotus-ring {
+  transform-origin: 0 0;
+  transform: scale(calc((var(--r0) + (var(--r1) - var(--r0)) * var(--b, 1)) / 100));
+  opacity: calc(var(--ro) * var(--b, 1));
+}
+.lotus-core {
+  transform-origin: 0 0;
+  transform: scale(var(--b, 1));
+}
+.lotus-trail,
+.lotus-tip,
+.sw-o,
+.sw-m,
+.sw-i {
+  transform-origin: 0 0;
+}
+
+/* Mouvement de repos (desktop) : balancement de chaque pétale depuis sa base, couronnes qui ondulent,
+   pétales qui traînent derrière le geste de la souris (--vx, --vy). Desktop à la souris uniquement, dès le premier affichage (requête média, sans attendre le JavaScript). */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+.lotus-trail {
+  animation: tip ease-in-out infinite alternate;
+  rotate: calc((var(--vx, 0) * var(--c) + var(--vy, 0) * var(--s)) * -1 * var(--k));
+  transition-property: rotate;
+  transition-timing-function: cubic-bezier(0.3, 1.65, 0.45, 1);
+}
+.sw-o { animation: swayA 9s ease-in-out infinite; }
+.sw-m { animation: swayB 11s ease-in-out infinite; }
+.sw-i { animation: swayA 7s ease-in-out infinite reverse; }
+.lev-tilt { transform-style: preserve-3d; animation: levt 17s ease-in-out infinite alternate; }
+}
+@keyframes tip {
+  from { transform: rotate(calc(var(--amp) * -1)) scaleY(0.985); }
+  to { transform: rotate(var(--amp)) scaleY(1.015); }
+}
+@keyframes swayA {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50% { transform: rotate(2.5deg); }
+}
+@keyframes swayB {
+  0%, 100% { transform: rotate(3deg); }
+  50% { transform: rotate(-3deg) scale(1.02); }
+}
+
+/* Lévitation : 3D en desktop, sans inclinaison en tablette, aucune en mobile. --lev l’amortit. */
+@media (min-width: 640px) and (prefers-reduced-motion: no-preference) {
+  .lev-x { animation: levx 13s ease-in-out infinite alternate; }
+  .lev-y { animation: levy 7.5s ease-in-out infinite alternate; }
+}
+.lev-x.d { animation-delay: -5s; }
+.lev-y.d { animation-delay: -3s; }
+.lev-tilt.d { animation-delay: -9s; }
+@keyframes levx {
+  0% { transform: translateX(calc(-16px * var(--lev, 1))); }
+  100% { transform: translateX(calc(16px * var(--lev, 1))); }
+}
+@keyframes levy {
+  0% { transform: translateY(calc(-20px * var(--lev, 1))); }
+  100% { transform: translateY(calc(20px * var(--lev, 1))); }
+}
+@keyframes levt {
+  0% { transform: rotateX(calc(10deg * var(--lev, 1))) rotateY(calc(-12deg * var(--lev, 1))) rotateZ(-2deg); }
+  50% { transform: rotateX(calc(-4deg * var(--lev, 1))) rotateY(calc(6deg * var(--lev, 1))) rotateZ(1deg); }
+  100% { transform: rotateX(calc(-9deg * var(--lev, 1))) rotateY(calc(11deg * var(--lev, 1))) rotateZ(2deg); }
+}
+@media (prefers-reduced-motion: no-preference) { .breathe { animation: breathe 4.5s ease-in-out infinite; transform-origin: 50% 50%; } }
+@media (prefers-reduced-motion: no-preference) { .slowspin { animation: spin 200s linear infinite; transform-origin: 50% 50%; } }
+@media (prefers-reduced-motion: no-preference) { .nudge { animation: nudge 1.8s ease-in-out infinite; } }
+@media (prefers-reduced-motion: no-preference) { .wave { transform-origin: 0 0; animation: wave 9s ease-out infinite; } }
+.wave.w2 { animation-delay: -4.5s; }
+@keyframes breathe { 50% { transform: scale(1.04); } }
+@keyframes nudge { 50% { transform: translateY(6px); } }
+@keyframes wave {
+  0% { transform: scale(0.4); opacity: 0; }
+  15% { opacity: 0.3; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Lucioles : montée lente, scintillement. */
+.mote { position: absolute; bottom: -20px; animation: mote-rise linear infinite; }
+.mote i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+  animation-name: twinkle, swayx;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes mote-rise { from { transform: translateY(0); } to { transform: translateY(-110vh); } }
+@keyframes twinkle { from { opacity: 0.12; } to { opacity: 0.65; } }
+@keyframes swayx { from { translate: -14px 0; } to { translate: 14px 0; } }
+@media (prefers-reduced-motion: reduce) { .mote { display: none; } }
+
+/* Halo qui suit le curseur (desktop). */
+.cglow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 640px;
+  height: 640px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgb(185 139 255 / 0.1), rgb(185 139 255 / 0) 62%);
+  opacity: 0;
+  transition: opacity 0.8s;
+  will-change: transform;
+}
+
+/* Header de l’accueil : fond et filet qui apparaissent avec le scroll (--hb), jauge (--mark), logo (--slide). */
+.home-header {
+  background: rgb(10 7 18 / calc(var(--hb, 0) * 0.86));
+  border-bottom: 1px solid rgb(46 38 69 / var(--hb, 0));
+  backdrop-filter: blur(calc(var(--hb, 0) * 14px));
+}
+.home-header:has([data-open]) {
+  background: var(--color-nuit);
+}
+.header-gauge {
+  opacity: var(--mark, 1);
+  scale: calc(0.5 + 0.5 * var(--mark, 1));
+  rotate: calc((1 - var(--mark, 1)) * -120deg);
+  transition:
+    opacity 0.3s,
+    scale 0.45s cubic-bezier(0.3, 1.4, 0.5, 1),
+    rotate 0.45s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.home-logo {
+  transform: translateX(calc(var(--slide, 1) * 44px));
+  transition: transform 0.45s var(--ease-nuit);
+}
+@media (min-width: 640px) {
+  .home-logo {
+    transform: translateX(calc(var(--slide, 1) * 54px));
+  }
+}
+.gauge-spin {
+  transform-origin: 0 0;
+  animation: spin 45s linear infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) { .drift-x { animation: driftx 140s linear infinite; } }
+@media (prefers-reduced-motion: no-preference) { .drift-b { animation: driftb 70s linear infinite; } }
+.drift-b { display: inline-block; }
+.marquee-band:hover .drift-x,
+.marquee-band:focus-within .drift-x { animation-play-state: paused; }
+@keyframes driftx { to { transform: translateX(-50%); } }
+@keyframes driftb { to { transform: translateX(-25%); } }
+@media (prefers-reduced-motion: no-preference) { .kb { animation: kb 16s ease-in-out infinite alternate; } }
+@keyframes kb { from { transform: scale(1); } to { transform: scale(1.08) translateX(-14px); } }
+.pulse-dot { animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.3; } }
+@media (prefers-reduced-motion: no-preference) { .slowspin-rev { transform-origin: 0 0; animation: spin 160s linear infinite reverse; } }
+@media (prefers-reduced-motion: no-preference) { .orbiter { transform-origin: 0 0; animation: spin 40s linear infinite; } }
+
+/* Orbite du roster. */
+.orbit-petal { transform-origin: 0 0; transition: transform 0.9s var(--ease-nuit), opacity 0.5s; }
+.rip { transform-origin: 0 0; }
+.orbit-portrait { transition: transform 0.7s cubic-bezier(0.3, 1.35, 0.5, 1), opacity 0.35s; }
+.orbit-info { animation: orbit-up 0.5s var(--ease-nuit) both; }
+@keyframes orbit-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes beat { 0% { transform: scale(1.05); } 30% { transform: scale(1); } 100% { transform: scale(1); } }
+@keyframes ripple { 0% { transform: scale(0.55); opacity: 0.6; } 100% { transform: scale(1.3); opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) { .orbit-spin { transform-origin: 0 0; animation: spin 120s linear infinite; } }
+@media (prefers-reduced-motion: no-preference) { .orbit-ring { animation: spin 140s linear infinite; transform-origin: 50% 50%; } }
+@media (prefers-reduced-motion: no-preference) { .orbit-node { animation: spin 140s linear infinite reverse; transform-origin: 50% 32px; } }
+.orbit-wrap:hover .orbit-ring,
+.orbit-wrap:hover .orbit-node,
+.orbit-wrap:focus-within .orbit-ring,
+.orbit-wrap:focus-within .orbit-node { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .beat,
+  .rip { animation: none !important; }
+}
+@media (prefers-reduced-motion: no-preference) { .floaty { animation: floaty 7s ease-in-out infinite; } }
+@keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+
+/* --b animable (ouverture de la finale hors desktop, par transition). */
+@property --b {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+.finale-static {
+  opacity: 0;
+  transition:
+    --b 1.8s var(--ease-nuit),
+    opacity 1s;
+}
+.finale-static[data-open] {
+  --b: 1 !important;
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) { .finale-static {
+  opacity: 1;
+} }
+
+/* Chargement de l’accueil (≈ 1,6 s) sur le lotus du hero lui-même : tracé des pétales, remplissage,
+   cœur, onde, puis le voile nuit se referme en iris. Le header apparaît ensuite. */
+.home-intro-veil {
+  animation: loader-iris 0.55s 1.1s var(--ease-nuit) forwards;
+}
+/* Uniquement sans préférence de mouvement réduit : sinon le lotus s’affiche directement. */
+@media (prefers-reduced-motion: no-preference) {
+.home-intro .lotus-tip {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  fill-opacity: 0;
+  animation:
+    loader-draw 0.5s var(--ease-nuit) forwards,
+    loader-fill-o 0.35s 0.45s ease-out forwards;
+}
+.home-intro .sw-m .lotus-tip {
+  animation:
+    loader-draw 0.45s 0.15s var(--ease-nuit) forwards,
+    loader-fill-m 0.35s 0.55s ease-out forwards;
+}
+.home-intro .sw-i .lotus-tip {
+  animation:
+    loader-draw 0.4s 0.3s var(--ease-nuit) forwards,
+    loader-fill-i 0.35s 0.65s ease-out forwards;
+}
+.home-intro .lotus-core {
+  animation: loader-core 0.7s 0.75s ease-out forwards;
+}
+}
+html:has(.home-intro) [data-home-header] {
+  opacity: 0;
+  animation: loader-header 0.5s 1.3s ease-out forwards;
+}
+@keyframes loader-draw { to { stroke-dashoffset: 0; } }
+@keyframes loader-fill-o { to { fill-opacity: 0.05; } }
+@keyframes loader-fill-m { to { fill-opacity: 0.55; } }
+@keyframes loader-fill-i { to { fill-opacity: 1; } }
+/* Le cœur s’allume puis rentre dans le bouton (au repos, il ne paraît qu’avec l’éclosion). */
+@keyframes loader-core {
+  0% { transform: scale(0); }
+  35% { transform: scale(1.6); }
+  100% { transform: scale(0); }
+}
+/* Les cercles du hero naissent du bouton et s’écartent en cascade jusqu’à leur place de repos. */
+@keyframes loader-ring {
+  from { transform: scale(0.12); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes loader-iris {
+  from { clip-path: circle(150% at 50% 50%); }
+  to { clip-path: circle(0% at 50% 50%); visibility: hidden; }
+}
+@keyframes loader-header { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .home-intro-veil { display: none; }
+  html:has(.home-intro) [data-home-header] { opacity: 1; animation: none; }
+}
+/* Pendant le chargement, les textes du hero restent cachés puis apparaissent avec l’ouverture de l’iris. */
+@media (prefers-reduced-motion: no-preference) {
+  .home-intro .halo-ring {
+    transform-origin: 0 0;
+    animation: loader-ring 1.1s calc(0.8s + var(--i) * 0.12s) var(--ease-nuit) both;
+  }
+  .home-intro .hero-text {
+    opacity: 0;
+    animation: loader-header 0.5s 1.25s ease-out forwards;
+  }
+}

@@ -776,3 +776,21 @@
 @keyframes pulse { 50% { opacity: 0.3; } }
 [data-motion]:not([data-motion="reduced"]) .slowspin-rev { transform-origin: 0 0; animation: spin 160s linear infinite reverse; }
 [data-motion]:not([data-motion="reduced"]) .orbiter { transform-origin: 0 0; animation: spin 40s linear infinite; }
+
+/* Orbite du roster. */
+.orbit-petal { transform-origin: 0 0; transition: transform 0.9s var(--ease-nuit), opacity 0.5s; }
+.rip { transform-origin: 0 0; }
+.orbit-portrait { transition: transform 0.7s cubic-bezier(0.3, 1.35, 0.5, 1), opacity 0.35s; }
+.orbit-info { animation: orbit-up 0.5s var(--ease-nuit) both; }
+@keyframes orbit-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes beat { 0% { transform: scale(1.05); } 30% { transform: scale(1); } 100% { transform: scale(1); } }
+@keyframes ripple { 0% { transform: scale(0.55); opacity: 0.6; } 100% { transform: scale(1.3); opacity: 0; } }
+[data-motion]:not([data-motion="reduced"]) .orbit-spin { transform-origin: 0 0; animation: spin 120s linear infinite; }
+[data-motion]:not([data-motion="reduced"]) .orbit-ring { animation: spin 140s linear infinite; transform-origin: 50% 50%; }
+[data-motion]:not([data-motion="reduced"]) .orbit-node { animation: spin 140s linear infinite reverse; transform-origin: 50% 32px; }
+.orbit-wrap:hover .orbit-ring,
+.orbit-wrap:hover .orbit-node,
+.orbit-wrap:focus-within .orbit-ring,
+.orbit-wrap:focus-within .orbit-node { animation-play-state: paused; }
+[data-motion="reduced"] .beat,
+[data-motion="reduced"] .rip { animation: none !important; }

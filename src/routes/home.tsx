@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Hero, type HeroEvent } from "../components/home/Hero";
 import { HomeAgenda } from "../components/home/HomeAgenda";
 import { RosterMarquee } from "../components/home/RosterMarquee";
+import { RosterOrbit } from "../components/home/RosterOrbit";
 import { StatsIris } from "../components/home/StatsIris";
 import { useMouseEffects } from "../components/home/useMouseEffects";
 import { Newsletter } from "../components/Newsletter";
@@ -34,7 +35,7 @@ export function loader() {
   }));
   return {
     events: list,
-    roster: artists.map((a) => ({ slug: a.slug, name: a.name })),
+    roster: artists.map((a) => ({ slug: a.slug, name: a.name, format: a.format, genres: a.genres, bio: a.bio })),
     stats: fullSite.stats.flatMap((s) => (s.value === null ? [] : [{ value: s.value, label: s.label }])),
     founded: fullSite.association.founded,
   };
@@ -55,6 +56,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <RosterMarquee names={loaderData.roster.map((a) => a.name)} level={level} />
       <HomeAgenda featured={featured?.event ?? null} upcoming={featured?.upcoming ?? false} past={past} />
       <StatsIris stats={loaderData.stats} founded={loaderData.founded} level={level} />
+      <RosterOrbit artists={loaderData.roster} level={level} />
       <div className="wrap relative py-16 sm:py-24">
         <Newsletter id="newsletter" />
       </div>

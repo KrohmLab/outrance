@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "kangapta",
+    "name": "Kangapta",
+    "format": "DJset",
+    "genres": [
+      "Fullon",
+      "Psychedelic",
+      "Psytechno"
+    ],
+    "photo": null,
+    "links": {}
+  },
+  {
+    "slug": "klaak",
+    "name": "Klaak",
+    "format": "DJset",
+    "genres": [
+      "Hitech"
+    ],
+    "bio": "Co-fondateur de l’association, Klaak a joué son tout premier set chez Outrance en closing de la Psychedelic Christmas 2025, après deux ans de travail intensif.",
+    "photo": null,
+    "links": {}
+  },
+  {
+    "slug": "marsupial",
+    "name": "Marsupial",
+    "format": "Live",
+    "genres": [
+      "Progressive"
+    ],
+    "photo": null,
+    "links": {}
+  },
+  {
+    "slug": "moonwave",
+    "name": "Moonwave",
+    "format": "DJset",
+    "genres": [
+      "Fullon",
+      "Psygroovy"
+    ],
+    "photo": null,
+    "links": {}
+  },
+  {
+    "slug": "namdak",
+    "name": "Namdak",
+    "format": "Live",
+    "genres": [
+      "Psygroovy"
+    ],
+    "photo": null,
+    "links": {}
+  },
+  {
+    "slug": "originz",
+    "name": "Originz",
+    "format": "DJset",
+    "genres": [
+      "Psytrance",
+      "Forest",
+      "Psytech"
+    ],
+    "bio": "Originz aka Raphaël Atlan est un activiste de la psytrance à Lyon et en France depuis 2014. Co-fondateur de l’association Outrance et programmateur pour Hadra, il prend goût au mix en côtoyant les ténors internationaux du milieu.",
+    "photo": null,
+    "links": {}
+  },
+  {
+    "slug": "rajax",
+    "name": "Rajax",
+    "format": "DJset",
+    "genres": [
+      "Psytrance",
+      "Forest"
+    ],
+    "photo": null,
+    "links": {}
+  },
+  {
+    "slug": "rayzorks",
+    "name": "Rayzorks",
+    "format": "DJset",
+    "genres": [
+      "Forest",
+      "Darkpsy"
+    ],
+    "photo": null,
+    "links": {}
+  },
+  {
+    "slug": "soul-edge",
+    "name": "Soul Edge",
+    "format": "DJset",
+    "genres": [
+      "Psyprog",
+      "Fullon"
+    ],
+    "photo": null,
+    "links": {}
+  }
+]

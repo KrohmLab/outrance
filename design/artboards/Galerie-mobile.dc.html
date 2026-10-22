@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Outrance — Galerie mobile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0712}
+*{box-sizing:border-box}
+a{color:#b98bff}a:hover{color:#f4f0fb}
+.wrap{padding-left:16px;padding-right:16px}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+.xl{font-size:clamp(44px,7vw,96px);line-height:.92;font-weight:800;letter-spacing:-.02em}
+.l{font-size:clamp(34px,4.4vw,56px);line-height:1;font-weight:700;letter-spacing:-.01em}
+.ttl{font-family:Unbounded,"Arial Black",sans-serif;font-size:21px;line-height:1.15;font-weight:600;margin:0;text-transform:uppercase}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.3;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;font-family:Unbounded,"Arial Black",sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;white-space:nowrap;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s,color .25s}
+.btn-uv{background:#d4ff3a;color:#0a0712}.btn-uv:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(212,255,58,.16)}
+.btn-lotus{background:#b98bff;color:#0a0712}.btn-lotus:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(185,139,255,.2)}
+.btn-ghost{border:1.5px solid #73669a;color:#f4f0fb;background:transparent}.btn-ghost:hover{border-color:#b98bff;color:#f4f0fb;background:#2a1652}
+.lnk{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#b98bff;text-decoration:none}
+.lnk:hover{color:#f4f0fb}.lnk .ar{transition:transform .25s}.lnk:hover .ar{transform:translateX(5px)}
+.nav a{color:#f4f0fb;text-decoration:none;font-family:Unbounded,"Arial Black",sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 0}
+.nav a:hover{color:#b98bff}
+.icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;color:#a99fc2;transition:color .2s,background .2s}
+.icon:hover{color:#f4f0fb;background:#161022}
+.card{background:#161022;border-radius:12px;overflow:hidden;text-decoration:none;color:#f4f0fb;display:flex;flex-direction:column;border:0;padding:0;text-align:left;font:inherit;cursor:pointer;transition:background .3s,transform .3s}
+.card:hover{background:#2a1652;color:#f4f0fb;transform:translateY(-4px)}
+.card:hover .zoom{transform:scale(1.04)}
+.zoom{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.ph{position:relative;background:#120d1d;overflow:hidden;display:flex;align-items:flex-end;padding:14px}
+.chip{min-height:44px;padding:0 20px;border-radius:999px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.field{display:flex;flex-direction:column;gap:8px;flex:1 1 220px}
+.field input,.field select,.field textarea{min-height:52px;border-radius:4px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;padding:12px 16px;font:500 16px Manrope,system-ui,sans-serif}
+.field textarea{min-height:140px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#b98bff;outline:none}
+.x{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;cursor:pointer;transition:border-color .2s,transform .3s}
+.x:hover{border-color:#b98bff;transform:rotate(90deg)}
+:focus-visible{outline:2px solid #d4ff3a;outline-offset:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{opacity:.3}}
+.mandala{animation:spin 90s linear infinite;transform-origin:50% 50%}
+.mandala-rev{animation:spin 140s linear infinite reverse;transform-origin:50% 50%}
+.marquee{display:flex;width:max-content;animation:marquee 48s linear infinite}
+.marquee:hover{animation-play-state:paused}
+.reveal{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+.still .mandala,.still .mandala-rev,.still .marquee,.still .pulse,.still .reveal{animation:none}
+.past{transition:background .25s,padding .25s}.past:hover{background:#161022;padding-left:20px!important}
+.past .ar{transition:transform .25s}.past:hover .ar{transform:translateX(6px)}
+@media (prefers-reduced-motion:reduce){.mandala,.mandala-rev,.marquee,.pulse{animation:none}.reveal{animation-duration:.01s}}
+.burger{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:transparent;color:#f4f0fb;cursor:pointer}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 16px}
+.rail>*{scroll-snap-align:start;flex:none}
+.album{position:relative;display:flex;align-items:flex-end;overflow:hidden;border:0;padding:0;border-radius:12px;background:#120d1d;color:#f4f0fb;cursor:pointer;font:inherit}
+.album .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,7,18,.9),rgba(10,7,18,0) 60%);transition:background .4s}
+.album:hover .zoom{transform:scale(1.05)}
+.album:hover .veil{background:linear-gradient(to top,rgba(42,22,82,.92),rgba(42,22,82,.15) 70%)}
+.vcard{width:100%}
+.playb{position:relative;display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:999px;border:1.5px solid #b98bff;color:#b98bff;transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s,color .3s}
+.vcard:hover .playb{transform:scale(1.15);background:#b98bff;color:#0a0712}
+
+</style>
+</helmet>
+<div style="position: relative; width: 390px; min-height: 2300px; background: #0a0712; color: #f4f0fb; font-family: Manrope, system-ui, sans-serif; font-size: 16px; line-height: 1.6; overflow-x: clip">
+
+<header style="position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; height: 68px; padding: 0 16px; background: rgba(10, 7, 18, .9); backdrop-filter: blur(14px); border-bottom: 1px solid #2e2645">
+<a href="Accueil-mobile.dc.html" style="display: flex; align-items: center; min-height: 44px"><img src="/assets/logo/outrance-logo-white.png" alt="Outrance — accueil" style="display: block; height: 20px; width: auto"></a>
+<button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 8h16M4 16h16"></path></svg></button>
+</header>
+
+<section style="display: flex; flex-direction: column; gap: 16px; padding: 48px 16px 20px">
+<span class="lbl" style="color: #b98bff">Photos et vidéos</span>
+<h1 class="disp" style="font-size: 52px; line-height: .9; font-weight: 800; letter-spacing: -.02em">Galerie</h1>
+<div role="tablist" aria-label="Type de média" style="display: flex; gap: 28px; border-bottom: 1px solid #2e2645; margin-top: 8px">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+<button role="tab" type="button" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+</sc-for>
+</div>
+</section>
+
+<sc-if value="{{showPhotos}}" hint-placeholder-val="{{ true }}">
+<section style="padding: 8px 16px 56px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 180px; gap: 10px">
+<sc-for list="{{albums}}" as="a" hint-placeholder-count="8">
+<button class="album" type="button" onClick="{{a.open}}" aria-haspopup="dialog" aria-label="Ouvrir l’album {{a.title}}" style="{{a.span}}">
+<span class="ph" style="position: absolute; inset: 0; padding: 0"><svg aria-hidden="true" viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645" stroke-width="1"><circle cx="200" cy="105" r="24"></circle><circle cx="200" cy="105" r="48"></circle><circle cx="200" cy="105" r="72"></circle><circle cx="200" cy="105" r="96"></circle><circle cx="200" cy="105" r="120"></circle><circle cx="200" cy="105" r="144"></circle><circle cx="200" cy="105" r="168"></circle><circle cx="200" cy="105" r="192"></circle></g></svg></span>
+<span class="veil"></span>
+<span style="position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 12px; text-align: left"><span class="lbl" style="font-size: 9px; color: #b98bff">{{a.date}}</span><span class="ttl" style="font-size: 13px">{{a.title}}</span></span>
+</button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{showVideos}}" hint-placeholder-val="{{ false }}">
+<section style="display: flex; flex-direction: column; gap: 12px; padding: 8px 16px 56px">
+<sc-for list="{{videos}}" as="v" hint-placeholder-count="7">
+<button class="card vcard" type="button" onClick="{{v.open}}" aria-label="Lire {{v.title}}">
+<span class="ph" style="width: 100%; aspect-ratio: 16 / 9; align-items: center; justify-content: center"><span class="playb" aria-hidden="true"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></span></span>
+<span style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px 16px"><span class="ttl" style="font-size: 15px">{{v.title}}</span><span style="font-size: 14px; color: #a99fc2">{{v.text}}</span></span>
+</button>
+</sc-for>
+</section>
+</sc-if>
+
+<footer style="display: flex; flex-direction: column; gap: 12px; padding: 40px 16px 28px; border-top: 1px solid #2e2645">
+<img src="/assets/logo/outrance-logo-white.png" alt="Outrance" style="display: block; width: 170px; height: auto">
+<a href="mailto:contact@outrance.org" style="text-decoration: none; font-weight: 600; padding-top: 8px">contact@outrance.org</a>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 20px; padding-top: 12px; border-top: 1px solid #2e2645">
+<a class="lbl" href="Presse-pro.dc.html" style="font-size: 10px; color: #a99fc2; text-decoration: none; padding: 10px 0">Presse / Pro</a>
+<a class="lbl" href="Mentions-legales.dc.html" style="font-size: 10px; color: #a99fc2; text-decoration: none; padding: 10px 0">Mentions légales</a>
+</div>
+<span class="lbl" style="font-size: 10px; color: #a99fc2">© 2026 Outrance — aucun cookie</span>
+</footer>
+
+<div role="dialog" aria-modal="true" aria-label="Visionneuse photo" aria-hidden="{{photoHidden}}" style="{{photoStyle}}">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px">
+<span style="display: flex; flex-direction: column; min-width: 0"><span class="lbl" style="font-size: 10px; color: #b98bff">{{counter}}</span><span class="ttl" style="font-size: 14px">{{albumTitle}}</span></span>
+<button class="x" type="button" onClick="{{closePhoto}}" aria-label="Fermer la visionneuse"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<div style="flex: 1; display: flex; align-items: center; padding: 0 0">
+<div class="ph" style="width: 100%; aspect-ratio: 3 / 2; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645" stroke-width="1"><circle cx="200" cy="105" r="24"></circle><circle cx="200" cy="105" r="48"></circle><circle cx="200" cy="105" r="72"></circle><circle cx="200" cy="105" r="96"></circle><circle cx="200" cy="105" r="120"></circle><circle cx="200" cy="105" r="144"></circle><circle cx="200" cy="105" r="168"></circle><circle cx="200" cy="105" r="192"></circle></g></svg><span class="disp" style="position: relative; font-size: 80px; font-weight: 800; color: transparent; -webkit-text-stroke: 1.2px #2e2645">{{photoNum}}</span></div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 16px 28px">
+<button class="x" type="button" onClick="{{prevPhoto}}" aria-label="Photo précédente"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<span class="lbl" style="font-size: 10px; color: #a99fc2">Glisse pour parcourir</span>
+<button class="x" type="button" onClick="{{nextPhoto}}" aria-label="Photo suivante"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
+
+<div role="dialog" aria-modal="true" aria-label="Lecteur vidéo" aria-hidden="{{videoHidden}}" style="{{videoStyle}}">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px"><span class="ttl" style="font-size: 15px">{{videoTitle}}</span><button class="x" type="button" onClick="{{closeVideo}}" aria-label="Fermer le lecteur"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<div class="ph" style="width: 100%; aspect-ratio: 16 / 9; align-items: center; justify-content: center"><span aria-hidden="true" style="position: relative; display: flex; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: 999px; background: #b98bff; color: #0a0712"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></span></div>
+<p class="lbl" style="margin: 0; padding: 16px; font-size: 10px; color: #a99fc2; text-align: center">Tourne ton téléphone pour le plein écran</p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: 'photos', album: -1, lastAlbum: 0, photo: 0, video: -1, lastVideo: 0 };
+  }
+  renderVals() {
+    const albums = [
+      ['09/10/2026', 'Label Night', 'grid-column: span 2; grid-row: span 2'],
+      ['03/05/2026', 'Daylight Gathering', ''],
+      ['19/12/2025', 'Psychedelic Christmas', ''],
+      ['09/08/2025', 'Open Air — Liège', 'grid-column: span 2'],
+      ['27/12/2019', 'Outrance #37', ''],
+      ['22/02/2019', 'Belgium #1', ''],
+      ['16/09/2017', 'Open Air', ''],
+      ['27/03/2015', 'Premier Ninkasi Kao', '']
+    ];
+    const videos = [
+      ['5 Years Birthday', 'Le film de nos 5 ans, par Pastek Studio.'],
+      ['Outrance Open Air', '2017, par NO7HINK.'],
+      ['Outrance ॐ Kao — Arjuna, Dust', 'Ninkasi Gerland Kao, par NO7HINK.'],
+      ['Outrance #37', 'Ace Ventura, Antonymous, Battousai…'],
+      ['Outrance Belgium #4', 'Première édition à Bruxelles, au FFORMATT.']
+    ];
+    const N = 12;
+    const s = this.state;
+    const pOpen = s.album >= 0;
+    const vOpen = s.video >= 0;
+    const tab = (on) => 'min-height: 52px; padding: 0; background: none; border: 0; border-bottom: 2px solid ' + (on ? '#b98bff' : 'transparent') + '; margin-bottom: -1px; color: ' + (on ? '#f4f0fb' : '#a99fc2') + '; font-family: Unbounded, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; cursor: pointer';
+    const iris = (open) => 'transition: clip-path .6s cubic-bezier(.2,.7,.2,1), visibility .6s; clip-path: circle(' + (open ? '150%' : '0%') + ' at 50% 50%); visibility: ' + (open ? 'visible' : 'hidden');
+    return {
+      tabs: [['photos', 'Photos'], ['videos', 'Aftermovies']].map((t) => ({ label: t[1], on: s.tab === t[0], style: tab(s.tab === t[0]), pick: () => this.setState({ tab: t[0] }) })),
+      showPhotos: s.tab === 'photos',
+      showVideos: s.tab === 'videos',
+      albums: albums.map((a, i) => ({ date: a[0], title: a[1], span: a[2], open: () => this.setState({ album: i, lastAlbum: i, photo: 0 }) })),
+      videos: videos.map((v, i) => ({ title: v[0], text: v[1], open: () => this.setState({ video: i, lastVideo: i }) })),
+      albumTitle: albums[pOpen ? s.album : s.lastAlbum][1],
+      counter: String(s.photo + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0'),
+      photoNum: String(s.photo + 1).padStart(2, '0'),
+      photoHidden: pOpen ? 'false' : 'true',
+      photoStyle: 'position: fixed; inset: 0; z-index: 50; max-width: 390px; display: flex; flex-direction: column; background: #0a0712; ' + iris(pOpen),
+      prevPhoto: () => this.setState({ photo: (s.photo + N - 1) % N }),
+      nextPhoto: () => this.setState({ photo: (s.photo + 1) % N }),
+      closePhoto: () => this.setState({ album: -1 }),
+      videoTitle: videos[vOpen ? s.video : s.lastVideo][0],
+      videoHidden: vOpen ? 'false' : 'true',
+      videoStyle: 'position: fixed; inset: 0; z-index: 50; max-width: 390px; display: flex; flex-direction: column; justify-content: center; background: #0a0712; ' + iris(vOpen),
+      closeVideo: () => this.setState({ video: -1 })
+    };
+  }
+}
+</script>
+</body>
+</html>

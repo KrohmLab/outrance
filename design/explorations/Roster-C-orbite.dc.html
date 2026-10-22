@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Roster — piste C : orbite du lotus</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0712}
+*{box-sizing:border-box}
+a{color:#b98bff}a:hover{color:#f4f0fb}
+.wrap{width:100%;max-width:1280px;margin:0 auto;padding-left:clamp(16px,4vw,48px);padding-right:clamp(16px,4vw,48px)}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+.xl{font-size:clamp(44px,7vw,96px);line-height:.92;font-weight:800;letter-spacing:-.02em}
+.l{font-size:clamp(34px,4.4vw,56px);line-height:1;font-weight:700;letter-spacing:-.01em}
+.ttl{font-family:Unbounded,"Arial Black",sans-serif;font-size:21px;line-height:1.15;font-weight:600;margin:0;text-transform:uppercase}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.3;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;font-family:Unbounded,"Arial Black",sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;white-space:nowrap;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s,color .25s}
+.btn-uv{background:#d4ff3a;color:#0a0712}.btn-uv:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(212,255,58,.16)}
+.btn-lotus{background:#b98bff;color:#0a0712}.btn-lotus:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(185,139,255,.2)}
+.btn-ghost{border:1.5px solid #73669a;color:#f4f0fb;background:transparent}.btn-ghost:hover{border-color:#b98bff;color:#f4f0fb;background:#2a1652}
+.lnk{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#b98bff;text-decoration:none}
+.lnk:hover{color:#f4f0fb}.lnk .ar{transition:transform .25s}.lnk:hover .ar{transform:translateX(5px)}
+.nav a{color:#f4f0fb;text-decoration:none;font-family:Unbounded,"Arial Black",sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 0}
+.nav a:hover{color:#b98bff}
+.icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;color:#a99fc2;transition:color .2s,background .2s}
+.icon:hover{color:#f4f0fb;background:#161022}
+.card{background:#161022;border-radius:12px;overflow:hidden;text-decoration:none;color:#f4f0fb;display:flex;flex-direction:column;border:0;padding:0;text-align:left;font:inherit;cursor:pointer;transition:background .3s,transform .3s}
+.card:hover{background:#2a1652;color:#f4f0fb;transform:translateY(-4px)}
+.card:hover .zoom{transform:scale(1.04)}
+.zoom{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.ph{position:relative;background:#120d1d;overflow:hidden;display:flex;align-items:flex-end;padding:14px}
+.chip{min-height:44px;padding:0 20px;border-radius:999px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.field{display:flex;flex-direction:column;gap:8px;flex:1 1 220px}
+.field input,.field select,.field textarea{min-height:52px;border-radius:4px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;padding:12px 16px;font:500 16px Manrope,system-ui,sans-serif}
+.field textarea{min-height:140px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#b98bff;outline:none}
+.x{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;cursor:pointer;transition:border-color .2s,transform .3s}
+.x:hover{border-color:#b98bff;transform:rotate(90deg)}
+:focus-visible{outline:2px solid #d4ff3a;outline-offset:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{opacity:.3}}
+.mandala{animation:spin 90s linear infinite;transform-origin:50% 50%}
+.mandala-rev{animation:spin 140s linear infinite reverse;transform-origin:50% 50%}
+.marquee{display:flex;width:max-content;animation:marquee 48s linear infinite}
+.marquee:hover{animation-play-state:paused}
+.reveal{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+.still .mandala,.still .mandala-rev,.still .marquee,.still .pulse,.still .reveal{animation:none}
+.past{transition:background .25s,padding .25s}.past:hover{background:#161022;padding-left:20px!important}
+.past .ar{transition:transform .25s}.past:hover .ar{transform:translateX(6px)}
+@media (prefers-reduced-motion:reduce){.mandala,.mandala-rev,.marquee,.pulse{animation:none}.reveal{animation-duration:.01s}}
+.spin{animation:spin 120s linear infinite;transform-origin:0 0}
+.pt{transform-origin:0 0;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .5s}
+.rip{transform-origin:0 0}
+.orbit{animation:spin 140s linear infinite;transform-origin:50% 50%}
+.nin{animation:spin 140s linear infinite reverse;transform-origin:50% 32px}
+.ow:hover .orbit,.ow:hover .nin,.ow:focus-within .orbit,.ow:focus-within .nin{animation-play-state:paused}
+@keyframes beat{0%{transform:scale(1.05)}30%{transform:scale(1)}100%{transform:scale(1)}}
+@keyframes ripple{0%{transform:scale(.55);opacity:.6}100%{transform:scale(1.3);opacity:0}}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes up2{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes zoom{from{transform:scale(.6);opacity:.2}to{transform:none;opacity:1}}
+@keyframes zoom2{from{transform:scale(.6);opacity:.2}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.spin,.orbit,.nin,.rip,.beat{animation:none!important}.pt{transition:none}}
+.sec{width:1440px;padding:88px 128px;background:#0a0712;color:#f4f0fb;font-family:Manrope,system-ui,sans-serif;font-size:16px;line-height:1.6;display:flex;flex-direction:column;gap:40px;overflow:hidden}
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+
+</style>
+</helmet>
+<section class="sec" style="min-height: 820px; flex-direction: row; align-items: center; gap: 56px">
+<div style="flex: 1; display: flex; flex-direction: column; gap: 22px; min-width: 0">
+<span class="lbl" style="color: #b98bff">Artistes</span>
+<h2 class="disp l">Le roster</h2>
+<div style="{{infoStyle}}">
+<sc-if value="{{neutral}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 18px; color: #f4f0fb">Neuf artistes gravitent autour d’Outrance. Survole-les : chacun fait éclore sa propre fleur.</p>
+<p style="margin: 0; font-size: 15px; color: #a99fc2">Plus le style est rapide, plus les pétales sont nombreux, effilés et éclatés. Et la fleur bat au tempo de l’artiste.</p>
+</sc-if>
+<sc-if value="{{picked}}" hint-placeholder-val="{{ false }}">
+<span class="lbl" style="font-size: 11px; color: #b98bff">{{cur.meta}}</span>
+<span class="disp" style="font-size: 56px; font-weight: 800; line-height: .92">{{cur.name}}</span>
+<p style="margin: 0; color: #a99fc2">{{cur.bio}}</p>
+</sc-if>
+</div>
+<div style="display: flex; align-items: center; gap: 24px">
+<a class="btn btn-lotus" href="Artistes.dc.html" style="min-height: 48px">{{cta}}</a>
+<a class="lnk" href="Artistes.dc.html#booking">Booking <span class="ar" aria-hidden="true">→</span></a>
+</div>
+</div>
+<div class="ow" style="position: relative; flex: none; width: 640px; height: 640px">
+<svg aria-hidden="true" viewBox="-320 -320 640 640" width="640" height="640" style="position: absolute; inset: 0">
+<circle r="270" fill="none" stroke="#2e2645" stroke-width="1" stroke-dasharray="2 8"></circle>
+</svg>
+<div aria-hidden="true" style="position: absolute; left: 110px; top: 110px; width: 420px; height: 420px">
+<div class="beat" style="{{beatStyle}}">
+<svg viewBox="-300 -300 600 600" width="420" height="420" style="display: block; overflow: visible">
+<g class="spin">
+<circle class="rip" r="230" fill="none" stroke="#b98bff" stroke-width="1.5" style="{{rippleStyle}}"></circle>
+<circle r="250" fill="none" stroke="#b98bff" stroke-opacity=".18" stroke-width="1"></circle>
+<circle r="190" fill="none" stroke="#b98bff" stroke-opacity=".25" stroke-width="1" stroke-dasharray="2 7"></circle>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o0}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o1}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o2}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o3}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o4}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o5}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o6}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o7}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o8}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o9}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o10}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o11}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o12}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o13}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o14}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o15}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m0}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m1}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m2}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m3}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m4}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m5}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m6}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m7}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m8}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m9}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m10}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m11}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m12}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m13}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m14}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m15}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i0}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i1}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i2}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i3}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i4}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i5}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i6}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i7}}"></path>
+<circle r="9" fill="#b98bff" style="{{coreStyle}}"></circle>
+</g>
+</svg>
+</div>
+</div>
+<div aria-hidden="true" style="{{portraitStyle}}">
+<div style="{{portraitInner}}">
+<span class="disp" style="font-size: 76px; font-weight: 800; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px #b98bff">{{cur.initial}}</span>
+<span class="lbl" style="position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font-size: 9px; color: #a99fc2">[Photo]</span>
+</div>
+</div>
+<div class="orbit" style="position: absolute; inset: 0">
+<sc-for list="{{nodes}}" as="n" hint-placeholder-count="9">
+<a href="Artistes.dc.html" onMouseEnter="{{n.pick}}" onFocus="{{n.pick}}" onMouseLeave="{{reset}}" onBlur="{{reset}}" aria-label="{{n.name}} — {{n.meta}}" style="{{n.pos}}">
+<span class="nin" style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+<span class="disp" style="{{n.dot}}">{{n.initial}}</span>
+<span class="lbl" style="{{n.lbl}}">{{n.name}}</span>
+</span>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":820}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cur: -1, tick: 0 };
+  }
+  renderVals() {
+    const roster = [
+      { name: 'Originz', format: 'DJset', genres: ['Psytrance', 'Forest', 'Psytech'], bio: 'Activiste de la psytrance à Lyon depuis 2014, co-fondateur d’Outrance et programmateur pour Hadra.' },
+      { name: 'Rayzorks', format: 'DJset', genres: ['Forest', 'Darkpsy'] },
+      { name: 'Moonwave', format: 'DJset', genres: ['Fullon', 'Psygroovy'] },
+      { name: 'Namdak', format: 'Live', genres: ['Psygroovy'] },
+      { name: 'Klaak', format: 'DJset', genres: ['Hitech'], bio: 'Co-fondateur de l’association, premier set chez Outrance en closing de la Psychedelic Christmas 2025.' },
+      { name: 'Soul Edge', format: 'DJset', genres: ['Psyprog', 'Fullon'] },
+      { name: 'Kangapta', format: 'DJset', genres: ['Fullon', 'Psychedelic', 'Psytechno'] },
+      { name: 'Marsupial', format: 'Live', genres: ['Progressive'] },
+      { name: 'Rajax', format: 'DJset', genres: ['Psytrance', 'Forest'] }
+    ];
+    const meta = (a) => a.format + ' ◉ ' + a.genres.join('/');
+    const bio = (a) => a.bio || 'Biographie à venir. [À compléter]';
+
+    const SIG = {
+      neutral: { n: [12, 12, 8], d: [96, 40, 4], s: [[1.25, 1.25], [0.95, 0.95], [0.62, 0.62]], twist: 0, bpm: 0, line: '' },
+      Marsupial: { n: [8, 8, 6], d: [120, 96, 78], s: [[1.55, 1.15], [1.2, 0.95], [0.8, 0.7]], twist: 0, bpm: 134, line: '≈ 134 BPM · 8 larges pétales, éclosion lente' },
+      'Soul Edge': { n: [10, 10, 6], d: [122, 96, 78], s: [[1.4, 1.2], [1.1, 0.95], [0.75, 0.7]], twist: 6, bpm: 138, line: '≈ 138 BPM · 10 pétales amples' },
+      Namdak: { n: [12, 6, 6], d: [124, 98, 78], s: [[1.25, 1.2], [1.25, 1], [0.7, 0.7]], twist: 15, bpm: 140, line: '≈ 140 BPM · 12 pétales, cœur groovy' },
+      Moonwave: { n: [12, 12, 8], d: [126, 98, 80], s: [[1.15, 1.25], [0.95, 1], [0.62, 0.7]], twist: 0, bpm: 143, line: '≈ 143 BPM · 12 pétales en double couronne' },
+      Kangapta: { n: [14, 7, 7], d: [130, 100, 80], s: [[1, 1.3], [1.2, 1.05], [0.6, 0.72]], twist: 10, bpm: 145, line: '≈ 145 BPM · 14 pétales décalés' },
+      Originz: { n: [14, 14, 8], d: [134, 102, 80], s: [[0.95, 1.32], [0.85, 1.05], [0.6, 0.72]], twist: 0, bpm: 147, line: '≈ 147 BPM · 14 pétales tendus' },
+      Rajax: { n: [16, 8, 8], d: [136, 102, 80], s: [[0.85, 1.3], [1.1, 1.05], [0.6, 0.72]], twist: 11.25, bpm: 148, line: '≈ 148 BPM · 16 pétales, forêt dense' },
+      Rayzorks: { n: [16, 16, 8], d: [146, 108, 82], s: [[0.72, 1.38], [0.7, 1.12], [0.55, 0.75]], twist: 0, bpm: 152, line: '≈ 152 BPM · 16 pétales acérés, couronnes écartées' },
+      Klaak: { n: [16, 16, 8], d: [160, 116, 84], s: [[0.5, 1.48], [0.5, 1.2], [0.5, 0.8]], twist: 22.5, bpm: 185, line: '≈ 185 BPM · 32 lames, fleur éclatée' }
+    };
+    const c = this.state.cur;
+    const a = c >= 0 ? roster[c] : null;
+    const sg = a ? SIG[a.name] : SIG.neutral;
+    const max = [16, 16, 8];
+    const keys = ['o', 'm', 'i'];
+    const pt = {};
+    keys.forEach((k, L) => {
+      const n = sg.n[L];
+      const off = L === 0 ? 0 : 180 / n;
+      for (let i = 0; i < max[L]; i++) {
+        const on = i < n;
+        const ang = ((i % n) * 360 / n + off + sg.twist).toFixed(2);
+        const sx = on ? sg.s[L][0] : 0;
+        const sy = on ? sg.s[L][1] : 0;
+        pt[k + i] = 'transform: rotate(' + ang + 'deg) translateY(' + (-sg.d[L]) + 'px) scale(' + sx + ', ' + sy + '); opacity: ' + (on ? 1 : 0) + '; transition-delay: ' + (L * 60 + i * 14) + 'ms';
+      }
+    });
+    const beat = sg.bpm ? (60 / sg.bpm).toFixed(3) + 's' : '0s';
+    const R = 270;
+    const odd = this.state.tick % 2;
+    return {
+      pt: pt,
+      neutral: !a,
+      picked: !!a,
+      cur: a ? { name: a.name, initial: a.name[0], meta: meta(a), bio: bio(a), sig: sg.line } : { name: '', initial: 'O', meta: '', bio: '', sig: '' },
+      cta: a ? 'Voir la fiche de ' + a.name : 'Découvrir le roster',
+      infoStyle: 'display: flex; flex-direction: column; gap: 10px; min-height: 230px; padding: 24px 0; border-top: 1px solid #2e2645; border-bottom: 1px solid #2e2645; animation: .5s cubic-bezier(.2,.7,.2,1) both; animation-name: ' + (odd ? 'up' : 'up2'),
+      beatStyle: 'width: 100%; height: 100%; transform-origin: 50% 50%; animation: ' + (sg.bpm ? 'beat ' + beat + ' ease-out infinite' : 'none'),
+      rippleStyle: sg.bpm ? 'animation: ripple ' + beat + ' ease-out infinite' : 'animation: none; opacity: 0',
+      coreStyle: 'transform-origin: 0 0; transition: transform .5s; transform: scale(' + (a ? 0 : 1) + ')',
+      portraitStyle: 'position: absolute; left: 320px; top: 320px; width: 150px; height: 150px; pointer-events: none; transition: transform .7s cubic-bezier(.3,1.35,.5,1), opacity .35s; transform: translate(-50%, -50%) scale(' + (a ? 1 : 0.3) + '); opacity: ' + (a ? 1 : 0),
+      portraitInner: 'position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 999px; overflow: hidden; background: #1d1430; border: 2px solid #b98bff; box-shadow: 0 0 0 8px rgba(185, 139, 255, .14); animation: .55s cubic-bezier(.3,1.35,.5,1) both; animation-name: ' + (odd ? 'zoom' : 'zoom2'),
+      reset: () => { if (this.state.cur !== -1) this.setState({ cur: -1, tick: this.state.tick + 1 }); },
+      nodes: roster.map((r, i) => {
+        const ang = (i / roster.length) * Math.PI * 2 - Math.PI / 2;
+        const x = 320 + R * Math.cos(ang);
+        const y = 320 + R * Math.sin(ang);
+        const on = i === c;
+        const dim = c >= 0 && !on;
+        return {
+          name: r.name, initial: r.name[0], meta: meta(r),
+          pick: () => { if (this.state.cur !== i) this.setState({ cur: i, tick: this.state.tick + 1 }); },
+          pos: 'position: absolute; left: ' + x.toFixed(1) + 'px; top: ' + y.toFixed(1) + 'px; transform: translate(-50%, -32px); text-decoration: none; color: #f4f0fb; z-index: ' + (on ? 2 : 1),
+          dot: 'display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 999px; font-size: 26px; font-weight: 800; transition: background .3s, color .3s, border-color .3s, box-shadow .3s, opacity .3s, transform .55s cubic-bezier(.3,1.35,.5,1); border: 2px solid ' + (on ? '#b98bff' : '#2e2645') + '; background: #1d1430; color: ' + (on ? '#f4f0fb' : '#b98bff') + '; box-shadow: 0 0 0 ' + (on ? 8 : 0) + 'px rgba(185, 139, 255, .18); opacity: ' + (dim ? 0.55 : 1) + '; transform: scale(' + (on ? 1.5 : dim ? 0.9 : 1) + ')',
+          lbl: 'font-size: 10px; white-space: nowrap; transition: color .3s, transform .4s; color: ' + (on ? '#b98bff' : '#a99fc2') + '; transform: translateY(' + (on ? 18 : 0) + 'px)'
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

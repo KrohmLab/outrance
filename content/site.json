@@ -1,0 +1,145 @@
+{
+  "name": "Outrance",
+  "tagline": "Psychedelic Events",
+  "metaDescription": "Depuis 2014, l’association Outrance promeut la culture psytrance lors d’événements culturels à Lyon et en Belgique.",
+  "keywords": [
+    "outrance",
+    "lyon",
+    "psytrance",
+    "trance",
+    "soirées",
+    "événements"
+  ],
+  "emails": {
+    "contact": "contact@outrance.org",
+    "booking": "booking@outrance.org"
+  },
+  "socials": {
+    "instagram": "https://www.instagram.com/outrancelyon",
+    "facebook": "https://www.facebook.com/OutranceParty/",
+    "soundcloud": "https://soundcloud.com/outrancelyon",
+    "youtube": "https://www.youtube.com/@outrance9243",
+    "shotgun": "https://shotgun.live/fr/venues/outrance"
+  },
+  "belgiumUrl": "https://outrance.be/",
+  "association": {
+    "founded": "2014-04",
+    "legalForm": "Association loi 1901",
+    "city": "Lyon",
+    "belgiumSince": 2018,
+    "intro": "Outrance est une association loi 1901 fondée en avril 2014, d’une envie commune d’amis passionnés de musique électronique de populariser et répandre la psytrance et son univers.",
+    "story": [
+      "Le projet Outrance est né en avril 2014 d’une envie commune de deux passionnés de musique électronique : partager une culture qui leur est chère, la psytrance.",
+      "D’abord bénévoles au sein de l’association Tapage Nocturne, dont nous sommes devenus la branche psytrance, nous avons vite voulu créer nos propres événements. Aujourd’hui association loi 1901 à part entière, Outrance investit de grands lieux lyonnais et accueille les plus grands artistes internationaux.",
+      "Notre équipe est accompagnée d’un roster d’artistes locaux que nous accompagnons dans leur évolution, et qui donnent le rythme à nos événements."
+    ]
+  },
+  "stats": [
+    {
+      "value": 2,
+      "label": "Pays"
+    },
+    {
+      "value": 7,
+      "label": "Villes"
+    },
+    {
+      "value": 11,
+      "label": "Lieux"
+    },
+    {
+      "value": 120,
+      "label": "Artistes internationaux"
+    },
+    {
+      "value": 150,
+      "label": "Artistes locaux"
+    },
+    {
+      "value": null,
+      "label": "Billets vendus",
+      "todo": "chiffre à fournir"
+    }
+  ],
+  "newsletter": {
+    "title": "Inscris-toi à notre newsletter",
+    "text": "Pour ne plus rien rater de notre actualité et de nos futurs événements. Promis, on ne te spammera pas.",
+    "provider": null
+  },
+  "footer": {
+    "credit": "Fait avec ♡ par Kévin",
+    "creditUrl": "https://www.facebook.com/kevoutrance/"
+  },
+  "legacyRedirects": {
+    "/lassociation": "/association",
+    "/lassociation/": "/association",
+    "/contact": "/association#equipe",
+    "/contact/": "/association#equipe",
+    "/events": "/agenda",
+    "/events/": "/agenda",
+    "/events/psychedelic-christmas": "/evenements/psychedelic-christmas-2025",
+    "/events/psychedelic-christmas/": "/evenements/psychedelic-christmas-2025",
+    "/billetterie": "/agenda",
+    "/billetterie/": "/agenda",
+    "/medias": "/galerie",
+    "/medias/": "/galerie",
+    "/actus": "/",
+    "/actus/": "/",
+    "/nouveau-site/": "/",
+    "/artistes/": "/artistes",
+    "/artistes/originz/": "/artistes?artiste=originz",
+    "/presse-pro/": "/presse-pro",
+    "/conditions-generales/": "/mentions-legales",
+    "/politique-de-cookies-ue/": "/mentions-legales#cookies"
+  },
+  "nav": [
+    {
+      "label": "Agenda",
+      "href": "/agenda"
+    },
+    {
+      "label": "Artistes",
+      "href": "/artistes"
+    },
+    {
+      "label": "Galerie",
+      "href": "/galerie"
+    },
+    {
+      "label": "L’association",
+      "href": "/association"
+    },
+    {
+      "label": "Belgium",
+      "href": "https://outrance.be/",
+      "external": true
+    }
+  ],
+  "footerNav": [
+    {
+      "label": "Agenda",
+      "href": "/agenda"
+    },
+    {
+      "label": "Artistes",
+      "href": "/artistes"
+    },
+    {
+      "label": "Galerie",
+      "href": "/galerie"
+    },
+    {
+      "label": "L’association",
+      "href": "/association"
+    },
+    {
+      "label": "Presse / Pro",
+      "href": "/presse-pro"
+    },
+    {
+      "label": "Belgium",
+      "href": "https://outrance.be/",
+      "external": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "pressKitUrl": "https://drive.google.com/file/d/18iiZM_oMIf8kPvQ2fqmR8_DzQvvs5HOg/view?usp=sharing",
+  "logosUrl": "https://drive.google.com/drive/folders/15V5okup2f6AVB7kiiZCyVGmEPK4k8jbB?usp=sharing",
+  "blurbs": {
+    "short": "Outrance est une association lyonnaise qui organise des soirées psytrance depuis 2014, à Lyon et en Belgique, en accueillant artistes internationaux et talents locaux.",
+    "long": "Fondée en avril 2014 par des amis passionnés de musique électronique, Outrance est une association loi 1901 qui œuvre à faire connaître la psytrance et son univers.\n\nD’abord branche psytrance de l’association Tapage Nocturne, Outrance investit aujourd’hui de grands lieux lyonnais, du Ninkasi Kao à La Rayonne, et se développe en Belgique depuis 2018. L’association accueille les grands noms internationaux de la scène et accompagne un roster d’artistes locaux qui donnent le rythme à ses événements."
+  },
+  "contacts": [
+    {
+      "label": "Presse et partenariats",
+      "email": "contact@outrance.org"
+    },
+    {
+      "label": "Booking des artistes",
+      "email": "booking@outrance.org"
+    },
+    {
+      "label": "Communication et bénévoles",
+      "email": "charlotte@outrance.org"
+    },
+    {
+      "label": "Outrance Belgique",
+      "email": "stan@outrance.org"
+    }
+  ],
+  "venues": [
+    "Le Petit Salon",
+    "Ninkasi Kao",
+    "Double Mixte",
+    "La Rayonne",
+    "Péniche Loupika",
+    "Kultura — Liège",
+    "FFORMATT — Bruxelles",
+    "USE-in"
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Raphael",
+    "role": "Président / fondateur",
+    "email": "raphael@outrance.org"
+  },
+  {
+    "name": "Kevin",
+    "role": "Fondateur / responsable web & shop",
+    "email": "kevin@outrance.org"
+  },
+  {
+    "name": "Stan",
+    "role": "Directeur Outrance Belgique",
+    "email": "stan@outrance.org"
+  },
+  {
+    "name": "William",
+    "role": "Programmation & roster artistes",
+    "email": "william@outrance.org"
+  },
+  {
+    "name": "Nicolas",
+    "role": "Logistique & coordination",
+    "email": "nico@outrance.org"
+  },
+  {
+    "name": "Charlotte",
+    "role": "Communication & responsable bénévoles",
+    "email": "charlotte@outrance.org"
+  },
+  {
+    "name": "Charly",
+    "role": "Sécurité & logistique",
+    "email": "charly@outrance.org"
+  },
+  {
+    "name": "Arnaud",
+    "role": "Membre du CA",
+    "email": "arno@outrance.org"
+  }
+]

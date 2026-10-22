@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Outrance — Fiche événement</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0712}
+*{box-sizing:border-box}
+a{color:#b98bff}a:hover{color:#f4f0fb}
+.wrap{width:100%;max-width:1280px;margin:0 auto;padding-left:clamp(16px,4vw,48px);padding-right:clamp(16px,4vw,48px)}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+.xl{font-size:clamp(40px,6vw,84px);line-height:.92;font-weight:800;letter-spacing:-.02em}
+.l{font-size:clamp(30px,3.6vw,48px);line-height:1;font-weight:700;letter-spacing:-.01em}
+.ttl{font-family:Unbounded,"Arial Black",sans-serif;font-size:20px;line-height:1.15;font-weight:600;margin:0;text-transform:uppercase}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.3;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font-family:Unbounded,"Arial Black",sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s}
+.btn-uv{background:#d4ff3a;color:#0a0712}
+.btn-uv:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(212,255,58,.16)}
+.btn-ghost{border:1.5px solid #73669a;color:#f4f0fb;background:transparent}
+.btn-ghost:hover{border-color:#b98bff;color:#f4f0fb;background:#2a1652}
+.nav a{color:#f4f0fb;text-decoration:none;font-family:Unbounded,"Arial Black",sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 0}
+.nav a:hover{color:#b98bff}
+.card{background:#161022;border-radius:12px;overflow:hidden;text-decoration:none;color:#f4f0fb;display:flex;flex-direction:column;transition:background .3s,transform .3s}
+.card:hover{background:#2a1652;color:#f4f0fb;transform:translateY(-4px)}
+.card:hover .zoom{transform:scale(1.04)}
+.zoom{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.ph{position:relative;background:#120d1d;overflow:hidden;display:flex;align-items:flex-end;padding:14px}
+.info{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #3d2a6b}
+.info svg{flex:none;color:#b98bff}
+.lnk{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0;border:0;background:none;cursor:pointer;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#b98bff;text-decoration:none}
+.lnk:hover{color:#f4f0fb}
+.mi{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:0 14px;border:0;border-radius:8px;background:none;color:#f4f0fb;text-decoration:none;font:600 15px Manrope,system-ui,sans-serif;cursor:pointer;text-align:left}
+.mi:hover{background:#2a1652;color:#f4f0fb}
+:focus-visible{outline:2px solid #d4ff3a;outline-offset:3px}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.reveal{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}
+.mandala{animation:spin 120s linear infinite;transform-origin:50% 50%}
+@media (prefers-reduced-motion:reduce){.mandala{animation:none}.reveal{animation-duration:.01s}}
+</style>
+</helmet>
+<div style="background: #0a0712; color: #f4f0fb; font-family: Manrope, system-ui, sans-serif; font-size: 16px; line-height: 1.6; overflow-x: clip">
+
+<header style="position: sticky; top: 0; z-index: 20; background: rgba(10, 7, 18, .86); backdrop-filter: blur(14px); border-bottom: 1px solid #2e2645">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; padding-top: 16px; padding-bottom: 16px">
+<a href="Main.dc.html" style="display: flex; align-items: center; min-height: 44px">
+<img src="/assets/logo/outrance-logo-white.png" alt="Outrance — accueil" style="display: block; height: 26px; width: auto">
+</a>
+<nav class="nav" aria-label="Navigation principale" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0 28px">
+<a href="Agenda.dc.html" aria-current="page" style="color: #b98bff">Agenda</a>
+<a href="Artistes.dc.html">Artistes</a>
+<a href="Galerie.dc.html">Galerie</a>
+<a href="Association.dc.html">L’association</a>
+<a href="https://outrance.be/">Belgium ↗</a>
+</nav>
+<a class="btn btn-ghost" href="#billetterie" style="min-height: 44px; border-color: #b98bff">Billetterie</a>
+</div>
+</header>
+
+<section style="position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; left: 50%; top: -420px; width: 1200px; height: 1200px; margin-left: -600px; opacity: .22; pointer-events: none">
+<svg class="mandala" viewBox="-300 -300 600 600" style="width: 100%; height: 100%; display: block"><g fill="none" stroke="#b98bff" stroke-width=".8"><circle r="60"></circle><circle r="120"></circle><circle r="180"></circle><circle r="240"></circle><circle r="290"></circle><ellipse cx="0" cy="-160" rx="36" ry="100"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(30)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(60)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(90)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(120)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(150)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(180)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(210)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(240)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(270)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(300)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(330)"></ellipse></g></svg>
+</div>
+<div class="wrap" style="position: relative; display: flex; flex-direction: column; gap: 40px; padding-top: 40px; padding-bottom: 80px">
+<p class="lbl" style="margin: 0; font-size: 12px; color: #a99fc2"><a href="Agenda.dc.html" style="color: #a99fc2; text-decoration: none">Agenda</a> <span aria-hidden="true">/</span> Psychedelic Christmas</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 56px; align-items: center">
+<div class="ph reveal" style="aspect-ratio: 4 / 5; max-height: 640px; border-radius: 12px; border: 1px solid #2e2645">
+<svg aria-hidden="true" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645"><circle cx="200" cy="250" r="50"></circle><circle cx="200" cy="250" r="100"></circle><circle cx="200" cy="250" r="150"></circle><circle cx="200" cy="250" r="200"></circle><circle cx="200" cy="250" r="250"></circle><circle cx="200" cy="250" r="300"></circle></g></svg>
+<span class="lbl" style="position: relative; font-size: 11px; color: #a99fc2">[Affiche de l’événement — format 4:5]</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 24px">
+<p class="lbl reveal" style="margin: 0; font-size: 15px; color: #b98bff">Ven. 19/12/2025 ◉ 23H30 – 05H00</p>
+<h1 class="disp xl reveal d1"><span style="display: block; font-size: .42em; letter-spacing: .04em; color: #a99fc2; margin-bottom: 12px">Outrance</span>Psychedelic Christmas</h1>
+<p class="lbl reveal d1" style="margin: 0; color: #f4f0fb">La Rayonne — Villeurbanne</p>
+<p class="reveal d2" style="margin: 0; max-width: 560px; font-size: 19px; color: #a99fc2">La Psychedelic Christmas renaît des limbes pour illuminer la nuit d’hiver, pour la première fois sous le sapin de La Rayonne.</p>
+<div id="billetterie" style="position: relative; z-index: 3; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; padding-top: 8px">
+<a class="btn btn-uv" href="https://shotgun.live/fr/events/outrance-psychedelic-christmas">Billetterie Shotgun <span aria-hidden="true">↗</span></a>
+<span style="position: relative">
+<button class="lnk" type="button" onClick="{{toggleCal}}" aria-expanded="{{calOpen}}" aria-haspopup="menu"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4M12 13v4M10 15h4"></path></svg>Mon agenda</button>
+<span role="menu" aria-hidden="{{calHidden}}" style="{{calStyle}}">
+<a role="menuitem" class="mi" href="#">Google Agenda <span aria-hidden="true">↗</span></a>
+<a role="menuitem" class="mi" href="#">Apple Calendrier <span style="font: 500 10px 'JetBrains Mono', monospace; color: #a99fc2">.ICS</span></a>
+<a role="menuitem" class="mi" href="#">Outlook <span style="font: 500 10px 'JetBrains Mono', monospace; color: #a99fc2">.ICS</span></a>
+</span>
+</span>
+<span style="position: relative">
+<button class="lnk" type="button" onClick="{{toggleShare}}" aria-expanded="{{shareOpen}}" aria-haspopup="menu"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.5"></circle><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="19" r="2.5"></circle><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"></path></svg>Partager</button>
+<span role="menu" aria-hidden="{{shareHidden}}" style="{{shareStyle}}">
+<button role="menuitem" class="mi" type="button" onClick="{{copyLink}}">Copier le lien</button>
+<a role="menuitem" class="mi" href="#">WhatsApp</a>
+<a role="menuitem" class="mi" href="#">Messenger</a>
+<a role="menuitem" class="mi" href="#">Story Instagram <span style="font: 500 10px 'JetBrains Mono', monospace; color: #a99fc2">9:16</span></a>
+</span>
+</span>
+</div>
+<div role="status" aria-live="polite" style="{{toastStyle}}"><span style="color: #b98bff">✓</span>Lien copié dans le presse-papiers</div>
+<p class="lbl reveal d3" style="margin: 0; font-size: 12px; color: #a99fc2">Événement Facebook <a href="https://www.facebook.com/events/1160339065974079/">→ Je participe</a></p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="wrap" style="display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start; padding-top: 80px; padding-bottom: 96px; border-top: 1px solid #2e2645">
+<div style="display: flex; flex-direction: column; gap: 24px; flex: 999 1 560px; min-width: 0">
+<span class="lbl" style="color: #b98bff">Description</span>
+<p style="margin: 0; font-size: 21px; line-height: 1.5; color: #f4f0fb">Depuis près de 10 ans, la Psychedelic Christmas se veut la réunion de fin d’année de tous les amoureux de psytrance sérieuse, sombre, intensément psychédélique. Cette année ne manquera pas à la règle, avec une déclinaison de styles plus profonds, aux enclins de la dark, à tous les BPM.</p>
+<p style="margin: 0; font-size: 17px; color: #a99fc2">Nous accueillerons Hypogeo, grand maître de la dark prog de chez Zenon Records. Avec lui, nul autre que Rawar, icône de la darkpsy signé chez Osom Music. Pour les accompagner, Krauzer de MVR fera jouer sa diversité en psytech et dark prog à l’ouverture. Nous accueillerons aussi un espoir montant de la scène française, Agop, 20 ans seulement, dont le set psygroovy à l’Hadra a mis tout le monde d’accord.</p>
+<p style="margin: 0; font-size: 17px; color: #a99fc2">Et l’étoile sur le sapin : Klaak d’Outrance, co-fondateur de l’association, jouera son tout premier set chez nous après deux ans de travail intensif, pour un closing hitech — tradition Psychedelic Christmas oblige.</p>
+<p style="margin: 0; font-size: 17px; color: #a99fc2">Pour la décoration, Aktopasa Production fait son retour. Leur dernière prestation pour Ozora One Day in France nous a complètement subjugués : c’est avec grand plaisir que nous leur confions notre crèche psychédélique.</p>
+</div>
+<aside aria-label="Infos pratiques" style="flex: 1 1 340px; display: flex; flex-direction: column; padding: 32px; border-radius: 12px; background: #2a1652">
+<h2 class="disp" style="font-size: 18px; font-weight: 700; letter-spacing: .04em; margin-bottom: 12px">Infos pratiques</h2>
+<div class="info"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg><span>Vendredi 19 décembre 2025</span></div>
+<div class="info"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg><span>23h30 – 05h00</span></div>
+<div class="info"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5a2 2 0 0 0 0 4v3.5h16v-3.5a2 2 0 0 1 0-4V5H4z"></path><path d="M14 5v11" stroke-dasharray="2 2"></path></svg><span>Tarif à venir</span></div>
+<div class="info"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.3"></circle></svg><span>La Rayonne — Villeurbanne<br><a href="#" style="font-size: 14px">Voir l’itinéraire</a></span></div>
+<div class="info" style="border-bottom: 0"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M6 6l12 12"></path></svg><span>Mineurs non autorisés</span></div>
+<a class="btn btn-ghost" href="https://shotgun.live/fr/events/outrance-psychedelic-christmas" style="margin-top: 16px; border-color: #b98bff">Prendre ma place</a>
+</aside>
+</section>
+
+<section style="border-top: 1px solid #2e2645">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px; padding-top: 96px; padding-bottom: 96px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span class="lbl" style="color: #b98bff">Line-up</span>
+<h2 class="disp l">Artistes</h2>
+</div>
+<span class="lbl" style="color: #a99fc2">Déco : Aktopasa Production</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 20px">
+<sc-for list="{{lineup}}" as="a" hint-placeholder-count="5">
+<a class="card" href="Artistes.dc.html">
+<div class="ph zoom" style="aspect-ratio: 4 / 5">
+<svg aria-hidden="true" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645"><circle cx="200" cy="200" r="60"></circle><circle cx="200" cy="200" r="120"></circle><circle cx="200" cy="200" r="180"></circle><circle cx="200" cy="200" r="240"></circle></g></svg>
+<span class="lbl" style="position: relative; font-size: 10px; color: #a99fc2">[Photo artiste]</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 20px">
+<span class="ttl">{{a.name}}</span>
+<span class="lbl" style="font-size: 11px; color: #b98bff">{{a.genre}}</span>
+<span class="lbl" style="font-size: 11px; color: #a99fc2">{{a.label}}</span>
+</div>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section class="wrap" style="padding-bottom: 96px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: clamp(28px, 4vw, 48px); border-radius: 12px; background: #161022">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 640px">
+<h2 class="disp" style="font-size: clamp(22px, 2.6vw, 32px); line-height: 1.05; font-weight: 700">Ne rate pas la prochaine</h2>
+<p style="margin: 0; color: #a99fc2">Line-up, ouverture de la billetterie, early birds : tout arrive d’abord dans la newsletter.</p>
+</div>
+<a class="btn btn-ghost" href="Main.dc.html#newsletter" style="border-color: #b98bff">Je m’inscris</a>
+</div>
+</section>
+
+<footer style="border-top: 1px solid #2e2645">
+<div class="wrap" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 32px; padding-top: 32px; padding-bottom: 32px">
+<img src="/assets/logo/outrance-logo-white.png" alt="Outrance" style="display: block; width: 150px; height: auto">
+<span style="display: flex; flex-wrap: wrap; gap: 8px 24px">
+<a href="mailto:contact@outrance.org" style="text-decoration: none; font-weight: 600">contact@outrance.org</a>
+<a href="mailto:booking@outrance.org" style="text-decoration: none; font-weight: 600">booking@outrance.org</a>
+</span>
+<span class="lbl" style="font-size: 11px; color: #a99fc2">© 2026 Outrance</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { menu: '', toast: false };
+  }
+  renderVals() {
+    const m = this.state.menu;
+    const pop = (open) => 'position: absolute; left: 0; top: calc(100% + 8px); z-index: 6; display: flex; flex-direction: column; min-width: 250px; padding: 8px; border-radius: 12px; background: #0a0712; border: 1px solid #2e2645; transform-origin: top left; transition: opacity .2s, transform .3s cubic-bezier(.2,.7,.2,1); opacity: ' + (open ? 1 : 0) + '; transform: translateY(' + (open ? 0 : -6) + 'px) scale(' + (open ? 1 : 0.97) + '); pointer-events: ' + (open ? 'auto' : 'none');
+    return {
+      calOpen: m === 'cal', calHidden: m === 'cal' ? 'false' : 'true', calStyle: pop(m === 'cal'),
+      shareOpen: m === 'share', shareHidden: m === 'share' ? 'false' : 'true', shareStyle: pop(m === 'share'),
+      toggleCal: () => this.setState({ menu: m === 'cal' ? '' : 'cal' }),
+      toggleShare: () => this.setState({ menu: m === 'share' ? '' : 'share' }),
+      copyLink: () => {
+        this.setState({ menu: '', toast: true });
+        setTimeout(() => this.setState({ toast: false }), 2600);
+      },
+      toastStyle: 'position: fixed; left: 50%; bottom: 32px; z-index: 60; display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-radius: 999px; background: #161022; border: 1px solid #2e2645; font-weight: 600; transition: opacity .3s, transform .4s cubic-bezier(.2,.7,.2,1); opacity: ' + (this.state.toast ? 1 : 0) + '; transform: translate(-50%, ' + (this.state.toast ? 0 : 20) + 'px); pointer-events: none',
+      lineup: [
+        { name: 'Hypogeo', genre: 'Live ◉ Darkprog', label: 'Zenon Records' },
+        { name: 'Rawar', genre: 'Live ◉ Darkpsy', label: 'Osom Music' },
+        { name: 'Krauzer', genre: 'DJset ◉ Psytech/Darkprog', label: 'MVR' },
+        { name: 'Agop', genre: 'DJset ◉ Groovy psytrance', label: 'Espoir de la scène française' },
+        { name: 'Klaak', genre: 'DJset ◉ Hitech', label: 'Outrance — closing' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

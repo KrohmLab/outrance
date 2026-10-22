@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Outrance — Accueil animé · V3 Pulse</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0712}
+*{box-sizing:border-box}
+a{color:#b98bff}a:hover{color:#f4f0fb}
+.wrap{width:100%;max-width:1280px;margin:0 auto;padding-left:clamp(16px,4vw,48px);padding-right:clamp(16px,4vw,48px)}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+.xl{font-size:clamp(44px,7vw,96px);line-height:.92;font-weight:800;letter-spacing:-.02em}
+.l{font-size:clamp(34px,4.4vw,56px);line-height:1;font-weight:700;letter-spacing:-.01em}
+.ttl{font-family:Unbounded,"Arial Black",sans-serif;font-size:21px;line-height:1.15;font-weight:600;margin:0;text-transform:uppercase}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.3;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;font-family:Unbounded,"Arial Black",sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;white-space:nowrap;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s,color .25s}
+.btn-uv{background:#d4ff3a;color:#0a0712}.btn-uv:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(212,255,58,.16)}
+.btn-lotus{background:#b98bff;color:#0a0712}.btn-lotus:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(185,139,255,.2)}
+.btn-ghost{border:1.5px solid #73669a;color:#f4f0fb;background:transparent}.btn-ghost:hover{border-color:#b98bff;color:#f4f0fb;background:#2a1652}
+.lnk{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#b98bff;text-decoration:none}
+.lnk:hover{color:#f4f0fb}.lnk .ar{transition:transform .25s}.lnk:hover .ar{transform:translateX(5px)}
+.nav a{color:#f4f0fb;text-decoration:none;font-family:Unbounded,"Arial Black",sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 0}
+.nav a:hover{color:#b98bff}
+.icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;color:#a99fc2;transition:color .2s,background .2s}
+.icon:hover{color:#f4f0fb;background:#161022}
+.card{background:#161022;border-radius:12px;overflow:hidden;text-decoration:none;color:#f4f0fb;display:flex;flex-direction:column;border:0;padding:0;text-align:left;font:inherit;cursor:pointer;transition:background .3s,transform .3s}
+.card:hover{background:#2a1652;color:#f4f0fb;transform:translateY(-4px)}
+.card:hover .zoom{transform:scale(1.04)}
+.zoom{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.ph{position:relative;background:#120d1d;overflow:hidden;display:flex;align-items:flex-end;padding:14px}
+.chip{min-height:44px;padding:0 20px;border-radius:999px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.field{display:flex;flex-direction:column;gap:8px;flex:1 1 220px}
+.field input,.field select,.field textarea{min-height:52px;border-radius:4px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;padding:12px 16px;font:500 16px Manrope,system-ui,sans-serif}
+.field textarea{min-height:140px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#b98bff;outline:none}
+.x{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;cursor:pointer;transition:border-color .2s,transform .3s}
+.x:hover{border-color:#b98bff;transform:rotate(90deg)}
+:focus-visible{outline:2px solid #d4ff3a;outline-offset:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{opacity:.3}}
+.mandala{animation:spin 90s linear infinite;transform-origin:50% 50%}
+.mandala-rev{animation:spin 140s linear infinite reverse;transform-origin:50% 50%}
+.marquee{display:flex;width:max-content;animation:marquee 48s linear infinite}
+.marquee:hover{animation-play-state:paused}
+.reveal{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+.still .mandala,.still .mandala-rev,.still .marquee,.still .pulse,.still .reveal{animation:none}
+.past{transition:background .25s,padding .25s}.past:hover{background:#161022;padding-left:20px!important}
+.past .ar{transition:transform .25s}.past:hover .ar{transform:translateX(6px)}
+@media (prefers-reduced-motion:reduce){.mandala,.mandala-rev,.marquee,.pulse{animation:none}.reveal{animation-duration:.01s}}
+.spin{animation:spin 120s linear infinite;transform-origin:0 0}
+.pt{transform-origin:0 0;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .5s}
+.rip{transform-origin:0 0}
+.orbit{animation:spin 140s linear infinite;transform-origin:50% 50%}
+.nin{animation:spin 140s linear infinite reverse;transform-origin:50% 32px}
+.ow:hover .orbit,.ow:hover .nin,.ow:focus-within .orbit,.ow:focus-within .nin{animation-play-state:paused}
+@keyframes beat{0%{transform:scale(1.05)}30%{transform:scale(1)}100%{transform:scale(1)}}
+@keyframes ripple{0%{transform:scale(.55);opacity:.6}100%{transform:scale(1.3);opacity:0}}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes up2{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes zoom{from{transform:scale(.6);opacity:.2}to{transform:none;opacity:1}}
+@keyframes zoom2{from{transform:scale(.6);opacity:.2}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.spin,.orbit,.nin,.rip,.beat{animation:none!important}.pt{transition:none}}
+.lp{transform-origin:0 0}
+.scroller{scrollbar-width:none}.scroller::-webkit-scrollbar{display:none}
+.eq{display:block;width:3px;height:100%;border-radius:2px;background:#b98bff;transform-origin:bottom;animation:eq .414s ease-in-out infinite alternate}
+@keyframes eq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+.beatring{transform-origin:0 0;animation:ring .828s ease-out infinite}
+.beatring.d2{animation-delay:.414s}
+@keyframes ring{from{transform:scale(.4);opacity:.6}to{transform:scale(3.2);opacity:0}}
+@keyframes peak{0%{opacity:1}60%{opacity:.55}100%{opacity:1}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes up2{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.playring{position:relative;display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:999px;border:1.5px solid #b98bff;color:#b98bff}
+.playring::after{content:"";position:absolute;inset:-2px;border-radius:999px;border:1.5px solid #b98bff;animation:ping .828s ease-out infinite}
+@keyframes ping{from{transform:scale(1);opacity:.6}to{transform:scale(1.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){.eq,.beatring,.playring::after{animation:none}}
+
+</style>
+</helmet>
+<div style="position: relative; width: 1440px; height: 900px; overflow: hidden; background: #0a0712; color: #f4f0fb; font-family: Manrope, system-ui, sans-serif; font-size: 16px; line-height: 1.6">
+<header style="{{headerStyle}}">
+<div style="display: flex; align-items: center; gap: 16px"><img src="/assets/logo/outrance-logo-white.png" alt="Outrance — accueil" style="display: block; height: 24px; width: auto"><span aria-hidden="true" style="display: flex; align-items: flex-end; gap: 3px; height: 18px"><span class="eq" style="animation-delay: -0.00s"></span><span class="eq" style="animation-delay: -0.13s"></span><span class="eq" style="animation-delay: -0.26s"></span><span class="eq" style="animation-delay: -0.39s"></span><span class="eq" style="animation-delay: -0.52s"></span></span></div>
+<nav class="nav" aria-label="Navigation principale" style="display: flex; gap: 28px"><a href="Agenda.dc.html">Agenda</a><a href="Artistes.dc.html">Artistes</a><a href="Galerie.dc.html">Galerie</a><a href="Association.dc.html">L’association</a><a href="https://outrance.be/">Belgium ↗</a></nav>
+<a class="btn btn-ghost" href="Evenement.dc.html" style="min-height: 44px; border-color: #b98bff">Billetterie</a>
+</header>
+<div class="scroller" onScroll="{{onScroll}}" style="position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden">
+
+<section style="position: relative; height: 1800px">
+<div style="position: sticky; top: 0; height: 900px; overflow: hidden">
+<svg aria-hidden="true" viewBox="0 0 1440 900" width="1440" height="900" style="position: absolute; inset: 0; pointer-events: none"><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="1.4" stroke-opacity="0.38" style="{{las.l0}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l1}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l2}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="1.4" stroke-opacity="0.38" style="{{las.l3}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l4}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l5}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="1.4" stroke-opacity="0.38" style="{{las.l6}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l7}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l8}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="1.4" stroke-opacity="0.38" style="{{las.l9}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l10}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l11}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="1.4" stroke-opacity="0.38" style="{{las.l12}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l13}}"></line><line x1="720" y1="980" x2="720" y2="-600" stroke="#b98bff" stroke-width="0.8" stroke-opacity="0.16" style="{{las.l14}}"></line><g transform="translate(720 980)"><circle class="beatring" r="120" fill="none" stroke="#b98bff" stroke-width="1.5"></circle><circle class="beatring d2" r="120" fill="none" stroke="#b98bff" stroke-width="1"></circle></g></svg>
+<div style="position: absolute; left: 0; right: 0; top: 150px; display: flex; flex-direction: column; align-items: center">
+<span class="disp" style="{{t1}}">Outrance</span>
+<span class="disp" style="{{t2}}">Label Night</span>
+</div>
+<div style="{{heroInfo}}">
+<span class="lbl" style="display: flex; align-items: center; gap: 10px; color: #b98bff"><span class="pulse" style="width: 8px; height: 8px; border-radius: 999px; background: #b98bff"></span>Prochain événement</span>
+<p class="lbl" style="margin: 0; font-size: 15px">Ven. 09/10/2026 <span style="color: #b98bff">◉</span> Péniche Loupika — Lyon</p>
+<p style="margin: 0; font-size: 18px; color: #a99fc2; text-align: center"><strong style="color: #f4f0fb">Originz vs Rayzorks · Moonwave vs Namdak</strong> · Klaak · Soul Edge · Trash Bandiroots</p>
+<div style="display: flex; gap: 12px"><a class="btn btn-uv" href="Evenement.dc.html" style="min-height: 52px">Billetterie →</a><a class="btn btn-ghost" href="Evenement.dc.html" style="min-height: 52px">Line-up et infos</a></div>
+</div>
+</div>
+</section>
+
+<section aria-label="Artistes du roster" style="height: 260px; display: flex; flex-direction: column; justify-content: center; gap: 8px; overflow: hidden; border-top: 1px solid #2e2645; border-bottom: 1px solid #2e2645">
+<div style="{{row1}}"><sc-for list="{{names1}}" as="n" hint-placeholder-count="18"><span class="disp" style="font-size: 88px; font-weight: 800; line-height: 1.05; white-space: nowrap; padding-right: 56px">{{n}} <span style="color: #b98bff; font-size: 30px; vertical-align: middle">◉</span></span></sc-for></div>
+<div style="{{row2}}"><sc-for list="{{names2}}" as="n" hint-placeholder-count="18"><span class="disp" style="font-size: 88px; font-weight: 800; line-height: 1.05; white-space: nowrap; padding-right: 56px; color: transparent; -webkit-text-stroke: 1.5px #b98bff">{{n}} ◉</span></sc-for></div>
+</section>
+
+<section style="position: relative; height: 2200px">
+<div style="position: sticky; top: 0; height: 900px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 28px; padding: 0 128px">
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px"><div style="display: flex; flex-direction: column; gap: 10px"><span class="lbl" style="color: #b98bff">Agenda — douze ans d’Outrance</span><h2 class="disp l">La tracklist</h2></div><a class="lnk" href="Agenda.dc.html">Tout l’agenda <span class="ar" aria-hidden="true">→</span></a></div>
+<div style="position: relative">
+<svg aria-hidden="true" viewBox="0 0 1184 200" width="1184" height="200" style="display: block; overflow: visible"><rect x="1.0" y="88.0" width="5.5" height="24.0" rx="2" style="{{wave.b0}}"></rect><rect x="9.5" y="66.2" width="5.5" height="67.6" rx="2" style="{{wave.b1}}"></rect><rect x="17.9" y="61.8" width="5.5" height="76.4" rx="2" style="{{wave.b2}}"></rect><rect x="26.4" y="56.7" width="5.5" height="86.7" rx="2" style="{{wave.b3}}"></rect><rect x="34.8" y="41.2" width="5.5" height="117.7" rx="2" style="{{wave.b4}}"></rect><rect x="43.3" y="38.3" width="5.5" height="123.4" rx="2" style="{{wave.b5}}"></rect><rect x="51.7" y="52.8" width="5.5" height="94.5" rx="2" style="{{wave.b6}}"></rect><rect x="60.2" y="60.1" width="5.5" height="79.9" rx="2" style="{{wave.b7}}"></rect><rect x="68.7" y="60.3" width="5.5" height="79.5" rx="2" style="{{wave.b8}}"></rect><rect x="77.1" y="75.1" width="5.5" height="49.9" rx="2" style="{{wave.b9}}"></rect><rect x="85.6" y="80.6" width="5.5" height="38.9" rx="2" style="{{wave.b10}}"></rect><rect x="94.0" y="77.6" width="5.5" height="44.7" rx="2" style="{{wave.b11}}"></rect><rect x="102.5" y="80.7" width="5.5" height="38.7" rx="2" style="{{wave.b12}}"></rect><rect x="110.9" y="72.2" width="5.5" height="55.6" rx="2" style="{{wave.b13}}"></rect><rect x="119.4" y="69.9" width="5.5" height="60.1" rx="2" style="{{wave.b14}}"></rect><rect x="127.9" y="87.0" width="5.5" height="25.9" rx="2" style="{{wave.b15}}"></rect><rect x="136.3" y="74.6" width="5.5" height="50.7" rx="2" style="{{wave.b16}}"></rect><rect x="144.8" y="72.7" width="5.5" height="54.5" rx="2" style="{{wave.b17}}"></rect><rect x="153.2" y="61.9" width="5.5" height="76.3" rx="2" style="{{wave.b18}}"></rect><rect x="161.7" y="41.4" width="5.5" height="117.1" rx="2" style="{{wave.b19}}"></rect><rect x="170.1" y="36.7" width="5.5" height="126.7" rx="2" style="{{wave.b20}}"></rect><rect x="178.6" y="44.7" width="5.5" height="110.6" rx="2" style="{{wave.b21}}"></rect><rect x="187.1" y="43.3" width="5.5" height="113.5" rx="2" style="{{wave.b22}}"></rect><rect x="195.5" y="41.9" width="5.5" height="116.2" rx="2" style="{{wave.b23}}"></rect><rect x="204.0" y="60.0" width="5.5" height="80.1" rx="2" style="{{wave.b24}}"></rect><rect x="212.4" y="81.3" width="5.5" height="37.5" rx="2" style="{{wave.b25}}"></rect><rect x="220.9" y="87.7" width="5.5" height="24.6" rx="2" style="{{wave.b26}}"></rect><rect x="229.3" y="79.3" width="5.5" height="41.5" rx="2" style="{{wave.b27}}"></rect><rect x="237.8" y="57.9" width="5.5" height="84.3" rx="2" style="{{wave.b28}}"></rect><rect x="246.3" y="47.5" width="5.5" height="105.0" rx="2" style="{{wave.b29}}"></rect><rect x="254.7" y="54.7" width="5.5" height="90.5" rx="2" style="{{wave.b30}}"></rect><rect x="263.2" y="56.1" width="5.5" height="87.8" rx="2" style="{{wave.b31}}"></rect><rect x="271.6" y="51.5" width="5.5" height="97.0" rx="2" style="{{wave.b32}}"></rect><rect x="280.1" y="63.4" width="5.5" height="73.3" rx="2" style="{{wave.b33}}"></rect><rect x="288.5" y="83.9" width="5.5" height="32.3" rx="2" style="{{wave.b34}}"></rect><rect x="297.0" y="86.6" width="5.5" height="26.8" rx="2" style="{{wave.b35}}"></rect><rect x="305.5" y="85.6" width="5.5" height="28.7" rx="2" style="{{wave.b36}}"></rect><rect x="313.9" y="72.0" width="5.5" height="56.0" rx="2" style="{{wave.b37}}"></rect><rect x="322.4" y="63.5" width="5.5" height="73.1" rx="2" style="{{wave.b38}}"></rect><rect x="330.8" y="75.0" width="5.5" height="50.0" rx="2" style="{{wave.b39}}"></rect><rect x="339.3" y="85.7" width="5.5" height="28.5" rx="2" style="{{wave.b40}}"></rect><rect x="347.7" y="85.8" width="5.5" height="28.4" rx="2" style="{{wave.b41}}"></rect><rect x="356.2" y="79.2" width="5.5" height="41.5" rx="2" style="{{wave.b42}}"></rect><rect x="364.7" y="55.8" width="5.5" height="88.5" rx="2" style="{{wave.b43}}"></rect><rect x="373.1" y="45.3" width="5.5" height="109.5" rx="2" style="{{wave.b44}}"></rect><rect x="381.6" y="46.5" width="5.5" height="107.0" rx="2" style="{{wave.b45}}"></rect><rect x="390.0" y="37.7" width="5.5" height="124.6" rx="2" style="{{wave.b46}}"></rect><rect x="398.5" y="28.4" width="5.5" height="143.1" rx="2" style="{{wave.b47}}"></rect><rect x="406.9" y="39.5" width="5.5" height="120.9" rx="2" style="{{wave.b48}}"></rect><rect x="415.4" y="56.3" width="5.5" height="87.3" rx="2" style="{{wave.b49}}"></rect><rect x="423.9" y="60.7" width="5.5" height="78.7" rx="2" style="{{wave.b50}}"></rect><rect x="432.3" y="69.6" width="5.5" height="60.9" rx="2" style="{{wave.b51}}"></rect><rect x="440.8" y="82.4" width="5.5" height="35.2" rx="2" style="{{wave.b52}}"></rect><rect x="449.2" y="66.7" width="5.5" height="66.6" rx="2" style="{{wave.b53}}"></rect><rect x="457.7" y="67.5" width="5.5" height="64.9" rx="2" style="{{wave.b54}}"></rect><rect x="466.1" y="62.5" width="5.5" height="75.1" rx="2" style="{{wave.b55}}"></rect><rect x="474.6" y="51.3" width="5.5" height="97.4" rx="2" style="{{wave.b56}}"></rect><rect x="483.1" y="57.5" width="5.5" height="84.9" rx="2" style="{{wave.b57}}"></rect><rect x="491.5" y="74.9" width="5.5" height="50.2" rx="2" style="{{wave.b58}}"></rect><rect x="500.0" y="79.9" width="5.5" height="40.2" rx="2" style="{{wave.b59}}"></rect><rect x="508.4" y="82.1" width="5.5" height="35.9" rx="2" style="{{wave.b60}}"></rect><rect x="516.9" y="76.9" width="5.5" height="46.1" rx="2" style="{{wave.b61}}"></rect><rect x="525.3" y="62.9" width="5.5" height="74.3" rx="2" style="{{wave.b62}}"></rect><rect x="533.8" y="68.1" width="5.5" height="63.7" rx="2" style="{{wave.b63}}"></rect><rect x="542.3" y="73.4" width="5.5" height="53.2" rx="2" style="{{wave.b64}}"></rect><rect x="550.7" y="68.7" width="5.5" height="62.6" rx="2" style="{{wave.b65}}"></rect><rect x="559.2" y="76.2" width="5.5" height="47.6" rx="2" style="{{wave.b66}}"></rect><rect x="567.6" y="77.0" width="5.5" height="45.9" rx="2" style="{{wave.b67}}"></rect><rect x="576.1" y="64.3" width="5.5" height="71.5" rx="2" style="{{wave.b68}}"></rect><rect x="584.5" y="61.3" width="5.5" height="77.5" rx="2" style="{{wave.b69}}"></rect><rect x="593.0" y="46.5" width="5.5" height="106.9" rx="2" style="{{wave.b70}}"></rect><rect x="601.5" y="29.5" width="5.5" height="141.0" rx="2" style="{{wave.b71}}"></rect><rect x="609.9" y="32.3" width="5.5" height="135.5" rx="2" style="{{wave.b72}}"></rect><rect x="618.4" y="41.9" width="5.5" height="116.1" rx="2" style="{{wave.b73}}"></rect><rect x="626.8" y="40.6" width="5.5" height="118.9" rx="2" style="{{wave.b74}}"></rect><rect x="635.3" y="45.3" width="5.5" height="109.5" rx="2" style="{{wave.b75}}"></rect><rect x="643.7" y="67.8" width="5.5" height="64.4" rx="2" style="{{wave.b76}}"></rect><rect x="652.2" y="85.2" width="5.5" height="29.5" rx="2" style="{{wave.b77}}"></rect><rect x="660.7" y="87.9" width="5.5" height="24.3" rx="2" style="{{wave.b78}}"></rect><rect x="669.1" y="77.8" width="5.5" height="44.4" rx="2" style="{{wave.b79}}"></rect><rect x="677.6" y="60.2" width="5.5" height="79.6" rx="2" style="{{wave.b80}}"></rect><rect x="686.0" y="59.6" width="5.5" height="80.8" rx="2" style="{{wave.b81}}"></rect><rect x="694.5" y="71.5" width="5.5" height="57.0" rx="2" style="{{wave.b82}}"></rect><rect x="702.9" y="73.0" width="5.5" height="54.0" rx="2" style="{{wave.b83}}"></rect><rect x="711.4" y="73.2" width="5.5" height="53.6" rx="2" style="{{wave.b84}}"></rect><rect x="719.9" y="85.4" width="5.5" height="29.2" rx="2" style="{{wave.b85}}"></rect><rect x="728.3" y="68.0" width="5.5" height="64.0" rx="2" style="{{wave.b86}}"></rect><rect x="736.8" y="68.1" width="5.5" height="63.7" rx="2" style="{{wave.b87}}"></rect><rect x="745.2" y="67.7" width="5.5" height="64.6" rx="2" style="{{wave.b88}}"></rect><rect x="753.7" y="56.8" width="5.5" height="86.4" rx="2" style="{{wave.b89}}"></rect><rect x="762.1" y="58.2" width="5.5" height="83.6" rx="2" style="{{wave.b90}}"></rect><rect x="770.6" y="76.7" width="5.5" height="46.5" rx="2" style="{{wave.b91}}"></rect><rect x="779.1" y="87.9" width="5.5" height="24.2" rx="2" style="{{wave.b92}}"></rect><rect x="787.5" y="84.7" width="5.5" height="30.6" rx="2" style="{{wave.b93}}"></rect><rect x="796.0" y="67.3" width="5.5" height="65.4" rx="2" style="{{wave.b94}}"></rect><rect x="804.4" y="44.7" width="5.5" height="110.7" rx="2" style="{{wave.b95}}"></rect><rect x="812.9" y="40.0" width="5.5" height="120.0" rx="2" style="{{wave.b96}}"></rect><rect x="821.3" y="42.0" width="5.5" height="115.9" rx="2" style="{{wave.b97}}"></rect><rect x="829.8" y="33.1" width="5.5" height="133.8" rx="2" style="{{wave.b98}}"></rect><rect x="838.3" y="30.6" width="5.5" height="138.8" rx="2" style="{{wave.b99}}"></rect><rect x="846.7" y="47.9" width="5.5" height="104.2" rx="2" style="{{wave.b100}}"></rect><rect x="855.2" y="63.0" width="5.5" height="74.0" rx="2" style="{{wave.b101}}"></rect><rect x="863.6" y="65.9" width="5.5" height="68.2" rx="2" style="{{wave.b102}}"></rect><rect x="872.1" y="77.9" width="5.5" height="44.1" rx="2" style="{{wave.b103}}"></rect><rect x="880.5" y="76.1" width="5.5" height="47.9" rx="2" style="{{wave.b104}}"></rect><rect x="889.0" y="69.3" width="5.5" height="61.5" rx="2" style="{{wave.b105}}"></rect><rect x="897.5" y="75.1" width="5.5" height="49.8" rx="2" style="{{wave.b106}}"></rect><rect x="905.9" y="71.2" width="5.5" height="57.5" rx="2" style="{{wave.b107}}"></rect><rect x="914.4" y="66.8" width="5.5" height="66.4" rx="2" style="{{wave.b108}}"></rect><rect x="922.8" y="81.4" width="5.5" height="37.2" rx="2" style="{{wave.b109}}"></rect><rect x="931.3" y="76.9" width="5.5" height="46.1" rx="2" style="{{wave.b110}}"></rect><rect x="939.7" y="74.5" width="5.5" height="51.0" rx="2" style="{{wave.b111}}"></rect><rect x="948.2" y="70.0" width="5.5" height="60.0" rx="2" style="{{wave.b112}}"></rect><rect x="956.7" y="53.3" width="5.5" height="93.4" rx="2" style="{{wave.b113}}"></rect><rect x="965.1" y="47.6" width="5.5" height="104.8" rx="2" style="{{wave.b114}}"></rect><rect x="973.6" y="59.6" width="5.5" height="80.7" rx="2" style="{{wave.b115}}"></rect><rect x="982.0" y="65.9" width="5.5" height="68.2" rx="2" style="{{wave.b116}}"></rect><rect x="990.5" y="65.8" width="5.5" height="68.3" rx="2" style="{{wave.b117}}"></rect><rect x="998.9" y="81.8" width="5.5" height="36.3" rx="2" style="{{wave.b118}}"></rect><rect x="1007.4" y="69.7" width="5.5" height="60.6" rx="2" style="{{wave.b119}}"></rect><rect x="1015.9" y="60.5" width="5.5" height="78.9" rx="2" style="{{wave.b120}}"></rect><rect x="1024.3" y="56.6" width="5.5" height="86.7" rx="2" style="{{wave.b121}}"></rect><rect x="1032.8" y="40.5" width="5.5" height="119.0" rx="2" style="{{wave.b122}}"></rect><rect x="1041.2" y="29.7" width="5.5" height="140.5" rx="2" style="{{wave.b123}}"></rect><rect x="1049.7" y="39.4" width="5.5" height="121.1" rx="2" style="{{wave.b124}}"></rect><rect x="1058.1" y="49.0" width="5.5" height="102.1" rx="2" style="{{wave.b125}}"></rect><rect x="1066.6" y="48.1" width="5.5" height="103.8" rx="2" style="{{wave.b126}}"></rect><rect x="1075.1" y="58.3" width="5.5" height="83.5" rx="2" style="{{wave.b127}}"></rect><rect x="1083.5" y="81.4" width="5.5" height="37.2" rx="2" style="{{wave.b128}}"></rect><rect x="1092.0" y="84.0" width="5.5" height="32.0" rx="2" style="{{wave.b129}}"></rect><rect x="1100.4" y="84.9" width="5.5" height="30.1" rx="2" style="{{wave.b130}}"></rect><rect x="1108.9" y="75.6" width="5.5" height="48.9" rx="2" style="{{wave.b131}}"></rect><rect x="1117.3" y="65.1" width="5.5" height="69.8" rx="2" style="{{wave.b132}}"></rect><rect x="1125.8" y="74.5" width="5.5" height="51.0" rx="2" style="{{wave.b133}}"></rect><rect x="1134.3" y="86.7" width="5.5" height="26.6" rx="2" style="{{wave.b134}}"></rect><rect x="1142.7" y="84.9" width="5.5" height="30.3" rx="2" style="{{wave.b135}}"></rect><rect x="1151.2" y="79.2" width="5.5" height="41.6" rx="2" style="{{wave.b136}}"></rect><rect x="1159.6" y="58.8" width="5.5" height="82.4" rx="2" style="{{wave.b137}}"></rect><rect x="1168.1" y="47.0" width="5.5" height="106.0" rx="2" style="{{wave.b138}}"></rect><rect x="1176.5" y="52.1" width="5.5" height="95.7" rx="2" style="{{wave.b139}}"></rect></svg>
+<div aria-hidden="true" style="{{playhead}}"><span class="lbl" style="position: absolute; top: -26px; left: 50%; transform: translateX(-50%); font-size: 11px; color: #b98bff; white-space: nowrap">{{year}}</span></div>
+<sc-for list="{{marks}}" as="k" hint-placeholder-count="10"><span aria-hidden="true" style="{{k.style}}"></span></sc-for>
+</div>
+<div style="display: flex; justify-content: space-between"><span class="lbl" style="font-size: 11px; color: #73669a">2014</span><span class="lbl" style="font-size: 11px; color: #73669a">2026</span></div>
+<div style="{{evCard}}">
+<span class="disp" style="font-size: 72px; font-weight: 800; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px #b98bff; min-width: 220px">{{ev.year}}</span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 6px"><span class="lbl" style="color: #b98bff">{{ev.date}}</span><span class="ttl" style="font-size: 30px">{{ev.title}}</span><span class="lbl" style="color: #a99fc2">{{ev.venue}}</span></span>
+<sc-if value="{{ev.next}}" hint-placeholder-val="{{ false }}"><a class="btn btn-uv" href="Evenement.dc.html" style="min-height: 52px">Billetterie →</a></sc-if>
+<sc-if value="{{ev.past}}" hint-placeholder-val="{{ true }}"><a class="lnk" href="Galerie.dc.html">Les photos <span class="ar" aria-hidden="true">→</span></a></sc-if>
+</div>
+</div>
+</section>
+
+<section style="position: relative; height: 900px; display: flex; align-items: center; gap: 80px; padding: 0 128px; background: #120d1d">
+<div style="flex: 0 0 380px; display: flex; flex-direction: column; gap: 18px"><span class="lbl" style="color: #b98bff">L’association — depuis 2014</span><h2 class="disp l">Le volume monte depuis 2014</h2><p style="margin: 0; color: #a99fc2">Association loi 1901 née à Lyon, en Belgique depuis 2018.</p><a class="lnk" href="Association.dc.html">Notre histoire <span class="ar" aria-hidden="true">→</span></a></div>
+<div style="flex: 1; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+<sc-for list="{{meters}}" as="m" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 14px; width: 120px">
+<div style="display: flex; flex-direction: column-reverse; gap: 4px; width: 56px">
+<sc-for list="{{m.segs}}" as="g" hint-placeholder-count="18"><span style="{{g}}"></span></sc-for>
+</div>
+<span class="disp" style="font-size: 56px; font-weight: 800; line-height: 1">{{m.value}}</span>
+<span class="lbl" style="font-size: 11px; color: #a99fc2; text-align: center">{{m.label}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="position: relative; height: 900px; display: flex; align-items: center; gap: 56px; padding: 0 128px; overflow: hidden">
+<div style="{{orbitLeft}}">
+<span class="lbl" style="color: #b98bff">Artistes</span>
+<h2 class="disp l">Le roster</h2>
+<div style="{{infoStyle}}">
+<sc-if value="{{neutral}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 18px; color: #f4f0fb">Neuf artistes gravitent autour d’Outrance. Survole-les : chacun fait éclore sa propre fleur.</p>
+<p style="margin: 0; font-size: 15px; color: #a99fc2">Plus le style est rapide, plus les pétales sont nombreux, effilés et éclatés. Et la fleur bat au tempo de l’artiste.</p>
+</sc-if>
+<sc-if value="{{picked}}" hint-placeholder-val="{{ false }}">
+<span class="lbl" style="font-size: 11px; color: #b98bff">{{cur.meta}}</span>
+<span class="disp" style="font-size: 56px; font-weight: 800; line-height: .92">{{cur.name}}</span>
+<p style="margin: 0; color: #a99fc2">{{cur.bio}}</p>
+</sc-if>
+</div>
+<div style="display: flex; align-items: center; gap: 24px">
+<a class="btn btn-lotus" href="Artistes.dc.html" style="min-height: 48px">{{cta}}</a>
+<a class="lnk" href="Artistes.dc.html#booking">Booking <span class="ar" aria-hidden="true">→</span></a>
+</div>
+</div>
+<div class="ow" style="{{orbitWrap}}">
+<svg aria-hidden="true" viewBox="-320 -320 640 640" width="640" height="640" style="position: absolute; inset: 0">
+<circle r="270" fill="none" stroke="#2e2645" stroke-width="1" stroke-dasharray="2 8"></circle>
+</svg>
+<div aria-hidden="true" style="position: absolute; left: 110px; top: 110px; width: 420px; height: 420px">
+<div class="beat" style="{{beatStyle}}">
+<svg viewBox="-300 -300 600 600" width="420" height="420" style="display: block; overflow: visible">
+<g class="spin">
+<circle class="rip" r="230" fill="none" stroke="#b98bff" stroke-width="1.5" style="{{rippleStyle}}"></circle>
+<circle r="250" fill="none" stroke="#b98bff" stroke-opacity=".18" stroke-width="1"></circle>
+<circle r="190" fill="none" stroke="#b98bff" stroke-opacity=".25" stroke-width="1" stroke-dasharray="2 7"></circle>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o0}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o1}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o2}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o3}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o4}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o5}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o6}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o7}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o8}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o9}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o10}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o11}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o12}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o13}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o14}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o15}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m0}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m1}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m2}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m3}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m4}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m5}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m6}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m7}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m8}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m9}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m10}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m11}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m12}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m13}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m14}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m15}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i0}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i1}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i2}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i3}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i4}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i5}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i6}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i7}}"></path>
+<circle r="9" fill="#b98bff" style="{{coreStyle}}"></circle>
+</g>
+</svg>
+</div>
+</div>
+<div aria-hidden="true" style="{{portraitStyle}}">
+<div style="{{portraitInner}}">
+<span class="disp" style="font-size: 76px; font-weight: 800; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px #b98bff">{{cur.initial}}</span>
+<span class="lbl" style="position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font-size: 9px; color: #a99fc2">[Photo]</span>
+</div>
+</div>
+<div class="orbit" style="position: absolute; inset: 0">
+<sc-for list="{{nodes}}" as="n" hint-placeholder-count="9">
+<a href="Artistes.dc.html" onMouseEnter="{{n.pick}}" onFocus="{{n.pick}}" onMouseLeave="{{reset}}" onBlur="{{reset}}" aria-label="{{n.name}} — {{n.meta}}" style="{{n.pos}}">
+<span class="nin" style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+<span class="disp" style="{{n.dot}}">{{n.initial}}</span>
+<span class="lbl" style="{{n.lbl}}">{{n.name}}</span>
+</span>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="position: relative; height: 900px; display: flex; flex-direction: column; justify-content: center; gap: 48px; padding: 0 128px; overflow: hidden">
+<div style="display: flex; align-items: flex-end; justify-content: space-between"><div style="display: flex; flex-direction: column; gap: 10px"><span class="lbl" style="color: #b98bff">Galerie</span><h2 class="disp l">Sur la scène</h2></div><a class="lnk" href="Galerie.dc.html">Tous les aftermovies <span class="ar" aria-hidden="true">→</span></a></div>
+<div style="display: flex; justify-content: center; align-items: center; gap: 24px; perspective: 1600px">
+<sc-for list="{{screens}}" as="s" hint-placeholder-count="3">
+<a class="card" href="Galerie.dc.html" style="{{s.style}}"><div class="ph" style="aspect-ratio: 16 / 9; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645" stroke-width="1"><circle cx="200" cy="105" r="24"></circle><circle cx="200" cy="105" r="48"></circle><circle cx="200" cy="105" r="72"></circle><circle cx="200" cy="105" r="96"></circle><circle cx="200" cy="105" r="120"></circle><circle cx="200" cy="105" r="144"></circle><circle cx="200" cy="105" r="168"></circle><circle cx="200" cy="105" r="192"></circle></g></svg><span class="playring" aria-hidden="true"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></span></div><div style="padding: 16px 20px"><span class="ttl" style="font-size: 17px">{{s.title}}</span></div></a>
+</sc-for>
+</div>
+</section>
+
+<section style="position: relative; height: 900px; display: flex; flex-direction: column; justify-content: center; gap: 40px; overflow: hidden">
+<div style="display: flex; flex-direction: column; align-items: center; line-height: .92">
+<span class="disp" style="{{k1}}">À très vite</span>
+<span class="disp" style="{{k2}}">sur le</span>
+<span class="disp" style="{{k3}}">dancefloor</span>
+</div>
+<div style="{{nlStyle}}">
+<label class="field" style="flex: 0 0 300px"><span class="lbl" style="font-size: 10px; color: #a99fc2; padding-left: 12px">Ton e-mail pour la prochaine date</span><input type="email" style="border-radius: 999px; min-height: 48px"></label>
+<button class="btn btn-lotus" type="button" style="min-height: 48px">S’abonner</button>
+</div>
+<div style="position: absolute; left: 128px; right: 128px; bottom: 24px; display: flex; justify-content: space-between"><span class="lbl" style="font-size: 11px; color: #a99fc2">© 2026 Outrance — aucun cookie</span><span style="display: flex; gap: 4px"><a class="icon" href="https://www.instagram.com/outrancelyon" aria-label="Instagram"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg></a>
+<a class="icon" href="https://www.facebook.com/OutranceParty/" aria-label="Facebook"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"></path></svg></a>
+<a class="icon" href="https://soundcloud.com/outrancelyon" aria-label="SoundCloud"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h8a3.5 3.5 0 0 0 0-7h-.4A5 5 0 0 0 10 8.2"></path><path d="M3 17v-3M5.5 17v-5M8 17v-7"></path></svg></a>
+<a class="icon" href="https://www.youtube.com/@outrance9243" aria-label="YouTube"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z"></path></svg></a></span></div>
+</section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { st: 0, vel: 0, reduce: false, cur: -1, tick: 0, nl: 'idle' };
+  }
+  componentDidMount() {
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.setState({ reduce: true });
+    } catch (e) {}
+  }
+  orbitVals() {
+    const roster = [
+      { name: 'Originz', format: 'DJset', genres: ['Psytrance', 'Forest', 'Psytech'], bio: 'Activiste de la psytrance à Lyon depuis 2014, co-fondateur d’Outrance et programmateur pour Hadra.' },
+      { name: 'Rayzorks', format: 'DJset', genres: ['Forest', 'Darkpsy'] },
+      { name: 'Moonwave', format: 'DJset', genres: ['Fullon', 'Psygroovy'] },
+      { name: 'Namdak', format: 'Live', genres: ['Psygroovy'] },
+      { name: 'Klaak', format: 'DJset', genres: ['Hitech'], bio: 'Co-fondateur de l’association, premier set chez Outrance en closing de la Psychedelic Christmas 2025.' },
+      { name: 'Soul Edge', format: 'DJset', genres: ['Psyprog', 'Fullon'] },
+      { name: 'Kangapta', format: 'DJset', genres: ['Fullon', 'Psychedelic', 'Psytechno'] },
+      { name: 'Marsupial', format: 'Live', genres: ['Progressive'] },
+      { name: 'Rajax', format: 'DJset', genres: ['Psytrance', 'Forest'] }
+    ];
+    const meta = (a) => a.format + ' ◉ ' + a.genres.join('/');
+    const bio = (a) => a.bio || 'Biographie à venir. [À compléter]';
+
+    const SIG = {
+      neutral: { n: [12, 12, 8], d: [96, 40, 4], s: [[1.25, 1.25], [0.95, 0.95], [0.62, 0.62]], twist: 0, bpm: 0, line: '' },
+      Marsupial: { n: [8, 8, 6], d: [120, 96, 78], s: [[1.55, 1.15], [1.2, 0.95], [0.8, 0.7]], twist: 0, bpm: 134, line: '≈ 134 BPM · 8 larges pétales, éclosion lente' },
+      'Soul Edge': { n: [10, 10, 6], d: [122, 96, 78], s: [[1.4, 1.2], [1.1, 0.95], [0.75, 0.7]], twist: 6, bpm: 138, line: '≈ 138 BPM · 10 pétales amples' },
+      Namdak: { n: [12, 6, 6], d: [124, 98, 78], s: [[1.25, 1.2], [1.25, 1], [0.7, 0.7]], twist: 15, bpm: 140, line: '≈ 140 BPM · 12 pétales, cœur groovy' },
+      Moonwave: { n: [12, 12, 8], d: [126, 98, 80], s: [[1.15, 1.25], [0.95, 1], [0.62, 0.7]], twist: 0, bpm: 143, line: '≈ 143 BPM · 12 pétales en double couronne' },
+      Kangapta: { n: [14, 7, 7], d: [130, 100, 80], s: [[1, 1.3], [1.2, 1.05], [0.6, 0.72]], twist: 10, bpm: 145, line: '≈ 145 BPM · 14 pétales décalés' },
+      Originz: { n: [14, 14, 8], d: [134, 102, 80], s: [[0.95, 1.32], [0.85, 1.05], [0.6, 0.72]], twist: 0, bpm: 147, line: '≈ 147 BPM · 14 pétales tendus' },
+      Rajax: { n: [16, 8, 8], d: [136, 102, 80], s: [[0.85, 1.3], [1.1, 1.05], [0.6, 0.72]], twist: 11.25, bpm: 148, line: '≈ 148 BPM · 16 pétales, forêt dense' },
+      Rayzorks: { n: [16, 16, 8], d: [146, 108, 82], s: [[0.72, 1.38], [0.7, 1.12], [0.55, 0.75]], twist: 0, bpm: 152, line: '≈ 152 BPM · 16 pétales acérés, couronnes écartées' },
+      Klaak: { n: [16, 16, 8], d: [160, 116, 84], s: [[0.5, 1.48], [0.5, 1.2], [0.5, 0.8]], twist: 22.5, bpm: 185, line: '≈ 185 BPM · 32 lames, fleur éclatée' }
+    };
+    const c = this.state.cur;
+    const a = c >= 0 ? roster[c] : null;
+    const sg = a ? SIG[a.name] : SIG.neutral;
+    const max = [16, 16, 8];
+    const keys = ['o', 'm', 'i'];
+    const pt = {};
+    keys.forEach((k, L) => {
+      const n = sg.n[L];
+      const off = L === 0 ? 0 : 180 / n;
+      for (let i = 0; i < max[L]; i++) {
+        const on = i < n;
+        const ang = ((i % n) * 360 / n + off + sg.twist).toFixed(2);
+        const sx = on ? sg.s[L][0] : 0;
+        const sy = on ? sg.s[L][1] : 0;
+        pt[k + i] = 'transform: rotate(' + ang + 'deg) translateY(' + (-sg.d[L]) + 'px) scale(' + sx + ', ' + sy + '); opacity: ' + (on ? 1 : 0) + '; transition-delay: ' + (L * 60 + i * 14) + 'ms';
+      }
+    });
+    const beat = sg.bpm ? (60 / sg.bpm).toFixed(3) + 's' : '0s';
+    const R = 270;
+    const odd = this.state.tick % 2;
+    return {
+      pt: pt,
+      neutral: !a,
+      picked: !!a,
+      cur: a ? { name: a.name, initial: a.name[0], meta: meta(a), bio: bio(a), sig: sg.line } : { name: '', initial: 'O', meta: '', bio: '', sig: '' },
+      cta: a ? 'Voir la fiche de ' + a.name : 'Découvrir le roster',
+      infoStyle: 'display: flex; flex-direction: column; gap: 10px; min-height: 230px; padding: 24px 0; border-top: 1px solid #2e2645; border-bottom: 1px solid #2e2645; animation: .5s cubic-bezier(.2,.7,.2,1) both; animation-name: ' + (odd ? 'up' : 'up2'),
+      beatStyle: 'width: 100%; height: 100%; transform-origin: 50% 50%; animation: ' + (sg.bpm ? 'beat ' + beat + ' ease-out infinite' : 'none'),
+      rippleStyle: sg.bpm ? 'animation: ripple ' + beat + ' ease-out infinite' : 'animation: none; opacity: 0',
+      coreStyle: 'transform-origin: 0 0; transition: transform .5s; transform: scale(' + (a ? 0 : 1) + ')',
+      portraitStyle: 'position: absolute; left: 320px; top: 320px; width: 150px; height: 150px; pointer-events: none; transition: transform .7s cubic-bezier(.3,1.35,.5,1), opacity .35s; transform: translate(-50%, -50%) scale(' + (a ? 1 : 0.3) + '); opacity: ' + (a ? 1 : 0),
+      portraitInner: 'position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 999px; overflow: hidden; background: #1d1430; border: 2px solid #b98bff; box-shadow: 0 0 0 8px rgba(185, 139, 255, .14); animation: .55s cubic-bezier(.3,1.35,.5,1) both; animation-name: ' + (odd ? 'zoom' : 'zoom2'),
+      reset: () => { if (this.state.cur !== -1) this.setState({ cur: -1, tick: this.state.tick + 1 }); },
+      nodes: roster.map((r, i) => {
+        const ang = (i / roster.length) * Math.PI * 2 - Math.PI / 2;
+        const x = 320 + R * Math.cos(ang);
+        const y = 320 + R * Math.sin(ang);
+        const on = i === c;
+        const dim = c >= 0 && !on;
+        return {
+          name: r.name, initial: r.name[0], meta: meta(r),
+          pick: () => { if (this.state.cur !== i) this.setState({ cur: i, tick: this.state.tick + 1 }); },
+          pos: 'position: absolute; left: ' + x.toFixed(1) + 'px; top: ' + y.toFixed(1) + 'px; transform: translate(-50%, -32px); text-decoration: none; color: #f4f0fb; z-index: ' + (on ? 2 : 1),
+          dot: 'display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 999px; font-size: 26px; font-weight: 800; transition: background .3s, color .3s, border-color .3s, box-shadow .3s, opacity .3s, transform .55s cubic-bezier(.3,1.35,.5,1); border: 2px solid ' + (on ? '#b98bff' : '#2e2645') + '; background: #1d1430; color: ' + (on ? '#f4f0fb' : '#b98bff') + '; box-shadow: 0 0 0 ' + (on ? 8 : 0) + 'px rgba(185, 139, 255, .18); opacity: ' + (dim ? 0.55 : 1) + '; transform: scale(' + (on ? 1.5 : dim ? 0.9 : 1) + ')',
+          lbl: 'font-size: 10px; white-space: nowrap; transition: color .3s, transform .4s; color: ' + (on ? '#b98bff' : '#a99fc2') + '; transform: translateY(' + (on ? 18 : 0) + 'px)'
+        };
+      })
+    };
+  }
+  renderVals() {
+
+    const st = this.state.st;
+    const RM = this.state.reduce;
+    const cl = (v) => Math.max(0, Math.min(1, v));
+    const eo = (t) => 1 - Math.pow(1 - t, 3);
+    const eio = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const VH = 900;
+    const prog = (top, len) => (RM ? 1 : cl((st - top) / len));
+    const enter = (top) => (RM ? 1 : cl((st + VH - top) / VH));
+    const lotus = (b, extra) => {
+      const o = {};
+      const seat = lerp(60, 0, b);
+      const L = [['o', 12, 0, 70, 0, 96, 0.62, 1.25], ['m', 12, 15, 48, 0, 40, 0.56, 0.95], ['i', 8, 22.5, 28, 0, 4, 0.5, 0.62]];
+      L.forEach((l) => {
+        for (let i = 0; i < l[1]; i++) {
+          const oa = ((i * 360 / l[1] + l[2] + 540) % 360) - 180;
+          const a = lerp(oa * l[3] / 360, oa, b);
+          const d = lerp(l[4], l[5], b) + (extra || 0) * (l[0] === 'o' ? 1 : l[0] === 'm' ? 0.5 : 0);
+          const s = lerp(l[6], l[7], b);
+          o[l[0] + i] = 'transform: translate(0px, ' + seat.toFixed(1) + 'px) rotate(' + a.toFixed(2) + 'deg) translateY(' + (-d).toFixed(1) + 'px) scale(' + s.toFixed(3) + ')';
+        }
+      });
+      o.r1 = lerp(70, 150, b).toFixed(1); o.r2 = lerp(80, 220, b).toFixed(1); o.r3 = lerp(90, 290, b).toFixed(1);
+      o.ro1 = (b * 0.6).toFixed(2); o.ro2 = (b * 0.35).toFixed(2); o.ro3 = (b * 0.16).toFixed(2);
+      o.core = (b * 9).toFixed(1);
+      return o;
+    };
+
+
+    const HERO = 0, MARQ = 1800, AG = 2060, STATS = 4260, ROSTER = 5160, VID = 6060, FIN = 6960, MAX = 6960;
+    const hp = prog(0, 900);
+    const sk = Math.max(-12, Math.min(12, (this.state.vel || 0) * 0.15));
+    const las = {};
+    const spread = lerp(14, 78, eo(hp));
+    for (let k = 0; k < 15; k++) {
+      const a = lerp(-spread, spread, k / 14) + Math.sin((st + k * 120) / 240) * 3;
+      las['l' + k] = 'transform-origin: 720px 980px; transform: rotate(' + a.toFixed(2) + 'deg); opacity: ' + (1 - hp * 0.4).toFixed(2);
+    }
+    const pa = prog(AG + 0, 1300);
+    const events = [
+      ['2014-05-09', 'Ven. 09/05/2014', 'Outrance #1', 'Le Petit Salon — Lyon'], ['2015-03-27', 'Ven. 27/03/2015', 'Premier Ninkasi Kao', 'Ninkasi Kao — Lyon'],
+      ['2017-04-17', 'Lun. 17/04/2017', 'Carte blanche Reperkusound #12', 'Double Mixte'], ['2017-09-16', 'Sam. 16/09/2017', 'Outrance Open Air', 'Châtillon-la-Palud (01)'],
+      ['2019-02-22', 'Ven. 22/02/2019', 'Outrance Belgium #1', 'Kultura — Liège'], ['2019-12-27', 'Ven. 27/12/2019', 'Outrance #37 — Psychedelic Christmas', 'Lyon'],
+      ['2025-08-09', 'Sam. 09/08/2025', 'Outrance Open Air', 'Liège — Belgique'], ['2025-12-19', 'Ven. 19/12/2025', 'Psychedelic Christmas', 'La Rayonne — Villeurbanne'],
+      ['2026-05-03', 'Dim. 03/05/2026', 'Outrance Daylight Gathering', 'La Rayonne — Villeurbanne'], ['2026-10-09', 'Ven. 09/10/2026', 'Outrance Label Night', 'Péniche Loupika — Lyon']
+    ];
+    const t0 = Date.UTC(2014, 3, 20), t1 = Date.UTC(2026, 10, 1);
+    const pos = (d) => (Date.parse(d) - t0) / (t1 - t0);
+    let ci = 0;
+    events.forEach((e, i) => { if (pos(e[0]) <= pa + 0.001) ci = i; });
+    const ce = events[ci];
+    const wave = {};
+    for (let i = 0; i < 140; i++) wave['b' + i] = 'transition: fill .2s; fill: ' + ((i + 0.5) / 140 <= pa ? '#b98bff' : '#2e2645');
+    const pv = RM ? 1 : cl((st - (STATS - 700)) / 650);
+    const er = enter(ROSTER);
+    const evd = enter(VID);
+    const pf = RM ? 1 : cl((st - (FIN - 800)) / 800);
+    const names = ['Originz', 'Rayzorks', 'Moonwave', 'Namdak', 'Klaak', 'Soul Edge', 'Kangapta', 'Marsupial', 'Rajax'];
+    const row = (dir) => 'display: flex; width: max-content; transform: translateX(' + ((dir > 0 ? -1600 : -400) + dir * st * 0.35).toFixed(1) + 'px) skewX(' + (-sk).toFixed(2) + 'deg)';
+    return {
+      ...this.orbitVals(),
+
+      onScroll: (e) => {
+        const t = e.currentTarget || e.target;
+        this._st = t.scrollTop;
+        if (!this._raf) {
+          this._raf = requestAnimationFrame(() => {
+            this._raf = 0;
+            const prev = this.state.st;
+            this.setState({ st: this._st, vel: this._st - prev });
+            clearTimeout(this._velT);
+            this._velT = setTimeout(() => this.setState({ vel: 0 }), 140);
+          });
+        }
+      },
+
+      headerStyle: 'position: absolute; top: 0; left: 0; right: 0; z-index: 10; height: 76px; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; background: rgba(10, 7, 18, ' + (cl(st / 240) * 0.86).toFixed(2) + '); backdrop-filter: blur(' + Math.round(cl(st / 240) * 14) + 'px)',
+      las: las,
+      t1: 'font-size: 200px; font-weight: 800; line-height: .9; letter-spacing: -.03em; white-space: nowrap; transform: translateX(' + (-hp * 460).toFixed(1) + 'px) skewX(' + (-sk).toFixed(2) + 'deg)',
+      t2: 'font-size: 200px; font-weight: 800; line-height: .9; letter-spacing: -.03em; white-space: nowrap; color: transparent; -webkit-text-stroke: 2px #b98bff; transform: translateX(' + (hp * 460).toFixed(1) + 'px) skewX(' + (-sk).toFixed(2) + 'deg)',
+      heroInfo: 'position: absolute; left: 50%; bottom: 96px; width: 900px; display: flex; flex-direction: column; align-items: center; gap: 16px; transform: translate(-50%, ' + lerp(40, 0, eo(cl(hp * 2))).toFixed(1) + 'px)',
+      row1: row(1), row2: row(-1),
+      names1: names.concat(names), names2: names.slice().reverse().concat(names.slice().reverse()),
+      wave: wave,
+      playhead: 'position: absolute; top: -12px; bottom: -12px; width: 2px; background: #b98bff; left: ' + (pa * 100).toFixed(2) + '%',
+      year: String(2014 + Math.floor(pa * 12.5)),
+      marks: events.map((e, i) => ({ style: 'position: absolute; bottom: -18px; width: 10px; height: 10px; border-radius: 999px; transform: translateX(-50%); transition: background .3s, transform .3s; left: ' + (pos(e[0]) * 100).toFixed(2) + '%; background: ' + (i <= ci ? '#b98bff' : '#2e2645') + '; transform: translateX(-50%) scale(' + (i === ci ? 1.6 : 1) + ')' })),
+      ev: { year: ce[0].slice(0, 4), date: ce[1], title: ce[2], venue: ce[3], next: ci === events.length - 1, past: ci !== events.length - 1 },
+      evCard: 'display: flex; align-items: center; gap: 32px; padding: 28px 32px; border-radius: 12px; background: #161022; border: 1px solid ' + (ci === events.length - 1 ? '#b98bff' : '#2e2645') + '; animation: .45s cubic-bezier(.2,.7,.2,1) both; animation-name: ' + (ci % 2 ? 'up' : 'up2'),
+      meters: [[2, 'Pays'], [7, 'Villes'], [11, 'Lieux'], [120, 'Artistes internationaux'], [150, 'Artistes locaux']].map((s, i) => {
+        const lvl = Math.log(1 + s[0]) / Math.log(151);
+        const t = eo(cl(pv * 1.4 - i * 0.08));
+        const lit = Math.round(18 * lvl * t);
+        return {
+          value: String(Math.round(s[0] * t)), label: s[1],
+          segs: Array.from({ length: 18 }, (_, j) => 'display: block; height: 14px; border-radius: 3px; transition: background .2s; background: ' + (j < lit ? (j >= 15 ? '#f4f0fb' : '#b98bff') : '#1d1430') + (j === lit - 1 ? '; animation: peak .414s ease-out infinite' : ''))
+        };
+      }),
+      orbitLeft: 'flex: 1; display: flex; flex-direction: column; gap: 22px; min-width: 0; opacity: ' + cl(er * 1.6 - 0.3).toFixed(2) + '; transform: translateY(' + lerp(60, 0, eo(cl(er * 1.4 - 0.2))).toFixed(1) + 'px)',
+      orbitWrap: 'position: relative; flex: none; width: 640px; height: 640px; opacity: ' + cl(er * 1.5 - 0.2).toFixed(2) + '; transform: translateY(' + lerp(160, 0, eo(cl(er * 1.3 - 0.1))).toFixed(1) + 'px) scale(' + lerp(0.7, 1, eo(cl(er * 1.3 - 0.1))).toFixed(3) + ')',
+      screens: [['Outrance Open Air', 1], ['Outrance 5 Years Birthday', 0], ['Outrance ॐ Kao — Arjuna, Dust', -1]].map((s) => {
+        const t = eo(cl(evd * 1.4 - 0.2));
+        const side = s[1];
+        return { title: s[0], style: 'flex: none; width: ' + (side === 0 ? 520 : 400) + 'px; transform-origin: ' + (side > 0 ? 'right' : side < 0 ? 'left' : 'center') + ' center; transform: rotateY(' + (side * lerp(65, 22, t)).toFixed(1) + 'deg) scale(' + (side === 0 ? lerp(0.75, 1, t) : 1).toFixed(3) + '); opacity: ' + cl(t * 1.3).toFixed(2) };
+      }),
+      k1: 'font-size: 150px; font-weight: 800; white-space: nowrap; transform: translateX(' + lerp(-500, 0, eo(pf)).toFixed(1) + 'px)',
+      k2: 'font-size: 150px; font-weight: 800; white-space: nowrap; color: transparent; -webkit-text-stroke: 2px #b98bff; transform: translateX(' + lerp(500, 0, eo(pf)).toFixed(1) + 'px)',
+      k3: 'font-size: 150px; font-weight: 800; white-space: nowrap; color: #b98bff; transform: translateX(' + lerp(-700, 0, eo(pf)).toFixed(1) + 'px)',
+      nlStyle: 'align-self: center; display: flex; gap: 12px; align-items: flex-end; padding: 16px; border-radius: 999px; background: #161022; border: 1px solid #2e2645; opacity: ' + cl((pf - 0.5) * 2).toFixed(2)
+    };
+
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Outrance — Accueil tablette</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0712}
+*{box-sizing:border-box}
+a{color:#b98bff}a:hover{color:#f4f0fb}
+.wrap{width:100%;max-width:1280px;margin:0 auto;padding-left:clamp(16px,4vw,48px);padding-right:clamp(16px,4vw,48px)}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+.xl{font-size:clamp(44px,7vw,96px);line-height:.92;font-weight:800;letter-spacing:-.02em}
+.l{font-size:clamp(34px,4.4vw,56px);line-height:1;font-weight:700;letter-spacing:-.01em}
+.ttl{font-family:Unbounded,"Arial Black",sans-serif;font-size:21px;line-height:1.15;font-weight:600;margin:0;text-transform:uppercase}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.3;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;font-family:Unbounded,"Arial Black",sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;white-space:nowrap;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s,color .25s}
+.btn-uv{background:#d4ff3a;color:#0a0712}.btn-uv:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(212,255,58,.16)}
+.btn-lotus{background:#b98bff;color:#0a0712}.btn-lotus:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(185,139,255,.2)}
+.btn-ghost{border:1.5px solid #73669a;color:#f4f0fb;background:transparent}.btn-ghost:hover{border-color:#b98bff;color:#f4f0fb;background:#2a1652}
+.lnk{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#b98bff;text-decoration:none}
+.lnk:hover{color:#f4f0fb}.lnk .ar{transition:transform .25s}.lnk:hover .ar{transform:translateX(5px)}
+.nav a{color:#f4f0fb;text-decoration:none;font-family:Unbounded,"Arial Black",sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 0}
+.nav a:hover{color:#b98bff}
+.icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;color:#a99fc2;transition:color .2s,background .2s}
+.icon:hover{color:#f4f0fb;background:#161022}
+.card{background:#161022;border-radius:12px;overflow:hidden;text-decoration:none;color:#f4f0fb;display:flex;flex-direction:column;border:0;padding:0;text-align:left;font:inherit;cursor:pointer;transition:background .3s,transform .3s}
+.card:hover{background:#2a1652;color:#f4f0fb;transform:translateY(-4px)}
+.card:hover .zoom{transform:scale(1.04)}
+.zoom{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.ph{position:relative;background:#120d1d;overflow:hidden;display:flex;align-items:flex-end;padding:14px}
+.chip{min-height:44px;padding:0 20px;border-radius:999px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.field{display:flex;flex-direction:column;gap:8px;flex:1 1 220px}
+.field input,.field select,.field textarea{min-height:52px;border-radius:4px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;padding:12px 16px;font:500 16px Manrope,system-ui,sans-serif}
+.field textarea{min-height:140px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#b98bff;outline:none}
+.x{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;cursor:pointer;transition:border-color .2s,transform .3s}
+.x:hover{border-color:#b98bff;transform:rotate(90deg)}
+:focus-visible{outline:2px solid #d4ff3a;outline-offset:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{opacity:.3}}
+.mandala{animation:spin 90s linear infinite;transform-origin:50% 50%}
+.mandala-rev{animation:spin 140s linear infinite reverse;transform-origin:50% 50%}
+.marquee{display:flex;width:max-content;animation:marquee 48s linear infinite}
+.marquee:hover{animation-play-state:paused}
+.reveal{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+.still .mandala,.still .mandala-rev,.still .marquee,.still .pulse,.still .reveal{animation:none}
+.past{transition:background .25s,padding .25s}.past:hover{background:#161022;padding-left:20px!important}
+.past .ar{transition:transform .25s}.past:hover .ar{transform:translateX(6px)}
+@media (prefers-reduced-motion:reduce){.mandala,.mandala-rev,.marquee,.pulse{animation:none}.reveal{animation-duration:.01s}}
+.spin{animation:spin 120s linear infinite;transform-origin:0 0}
+.pt{transform-origin:0 0;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .5s}
+.rip{transform-origin:0 0}
+.orbit{animation:spin 140s linear infinite;transform-origin:50% 50%}
+.nin{animation:spin 140s linear infinite reverse;transform-origin:50% 32px}
+.ow:hover .orbit,.ow:hover .nin,.ow:focus-within .orbit,.ow:focus-within .nin{animation-play-state:paused}
+@keyframes beat{0%{transform:scale(1.05)}30%{transform:scale(1)}100%{transform:scale(1)}}
+@keyframes ripple{0%{transform:scale(.55);opacity:.6}100%{transform:scale(1.3);opacity:0}}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes up2{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes zoom{from{transform:scale(.6);opacity:.2}to{transform:none;opacity:1}}
+@keyframes zoom2{from{transform:scale(.6);opacity:.2}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.spin,.orbit,.nin,.rip,.beat{animation:none!important}.pt{transition:none}}
+.lp{transform-origin:0 0}
+.scroller{scrollbar-width:none}.scroller::-webkit-scrollbar{display:none}
+@keyframes breathe{50%{transform:scale(1.04)}}
+@keyframes slowspin{to{transform:rotate(360deg)}}
+.breathe{animation:breathe 4.5s ease-in-out infinite;transform-origin:50% 50%}
+.slowspin{animation:slowspin 200s linear infinite;transform-origin:50% 50%}
+.spinmark{transform-origin:0 0;animation:slowspin 45s linear infinite}
+.lev-y{animation:levy 7.5s ease-in-out infinite alternate}
+.lev-x{animation:levx 13s ease-in-out infinite alternate}
+@keyframes levx{0%{transform:translateX(calc(-10px * var(--lev, 1)))}100%{transform:translateX(calc(10px * var(--lev, 1)))}}
+@keyframes levy{0%{transform:translateY(calc(-14px * var(--lev, 1)))}100%{transform:translateY(calc(14px * var(--lev, 1)))}}
+.sw-o{transform-origin:0 0;animation:swayA 9s ease-in-out infinite}
+.sw-m{transform-origin:0 0;animation:swayB 11s ease-in-out infinite}
+.sw-i{transform-origin:0 0;animation:swayA 7s ease-in-out infinite reverse}
+@keyframes swayA{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+@keyframes swayB{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-3deg)}}
+.wave{transform-origin:0 0;animation:wave 9s ease-out infinite}.wave.w2{animation-delay:-4.5s}
+@keyframes wave{0%{transform:scale(.4);opacity:0}15%{opacity:.3}100%{transform:scale(1.5);opacity:0}}
+@keyframes nudge{50%{transform:translateY(6px)}}.nudge{animation:nudge 1.8s ease-in-out infinite}
+.mote{position:absolute;bottom:-20px;animation-name:rise;animation-timing-function:linear;animation-iteration-count:infinite}
+.mote i{display:block;width:100%;height:100%;border-radius:999px;background:currentColor;animation-name:twinkle,swayx;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-direction:alternate}
+@keyframes rise{from{transform:translateY(0)}to{transform:translateY(-1300px)}}
+@keyframes twinkle{from{opacity:.12}to{opacity:.6}}
+@keyframes swayx{from{translate:-10px 0}to{translate:10px 0}}
+.drift-x{display:flex;align-items:center;width:max-content;animation:driftx 90s linear infinite}
+@keyframes driftx{to{transform:translateX(-50%)}}
+.drift-b{display:inline-block;animation:driftb 60s linear infinite}
+@keyframes driftb{to{transform:translateX(-25%)}}
+.rv{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.on .rv,.rv.on{opacity:1;transform:none}
+.trans .lp{transition:transform 1.8s cubic-bezier(.2,.7,.2,1)}
+.nbtn{background:none;border:0;padding:0;cursor:pointer;font:inherit;color:inherit}
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}.rail>*{scroll-snap-align:start;flex:none}
+.playring{position:relative;display:flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:999px;border:1.5px solid #b98bff;color:#b98bff}
+.playring::after{content:"";position:absolute;inset:-2px;border-radius:999px;border:1.5px solid #b98bff;animation:ping 2.8s cubic-bezier(.2,.7,.2,1) infinite}
+@keyframes ping{from{transform:scale(1);opacity:.6}to{transform:scale(1.7);opacity:0}}
+.burger{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:rgba(10,7,18,.6);color:#f4f0fb;cursor:pointer}
+.mnav a{opacity:0;transform:translateY(16px);transition:opacity .4s,transform .55s cubic-bezier(.2,.7,.2,1),color .2s;color:#f4f0fb;text-decoration:none}
+.mnav.on a{opacity:1;transform:none}
+.mnav a:nth-child(2){transition-delay:.05s}.mnav a:nth-child(3){transition-delay:.1s}.mnav a:nth-child(4){transition-delay:.15s}.mnav a:nth-child(5){transition-delay:.2s}.mnav a:nth-child(6){transition-delay:.25s}
+.icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;color:#a99fc2}
+@media (prefers-reduced-motion:reduce){.breathe,.slowspin,.spinmark,.lev-y,.lev-x,.sw-o,.sw-m,.sw-i,.wave,.nudge,.mote,.mote i,.drift-x,.drift-b,.playring::after{animation:none!important}.mote{display:none}.rv{opacity:1;transform:none;transition:none}.trans .lp{transition:none}}
+.amfill{clip-path:inset(0 100% 0 0);transition:clip-path 1.6s cubic-bezier(.2,.7,.2,1) .3s}.on .amfill{clip-path:inset(0 0 0 0)}
+
+</style>
+</helmet>
+<div style="position: relative; width: 834px; height: 1180px; overflow: hidden; background: #0a0712; color: #f4f0fb; font-family: Manrope, system-ui, sans-serif; font-size: 16px; line-height: 1.6">
+<div aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; pointer-events: none"><span class="mote" style="left: 61.6%; width: 3px; height: 2px; color: #f4f0fb; animation-duration: 39.9s; animation-delay: -41.5s"><i style="animation-duration: 4.3s, 7.7s"></i></span><span class="mote" style="left: 5.7%; width: 2px; height: 2px; color: #b98bff; animation-duration: 37.0s; animation-delay: -39.6s"><i style="animation-duration: 2.8s, 5.9s"></i></span><span class="mote" style="left: 26.2%; width: 3px; height: 2px; color: #b98bff; animation-duration: 35.5s; animation-delay: -0.6s"><i style="animation-duration: 3.0s, 5.1s"></i></span><span class="mote" style="left: 89.1%; width: 2px; height: 2px; color: #f4f0fb; animation-duration: 39.2s; animation-delay: -3.2s"><i style="animation-duration: 4.0s, 5.8s"></i></span><span class="mote" style="left: 15.4%; width: 2px; height: 2px; color: #b98bff; animation-duration: 39.5s; animation-delay: -42.2s"><i style="animation-duration: 2.9s, 4.7s"></i></span><span class="mote" style="left: 32.5%; width: 2px; height: 3px; color: #b98bff; animation-duration: 41.5s; animation-delay: -27.5s"><i style="animation-duration: 3.0s, 7.9s"></i></span><span class="mote" style="left: 21.5%; width: 2px; height: 2px; color: #f4f0fb; animation-duration: 24.4s; animation-delay: -18.3s"><i style="animation-duration: 4.8s, 5.1s"></i></span><span class="mote" style="left: 34.2%; width: 3px; height: 3px; color: #b98bff; animation-duration: 24.1s; animation-delay: -29.8s"><i style="animation-duration: 3.3s, 5.2s"></i></span><span class="mote" style="left: 79.9%; width: 2px; height: 3px; color: #b98bff; animation-duration: 30.3s; animation-delay: -21.2s"><i style="animation-duration: 4.3s, 4.2s"></i></span><span class="mote" style="left: 94.7%; width: 2px; height: 3px; color: #f4f0fb; animation-duration: 31.2s; animation-delay: -17.8s"><i style="animation-duration: 3.9s, 5.7s"></i></span><span class="mote" style="left: 38.4%; width: 2px; height: 2px; color: #b98bff; animation-duration: 24.9s; animation-delay: -8.0s"><i style="animation-duration: 4.9s, 4.8s"></i></span><span class="mote" style="left: 74.0%; width: 2px; height: 2px; color: #b98bff; animation-duration: 34.2s; animation-delay: -39.3s"><i style="animation-duration: 3.1s, 5.9s"></i></span></div>
+<header style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; height: 76px; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; {{headerBg}}">
+<div style="position: relative; display: flex; align-items: center; height: 40px">
+<svg aria-hidden="true" viewBox="-300 -300 600 600" width="40" height="40" style="{{markStyle}}">
+<circle r="292" fill="none" stroke="#2e2645" stroke-width="16"></circle>
+<circle class="ringp" r="292" fill="none" stroke="#b98bff" stroke-width="16" stroke-linecap="round" stroke-dasharray="1835" stroke-dashoffset="1835" transform="rotate(-90)"></circle>
+<g class="markrot"><g class="spinmark"><path d="M0.0 -96.0C25.0 -131.0 30.0 -188.5 0.0 -236.0C-30.0 -188.5 -25.0 -133.5 0.0 -96.0ZM48.0 -83.1C87.2 -100.9 120.2 -148.2 118.0 -204.4C68.3 -178.2 45.1 -128.1 48.0 -83.1ZM83.1 -48.0C125.9 -43.8 178.2 -68.3 204.4 -118.0C148.2 -120.2 103.1 -88.4 83.1 -48.0ZM96.0 -0.0C131.0 25.0 188.5 30.0 236.0 -0.0C188.5 -30.0 133.5 -25.0 96.0 -0.0ZM83.1 48.0C100.9 87.2 148.2 120.2 204.4 118.0C178.2 68.3 128.1 45.1 83.1 48.0ZM48.0 83.1C43.8 125.9 68.3 178.2 118.0 204.4C120.2 148.2 88.4 103.1 48.0 83.1ZM-0.0 96.0C-25.0 131.0 -30.0 188.5 -0.0 236.0C30.0 188.5 25.0 133.5 -0.0 96.0ZM-48.0 83.1C-87.2 100.9 -120.2 148.2 -118.0 204.4C-68.3 178.2 -45.1 128.1 -48.0 83.1ZM-83.1 48.0C-125.9 43.8 -178.2 68.3 -204.4 118.0C-148.2 120.2 -103.1 88.4 -83.1 48.0ZM-96.0 -0.0C-131.0 -25.0 -188.5 -30.0 -236.0 -0.0C-188.5 30.0 -133.5 25.0 -96.0 -0.0ZM-83.1 -48.0C-100.9 -87.2 -148.2 -120.2 -204.4 -118.0C-178.2 -68.3 -128.1 -45.1 -83.1 -48.0ZM-48.0 -83.1C-43.8 -125.9 -68.3 -178.2 -118.0 -204.4C-120.2 -148.2 -88.4 -103.1 -48.0 -83.1Z" fill="none" stroke="#b98bff" stroke-width="14"></path><path d="M1.5 -3.7C19.6 -15.0 32.8 -40.4 28.1 -67.8C5.3 -51.8 -2.8 -25.6 1.5 -3.7ZM3.7 -1.5C24.5 3.3 51.8 -5.3 67.8 -28.1C40.4 -32.8 16.1 -20.1 3.7 -1.5ZM3.7 1.5C15.0 19.6 40.4 32.8 67.8 28.1C51.8 5.3 25.6 -2.8 3.7 1.5ZM1.5 3.7C-3.3 24.5 5.3 51.8 28.1 67.8C32.8 40.4 20.1 16.1 1.5 3.7ZM-1.5 3.7C-19.6 15.0 -32.8 40.4 -28.1 67.8C-5.3 51.8 2.8 25.6 -1.5 3.7ZM-3.7 1.5C-24.5 -3.3 -51.8 5.3 -67.8 28.1C-40.4 32.8 -16.1 20.1 -3.7 1.5ZM-3.7 -1.5C-15.0 -19.6 -40.4 -32.8 -67.8 -28.1C-51.8 -5.3 -25.6 2.8 -3.7 -1.5ZM-1.5 -3.7C3.3 -24.5 -5.3 -51.8 -28.1 -67.8C-32.8 -40.4 -20.1 -16.1 -1.5 -3.7Z" fill="#b98bff"></path></g></g>
+</svg>
+<img src="/assets/logo/outrance-logo-white.png" alt="Outrance — accueil" style="{{logoStyle}}">
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<a class="btn btn-ghost" href="Evenement-tablette.dc.html" style="min-height: 44px; border-color: #b98bff; background: rgba(10, 7, 18, .6)">Billetterie</a>
+<button class="burger" type="button" onClick="{{toggleMenu}}" aria-label="{{menuLabel}}" aria-expanded="{{menuOpen}}">
+<sc-if value="{{menuOpenB}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
+<sc-if value="{{menuClosedB}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 8h16M4 16h16"></path></svg></sc-if>
+</button>
+</div>
+</header>
+<div aria-hidden="{{menuHidden}}" style="{{menuStyle}}">
+<div aria-hidden="true" style="position: absolute; right: -240px; bottom: -240px; width: 600px; height: 600px; opacity: .3; pointer-events: none"><svg class="mandala" viewBox="-300 -300 600 600" style="width: 100%; height: 100%; display: block"><g fill="none" stroke="#b98bff" stroke-width=".9"><circle r="40"></circle><circle r="100" stroke-opacity=".6"></circle><circle r="200" stroke-opacity=".4"></circle><circle r="270" stroke-opacity=".25"></circle><g stroke-opacity=".55"><ellipse cx="0" cy="-150" rx="34" ry="96"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(30)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(60)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(90)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(120)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(150)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(180)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(210)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(240)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(270)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(300)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(330)"></ellipse></g></g></svg></div>
+<nav class="mnav {{menuClass}}" aria-label="Navigation principale" style="position: relative; display: flex; flex-direction: column; padding: 32px 32px">
+<a class="disp" href="Agenda-tablette.dc.html" style="font-size: 44px; font-weight: 700; padding: 12px 0; border-bottom: 1px solid #2e2645">Agenda</a>
+<a class="disp" href="Artistes-tablette.dc.html" style="font-size: 44px; font-weight: 700; padding: 12px 0; border-bottom: 1px solid #2e2645">Artistes</a>
+<a class="disp" href="Galerie-tablette.dc.html" style="font-size: 44px; font-weight: 700; padding: 12px 0; border-bottom: 1px solid #2e2645">Galerie</a>
+<a class="disp" href="Association-tablette.dc.html" style="font-size: 44px; font-weight: 700; padding: 12px 0; border-bottom: 1px solid #2e2645">L’association</a>
+<a class="disp" href="Presse-pro.dc.html" style="font-size: 44px; font-weight: 700; padding: 12px 0; border-bottom: 1px solid #2e2645">Presse / Pro</a>
+<a class="disp" href="https://outrance.be/" style="font-size: 44px; font-weight: 700; padding: 12px 0; color: #b98bff">Belgium ↗</a>
+</nav>
+<div style="position: relative; display: flex; flex-direction: column; gap: 14px; padding: 8px 32px">
+<a class="btn btn-uv" href="Evenement-tablette.dc.html" style="min-height: 52px">Billetterie →</a>
+<div style="display: flex; justify-content: center; gap: 4px"><a class="icon" href="https://www.instagram.com/outrancelyon" aria-label="Instagram"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg></a>
+<a class="icon" href="https://www.facebook.com/OutranceParty/" aria-label="Facebook"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"></path></svg></a>
+<a class="icon" href="https://soundcloud.com/outrancelyon" aria-label="SoundCloud"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h8a3.5 3.5 0 0 0 0-7h-.4A5 5 0 0 0 10 8.2"></path><path d="M3 17v-3M5.5 17v-5M8 17v-7"></path></svg></a>
+<a class="icon" href="https://www.youtube.com/@outrance9243" aria-label="YouTube"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z"></path></svg></a></div>
+</div>
+</div>
+<div class="scroller" onScroll="{{onScroll}}" style="position: absolute; inset: 0; z-index: 1; overflow-y: auto; overflow-x: hidden">
+<section style="position: relative; height: 2300px">
+<div style="position: sticky; top: 0; height: 1180px; overflow: hidden">
+<div aria-hidden="true" style="{{haloStyle}}"><svg viewBox="-300 -300 600 600" width="1140" height="1140" style="display: block; overflow: visible"><circle class="wave" r="200" fill="none" stroke="#b98bff" stroke-width="1"></circle><circle class="wave w2" r="200" fill="none" stroke="#b98bff" stroke-width="1"></circle><g fill="none" stroke="#b98bff"><circle r="120" stroke-opacity=".18"></circle><circle r="180" stroke-opacity=".14"></circle><circle r="240" stroke-opacity=".1"></circle><circle r="296" stroke-opacity=".07"></circle></g></svg></div>
+<div style="{{heroLotusStyle}}"><div class="lev-x"><div class="lev-y"><div class="breathe"><div class="slowspin"><svg aria-hidden="true" viewBox="-300 -300 600 600" width="600" height="600" style="display: block; overflow: visible"><circle r="{{hero.r1}}" fill="none" stroke="#b98bff" stroke-opacity="{{hero.ro1}}" stroke-width="1"></circle><circle r="{{hero.r2}}" fill="none" stroke="#b98bff" stroke-opacity="{{hero.ro2}}" stroke-width="1" stroke-dasharray="2 7"></circle><circle r="{{hero.r3}}" fill="none" stroke="#b98bff" stroke-opacity="{{hero.ro3}}" stroke-width="1"></circle><g class="sw-o"><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o0}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o1}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o2}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o3}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o4}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o5}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o6}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o7}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o8}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o9}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o10}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.30" style="{{hero.o11}}"></path></g><g class="sw-m"><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m0}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m1}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m2}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m3}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m4}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m5}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m6}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m7}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m8}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m9}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m10}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.30" style="{{hero.m11}}"></path></g><g class="sw-i"><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.50" style="{{hero.i0}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.50" style="{{hero.i1}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.50" style="{{hero.i2}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.50" style="{{hero.i3}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.50" style="{{hero.i4}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.50" style="{{hero.i5}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.50" style="{{hero.i6}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.50" style="{{hero.i7}}"></path></g><circle r="{{hero.core}}" fill="#b98bff"></circle></svg></div></div></div></div></div>
+<div style="{{introStyle}}">
+<img src="/assets/logo/outrance-logo-white.png" alt="Outrance" style="display: block; width: 420px; height: auto">
+<span class="lbl" style="font-size: 12px; letter-spacing: .28em; color: #a99fc2; text-align: center">Psychedelic Events — Lyon, depuis 2014</span>
+<span class="lbl nudge" style="display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 48px; font-size: 11px; color: #b98bff">Glisse pour faire éclore<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"></path></svg></span>
+</div>
+<div style="{{eventStyle}}">
+<span class="lbl" style="color: #b98bff">Prochain événement</span>
+<p class="lbl" style="margin: 0; font-size: 14px; text-align: center">Ven. 09/10/2026 <span style="color: #b98bff">◉</span> Péniche Loupika</p>
+<h1 class="disp" style="font-size: 76px; line-height: .9; font-weight: 800; letter-spacing: -.02em; text-align: center">Outrance<br>Label Night</h1>
+<p style="margin: 0; font-size: 18px; color: #a99fc2; text-align: center"><strong style="color: #f4f0fb">Originz vs Rayzorks · Moonwave vs Namdak</strong><br>Klaak · Soul Edge · Trash Bandiroots</p>
+<div style="display: flex; flex-direction: row; gap: 10px; width: auto"><a class="btn btn-uv" href="Evenement-tablette.dc.html" style="min-height: 52px">Billetterie →</a><a class="btn btn-ghost" href="Evenement-tablette.dc.html" style="min-height: 52px; background: rgba(10, 7, 18, .5)">Line-up et infos</a></div>
+</div>
+</div>
+</section>
+<section aria-label="Artistes du roster" style="height: 110px; display: flex; align-items: center; overflow: hidden; border-top: 1px solid #2e2645; border-bottom: 1px solid #2e2645">
+<div class="drift-x">
+<sc-for list="{{marquee}}" as="m" hint-placeholder-count="24"><span class="disp" style="{{m.style}}">{{m.name}}</span><span aria-hidden="true" style="display: flex; align-items: center; height: 40px; padding: 0 30px; color: #b98bff; font-size: 16px; line-height: 1">◉</span></sc-for>
+</div>
+</section>
+<section class="{{fAg}}" style="position: relative; height: 1320px; box-sizing: border-box; padding: 96px 32px; display: flex; flex-direction: column; gap: 24px">
+<div class="rv" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px"><div style="display: flex; flex-direction: column; gap: 10px"><span class="lbl" style="color: #b98bff">Événements</span><h2 class="disp" style="font-size: 48px; line-height: 1; font-weight: 700">Agenda</h2></div><a class="lnk" href="Agenda-tablette.dc.html" style="font-size: 11px">Tout <span class="ar" aria-hidden="true">→</span></a></div>
+<a class="card rv" href="Evenement-tablette.dc.html" style="transition-delay: .12s">
+<div class="ph" style="aspect-ratio: 1920 / 1005"><svg aria-hidden="true" viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645" stroke-width="1"><circle cx="200" cy="105" r="24"></circle><circle cx="200" cy="105" r="48"></circle><circle cx="200" cy="105" r="72"></circle><circle cx="200" cy="105" r="96"></circle><circle cx="200" cy="105" r="120"></circle><circle cx="200" cy="105" r="144"></circle><circle cx="200" cy="105" r="168"></circle><circle cx="200" cy="105" r="192"></circle></g></svg><span class="lbl" style="position: relative; font-size: 10px; color: #a99fc2">[Visuel de l’événement]</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 28px">
+<span class="lbl" style="display: flex; align-items: center; gap: 10px; color: #b98bff"><span class="pulse" style="width: 8px; height: 8px; border-radius: 999px; background: #b98bff"></span>À venir</span>
+<div style="display: flex; align-items: baseline; gap: 14px"><span class="disp" style="font-size: 56px; font-weight: 800; line-height: 1; color: #b98bff">09</span><span class="lbl" style="font-size: 11px">Vendredi<br>Octobre 2026</span></div>
+<span class="ttl" style="font-size: 26px">Outrance Label Night</span>
+<span class="lbl" style="font-size: 11px; color: #a99fc2">Péniche Loupika — Lyon</span>
+</div>
+</a>
+<div class="rv" style="transition-delay: .24s">
+<sc-for list="{{past}}" as="e" hint-placeholder-count="3"><a href="Evenement-tablette.dc.html" style="display: flex; flex-direction: column; gap: 4px; padding: 14px 0; border-top: 1px solid #2e2645; color: #f4f0fb; text-decoration: none"><span class="lbl" style="font-size: 11px; color: #b98bff">{{e.date}}</span><span class="ttl" style="font-size: 18px">{{e.title}}</span><span class="lbl" style="font-size: 10px; color: #a99fc2">{{e.venue}}</span></a></sc-for>
+</div>
+</section>
+<section style="position: relative; height: 1180px; overflow: hidden">
+<div aria-hidden="true" style="{{irisStyle}}"></div>
+<div aria-hidden="true" style="{{statMandala}}"><svg class="mandala" viewBox="-300 -300 600 600" style="width: 100%; height: 100%; display: block"><g fill="none" stroke="#b98bff" stroke-width=".9"><circle r="40"></circle><circle r="100" stroke-opacity=".6"></circle><circle r="200" stroke-opacity=".4"></circle><circle r="270" stroke-opacity=".25"></circle><g stroke-opacity=".55"><ellipse cx="0" cy="-150" rx="34" ry="96"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(30)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(60)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(90)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(120)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(150)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(180)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(210)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(240)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(270)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(300)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(330)"></ellipse></g></g></svg></div>
+<div style="{{statsStyle}}">
+<span class="lbl" style="color: #b98bff; text-align: center">L’association — depuis 2014</span>
+<h2 class="disp" style="font-size: 48px; line-height: 1.02; font-weight: 700; text-align: center">Répandre la psytrance et son univers</h2>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 24px; width: 100%; padding-top: 32px">
+<sc-for list="{{stats}}" as="s" hint-placeholder-count="5"><div style="{{s.box}}"><span class="disp" style="{{s.style}}">{{s.value}}</span><span class="lbl" style="font-size: 11px; color: #a99fc2; text-align: center">{{s.label}}</span></div></sc-for>
+</div>
+<a class="lnk" href="Association-tablette.dc.html" style="margin-top: 12px">Notre histoire <span class="ar" aria-hidden="true">→</span></a>
+</div>
+</section>
+<section style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 36px; padding: 96px 32px">
+<div style="{{orbitLeft}}">
+<span class="lbl" style="color: #b98bff">Artistes</span>
+<h2 class="disp l">Le roster</h2>
+<div style="{{infoStyle}}">
+<sc-if value="{{neutral}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 18px; color: #f4f0fb">Neuf artistes gravitent autour d’Outrance. Touche-les : chacun fait éclore sa propre fleur.</p>
+<p style="margin: 0; font-size: 15px; color: #a99fc2">Plus le style est rapide, plus les pétales sont nombreux, effilés et éclatés. Et la fleur bat au tempo de l’artiste.</p>
+</sc-if>
+<sc-if value="{{picked}}" hint-placeholder-val="{{ false }}">
+<span class="lbl" style="font-size: 11px; color: #b98bff">{{cur.meta}}</span>
+<span class="disp" style="font-size: 56px; font-weight: 800; line-height: .92">{{cur.name}}</span>
+<p style="margin: 0; color: #a99fc2">{{cur.bio}}</p>
+</sc-if>
+</div>
+<div style="display: flex; align-items: center; gap: 24px">
+<a class="btn btn-lotus" href="Artistes.dc.html" style="min-height: 48px">{{cta}}</a>
+<a class="lnk" href="Artistes.dc.html#booking">Booking <span class="ar" aria-hidden="true">→</span></a>
+</div>
+</div>
+<div class="ow" style="{{orbitWrap}}">
+<svg aria-hidden="true" viewBox="-320 -320 640 640" width="640" height="640" style="position: absolute; inset: 0">
+<circle r="270" fill="none" stroke="#2e2645" stroke-width="1" stroke-dasharray="2 8"></circle>
+</svg>
+<div aria-hidden="true" style="position: absolute; left: 110px; top: 110px; width: 420px; height: 420px">
+<div class="beat" style="{{beatStyle}}">
+<svg viewBox="-300 -300 600 600" width="420" height="420" style="display: block; overflow: visible">
+<g class="spin">
+<circle class="rip" r="230" fill="none" stroke="#b98bff" stroke-width="1.5" style="{{rippleStyle}}"></circle>
+<circle r="250" fill="none" stroke="#b98bff" stroke-opacity=".18" stroke-width="1"></circle>
+<circle r="190" fill="none" stroke="#b98bff" stroke-opacity=".25" stroke-width="1" stroke-dasharray="2 7"></circle>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o0}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o1}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o2}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o3}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o4}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o5}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o6}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o7}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o8}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o9}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o10}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o11}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o12}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o13}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o14}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.3" style="{{pt.o15}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m0}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m1}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m2}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m3}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m4}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m5}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m6}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m7}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m8}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m9}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m10}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m11}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m12}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m13}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m14}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.3" style="{{pt.m15}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i0}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i1}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i2}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i3}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i4}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i5}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i6}}"></path>
+<path class="pt" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.5" style="{{pt.i7}}"></path>
+<circle r="9" fill="#b98bff" style="{{coreStyle}}"></circle>
+</g>
+</svg>
+</div>
+</div>
+<div aria-hidden="true" style="{{portraitStyle}}">
+<div style="{{portraitInner}}">
+<span class="disp" style="font-size: 76px; font-weight: 800; line-height: 1; color: transparent; -webkit-text-stroke: 1.5px #b98bff">{{cur.initial}}</span>
+<span class="lbl" style="position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font-size: 9px; color: #a99fc2">[Photo]</span>
+</div>
+</div>
+<div class="orbit" style="position: absolute; inset: 0">
+<sc-for list="{{nodes}}" as="n" hint-placeholder-count="9">
+<button class="nbtn" type="button" onClick="{{n.tap}}" aria-pressed="{{n.on}}" aria-label="{{n.name}} — {{n.meta}}" style="{{n.pos}}">
+<span class="nin" style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+<span class="disp" style="{{n.dot}}">{{n.initial}}</span>
+<span class="lbl" style="{{n.lbl}}">{{n.name}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+</div>
+</section>
+<section class="{{fAf}}" style="display: flex; flex-direction: column; gap: 24px; padding: 80px 0">
+<div class="rv" style="position: relative; padding: 0 32px"><span class="lbl" style="color: #b98bff">Galerie</span><div style="position: relative"><h2 class="disp" style="font-size: 84px; line-height: 1; font-weight: 800; color: transparent; -webkit-text-stroke: 1.2px #73669a; margin: 8px 0 0">Aftermovies</h2><h2 class="disp amfill" aria-hidden="true" style="position: absolute; left: 0; top: 0; margin: 8px 0 0; font-size: 84px; line-height: 1; font-weight: 800; color: #b98bff">Aftermovies</h2></div></div>
+<div class="rail" style="padding: 0 32px">
+<sc-for list="{{videos}}" as="v" hint-placeholder-count="5"><a class="card rv" href="Galerie-tablette.dc.html" style="{{v.style}}"><div class="ph" style="aspect-ratio: 16 / 9; align-items: center; justify-content: center"><span class="playring" aria-hidden="true"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></span></div><div style="display: flex; flex-direction: column; gap: 4px; padding: 16px 18px"><span class="ttl" style="font-size: 17px">{{v.title}}</span><span style="font-size: 14px; color: #a99fc2">{{v.text}}</span></div></a></sc-for>
+</div>
+</section>
+<section style="position: relative; overflow: hidden; padding: 80px 32px; border-top: 1px solid #2e2645; border-bottom: 1px solid #2e2645">
+<span class="disp" aria-hidden="true" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-size: 200px; font-weight: 800; line-height: 1; white-space: nowrap; color: transparent; -webkit-text-stroke: 1.2px #2e2645"><span class="drift-b">Belgium · Belgium · Belgium · Belgium · </span></span>
+<div style="position: relative; display: flex; flex-direction: column; gap: 12px"><span class="lbl" style="color: #b98bff">Depuis 2018</span><h2 class="disp" style="font-size: 44px; line-height: 1; font-weight: 700">Outrance Belgium</h2><p style="margin: 0; color: #a99fc2">Du Kultura à Liège au FFORMATT à Bruxelles : Outrance fait aussi vibrer la Belgique.</p><a class="btn btn-ghost" href="https://outrance.be/" style="align-self: flex-start; border-color: #b98bff; margin-top: 8px">outrance.be ↗</a></div>
+</section>
+<section class="{{fRe}}" style="display: flex; flex-direction: column; gap: 24px; padding: 80px 32px">
+<div class="rv" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px"><div style="display: flex; flex-direction: column; gap: 8px"><span class="lbl" style="color: #b98bff">Sur les réseaux</span><h2 class="disp" style="font-size: 36px; line-height: 1; font-weight: 700">@outrancelyon</h2></div></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{insta}}" as="t" hint-placeholder-count="6"><a class="card rv" href="https://www.instagram.com/outrancelyon" aria-label="Publication Instagram {{t.n}}" style="{{t.style}}"><div class="ph" style="aspect-ratio: 1 / 1"></div></a></sc-for>
+</div>
+<div class="rv" style="display: flex; justify-content: center; gap: 4px"><a class="icon" href="https://www.instagram.com/outrancelyon" aria-label="Instagram"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg></a>
+<a class="icon" href="https://www.facebook.com/OutranceParty/" aria-label="Facebook"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"></path></svg></a>
+<a class="icon" href="https://soundcloud.com/outrancelyon" aria-label="SoundCloud"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h8a3.5 3.5 0 0 0 0-7h-.4A5 5 0 0 0 10 8.2"></path><path d="M3 17v-3M5.5 17v-5M8 17v-7"></path></svg></a>
+<a class="icon" href="https://www.youtube.com/@outrance9243" aria-label="YouTube"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z"></path></svg></a></div>
+</section>
+<section class="{{fFi}}" style="position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; min-height: 1000px; padding: 48px 32px">
+<div aria-hidden="true" class="trans" style="position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); pointer-events: none"><div class="lev-y"><div class="breathe"><svg aria-hidden="true" viewBox="-300 -300 600 600" width="560" height="560" style="display: block; overflow: visible"><circle r="{{fin.r1}}" fill="none" stroke="#b98bff" stroke-opacity="{{fin.ro1}}" stroke-width="1"></circle><circle r="{{fin.r2}}" fill="none" stroke="#b98bff" stroke-opacity="{{fin.ro2}}" stroke-width="1" stroke-dasharray="2 7"></circle><circle r="{{fin.r3}}" fill="none" stroke="#b98bff" stroke-opacity="{{fin.ro3}}" stroke-width="1"></circle><g class="sw-o"><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o0}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o1}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o2}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o3}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o4}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o5}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o6}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o7}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o8}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o9}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o10}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#b98bff" fill-opacity=".05" stroke="#b98bff" stroke-opacity=".85" stroke-width="1.17" style="{{fin.o11}}"></path></g><g class="sw-m"><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m0}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m1}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m2}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m3}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m4}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m5}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m6}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m7}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m8}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m9}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m10}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity=".55" stroke="#b98bff" stroke-opacity=".9" stroke-width="1.17" style="{{fin.m11}}"></path></g><g class="sw-i"><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.35" style="{{fin.i0}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.35" style="{{fin.i1}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.35" style="{{fin.i2}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.35" style="{{fin.i3}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.35" style="{{fin.i4}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.35" style="{{fin.i5}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.35" style="{{fin.i6}}"></path><path class="lp" d="M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z" fill="#2a1652" fill-opacity="1" stroke="#b98bff" stroke-opacity="1" stroke-width="1.35" style="{{fin.i7}}"></path></g><circle r="{{fin.core}}" fill="#b98bff"></circle></svg></div></div></div>
+<img class="rv" src="/assets/logo/outrance-logo-white.png" alt="Outrance" style="position: relative; display: block; width: 420px; height: auto; transition-delay: .5s">
+<p class="disp rv" style="position: relative; margin: 0; font-size: 20px; font-weight: 600; letter-spacing: .04em; text-align: center; transition-delay: .65s">À très vite sur le dancefloor</p>
+<div class="rv" style="position: relative; display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 460px; padding: 20px; border-radius: 16px; background: rgba(22, 16, 34, .92); border: 1px solid #2e2645; transition-delay: .8s">
+<label class="field" style="flex: none"><span class="lbl" style="font-size: 10px; color: #a99fc2">Ton e-mail pour la prochaine date</span><input type="email"></label>
+<button class="btn btn-lotus" type="button" style="min-height: 52px">S’abonner</button>
+</div>
+</section>
+<footer style="display: flex; flex-direction: column; gap: 14px; padding: 40px 32px 28px; border-top: 1px solid #2e2645">
+<img src="/assets/logo/outrance-logo-white.png" alt="Outrance" style="display: block; width: 220px; height: auto">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; padding-top: 6px">
+<a href="mailto:contact@outrance.org" style="text-decoration: none; font-weight: 600">contact@outrance.org</a>
+<a href="mailto:booking@outrance.org" style="text-decoration: none; font-weight: 600">booking@outrance.org</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 20px; padding-top: 12px; border-top: 1px solid #2e2645">
+<a class="lbl" href="Presse-pro.dc.html" style="font-size: 10px; color: #a99fc2; text-decoration: none; padding: 10px 0">Presse / Pro</a>
+<a class="lbl" href="Mentions-legales.dc.html" style="font-size: 10px; color: #a99fc2; text-decoration: none; padding: 10px 0">Mentions légales</a>
+</div>
+<span class="lbl" style="font-size: 10px; color: #a99fc2">© 2026 Outrance — aucun cookie</span>
+</footer>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":834,"height":1180}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { st: 0, s1: 0, s2: 0, flags: 0, bg: 0, menu: false, reduce: false, cur: -1, tick: 0, nl: 'idle' };
+  }
+  componentDidMount() {
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.setState({ reduce: true });
+    } catch (e) {}
+  }
+  orbitVals() {
+    const roster = [
+      { name: 'Originz', format: 'DJset', genres: ['Psytrance', 'Forest', 'Psytech'], bio: 'Activiste de la psytrance à Lyon depuis 2014, co-fondateur d’Outrance et programmateur pour Hadra.' },
+      { name: 'Rayzorks', format: 'DJset', genres: ['Forest', 'Darkpsy'] },
+      { name: 'Moonwave', format: 'DJset', genres: ['Fullon', 'Psygroovy'] },
+      { name: 'Namdak', format: 'Live', genres: ['Psygroovy'] },
+      { name: 'Klaak', format: 'DJset', genres: ['Hitech'], bio: 'Co-fondateur de l’association, premier set chez Outrance en closing de la Psychedelic Christmas 2025.' },
+      { name: 'Soul Edge', format: 'DJset', genres: ['Psyprog', 'Fullon'] },
+      { name: 'Kangapta', format: 'DJset', genres: ['Fullon', 'Psychedelic', 'Psytechno'] },
+      { name: 'Marsupial', format: 'Live', genres: ['Progressive'] },
+      { name: 'Rajax', format: 'DJset', genres: ['Psytrance', 'Forest'] }
+    ];
+    const meta = (a) => a.format + ' ◉ ' + a.genres.join('/');
+    const bio = (a) => a.bio || 'Biographie à venir. [À compléter]';
+
+    const SIG = {
+      neutral: { n: [12, 12, 8], d: [96, 40, 4], s: [[1.25, 1.25], [0.95, 0.95], [0.62, 0.62]], twist: 0, bpm: 0, line: '' },
+      Marsupial: { n: [8, 8, 6], d: [120, 96, 78], s: [[1.55, 1.15], [1.2, 0.95], [0.8, 0.7]], twist: 0, bpm: 134, line: '≈ 134 BPM · 8 larges pétales, éclosion lente' },
+      'Soul Edge': { n: [10, 10, 6], d: [122, 96, 78], s: [[1.4, 1.2], [1.1, 0.95], [0.75, 0.7]], twist: 6, bpm: 138, line: '≈ 138 BPM · 10 pétales amples' },
+      Namdak: { n: [12, 6, 6], d: [124, 98, 78], s: [[1.25, 1.2], [1.25, 1], [0.7, 0.7]], twist: 15, bpm: 140, line: '≈ 140 BPM · 12 pétales, cœur groovy' },
+      Moonwave: { n: [12, 12, 8], d: [126, 98, 80], s: [[1.15, 1.25], [0.95, 1], [0.62, 0.7]], twist: 0, bpm: 143, line: '≈ 143 BPM · 12 pétales en double couronne' },
+      Kangapta: { n: [14, 7, 7], d: [130, 100, 80], s: [[1, 1.3], [1.2, 1.05], [0.6, 0.72]], twist: 10, bpm: 145, line: '≈ 145 BPM · 14 pétales décalés' },
+      Originz: { n: [14, 14, 8], d: [134, 102, 80], s: [[0.95, 1.32], [0.85, 1.05], [0.6, 0.72]], twist: 0, bpm: 147, line: '≈ 147 BPM · 14 pétales tendus' },
+      Rajax: { n: [16, 8, 8], d: [136, 102, 80], s: [[0.85, 1.3], [1.1, 1.05], [0.6, 0.72]], twist: 11.25, bpm: 148, line: '≈ 148 BPM · 16 pétales, forêt dense' },
+      Rayzorks: { n: [16, 16, 8], d: [146, 108, 82], s: [[0.72, 1.38], [0.7, 1.12], [0.55, 0.75]], twist: 0, bpm: 152, line: '≈ 152 BPM · 16 pétales acérés, couronnes écartées' },
+      Klaak: { n: [16, 16, 8], d: [160, 116, 84], s: [[0.5, 1.48], [0.5, 1.2], [0.5, 0.8]], twist: 22.5, bpm: 185, line: '≈ 185 BPM · 32 lames, fleur éclatée' }
+    };
+    const c = this.state.cur;
+    const a = c >= 0 ? roster[c] : null;
+    const sg = a ? SIG[a.name] : SIG.neutral;
+    const max = [16, 16, 8];
+    const keys = ['o', 'm', 'i'];
+    const pt = {};
+    keys.forEach((k, L) => {
+      const n = sg.n[L];
+      const off = L === 0 ? 0 : 180 / n;
+      for (let i = 0; i < max[L]; i++) {
+        const on = i < n;
+        const ang = ((i % n) * 360 / n + off + sg.twist).toFixed(2);
+        const sx = on ? sg.s[L][0] : 0;
+        const sy = on ? sg.s[L][1] : 0;
+        pt[k + i] = 'transform: rotate(' + ang + 'deg) translateY(' + (-sg.d[L]) + 'px) scale(' + sx + ', ' + sy + '); opacity: ' + (on ? 1 : 0) + '; transition-delay: ' + (L * 60 + i * 14) + 'ms';
+      }
+    });
+    const beat = sg.bpm ? (60 / sg.bpm).toFixed(3) + 's' : '0s';
+    const R = 270;
+    const odd = this.state.tick % 2;
+    return {
+      pt: pt,
+      neutral: !a,
+      picked: !!a,
+      cur: a ? { name: a.name, initial: a.name[0], meta: meta(a), bio: bio(a), sig: sg.line } : { name: '', initial: 'O', meta: '', bio: '', sig: '' },
+      cta: a ? 'Voir la fiche de ' + a.name : 'Découvrir le roster',
+      infoStyle: 'display: flex; flex-direction: column; gap: 10px; min-height: 230px; padding: 24px 0; border-top: 1px solid #2e2645; border-bottom: 1px solid #2e2645; animation: .5s cubic-bezier(.2,.7,.2,1) both; animation-name: ' + (odd ? 'up' : 'up2'),
+      beatStyle: 'width: 100%; height: 100%; transform-origin: 50% 50%; animation: ' + (sg.bpm ? 'beat ' + beat + ' ease-out infinite' : 'none'),
+      rippleStyle: sg.bpm ? 'animation: ripple ' + beat + ' ease-out infinite' : 'animation: none; opacity: 0',
+      coreStyle: 'transform-origin: 0 0; transition: transform .5s; transform: scale(' + (a ? 0 : 1) + ')',
+      portraitStyle: 'position: absolute; left: 320px; top: 320px; width: 150px; height: 150px; pointer-events: none; transition: transform .7s cubic-bezier(.3,1.35,.5,1), opacity .35s; transform: translate(-50%, -50%) scale(' + (a ? 1 : 0.3) + '); opacity: ' + (a ? 1 : 0),
+      portraitInner: 'position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 999px; overflow: hidden; background: #1d1430; border: 2px solid #b98bff; box-shadow: 0 0 0 8px rgba(185, 139, 255, .14); animation: .55s cubic-bezier(.3,1.35,.5,1) both; animation-name: ' + (odd ? 'zoom' : 'zoom2'),
+      reset: () => { if (this.state.cur !== -1) this.setState({ cur: -1, tick: this.state.tick + 1 }); },
+      nodes: roster.map((r, i) => {
+        const ang = (i / roster.length) * Math.PI * 2 - Math.PI / 2;
+        const x = 320 + R * Math.cos(ang);
+        const y = 320 + R * Math.sin(ang);
+        const on = i === c;
+        const dim = c >= 0 && !on;
+        return {
+          name: r.name, initial: r.name[0], meta: meta(r),
+          pick: () => { if (this.state.cur !== i) this.setState({ cur: i, tick: this.state.tick + 1 }); },
+          pos: 'position: absolute; left: ' + x.toFixed(1) + 'px; top: ' + y.toFixed(1) + 'px; transform: translate(-50%, -32px); text-decoration: none; color: #f4f0fb; z-index: ' + (on ? 2 : 1),
+          dot: 'display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 999px; font-size: 26px; font-weight: 800; transition: background .3s, color .3s, border-color .3s, box-shadow .3s, opacity .3s, transform .55s cubic-bezier(.3,1.35,.5,1); border: 2px solid ' + (on ? '#b98bff' : '#2e2645') + '; background: #1d1430; color: ' + (on ? '#f4f0fb' : '#b98bff') + '; box-shadow: 0 0 0 ' + (on ? 8 : 0) + 'px rgba(185, 139, 255, .18); opacity: ' + (dim ? 0.55 : 1) + '; transform: scale(' + (on ? 1.5 : dim ? 0.9 : 1) + ')',
+          lbl: 'font-size: 10px; white-space: nowrap; transition: color .3s, transform .4s; color: ' + (on ? '#b98bff' : '#a99fc2') + '; transform: translateY(' + (on ? 18 : 0) + 'px)'
+        };
+      })
+    };
+  }
+  renderVals() {
+
+    const st = this.state.st;
+    const RM = this.state.reduce;
+    const cl = (v) => Math.max(0, Math.min(1, v));
+    const eo = (t) => 1 - Math.pow(1 - t, 3);
+    const eio = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const VH = 900;
+    const prog = (top, len) => (RM ? 1 : cl((st - top) / len));
+    const enter = (top) => (RM ? 1 : cl((st + VH - top) / VH));
+    const lotus = (b, extra) => {
+      const o = {};
+      const seat = lerp(60, 0, b);
+      const L = [['o', 12, 0, 70, 0, 96, 0.62, 1.25], ['m', 12, 15, 48, 0, 40, 0.56, 0.95], ['i', 8, 22.5, 28, 0, 4, 0.5, 0.62]];
+      L.forEach((l) => {
+        for (let i = 0; i < l[1]; i++) {
+          const oa = ((i * 360 / l[1] + l[2] + 540) % 360) - 180;
+          const a = lerp(oa * l[3] / 360, oa, b);
+          const d = lerp(l[4], l[5], b) + (extra || 0) * (l[0] === 'o' ? 1 : l[0] === 'm' ? 0.5 : 0);
+          const s = lerp(l[6], l[7], b);
+          o[l[0] + i] = 'transform: translate(0px, ' + seat.toFixed(1) + 'px) rotate(' + a.toFixed(2) + 'deg) translateY(' + (-d).toFixed(1) + 'px) scale(' + s.toFixed(3) + ')';
+        }
+      });
+      o.r1 = lerp(70, 150, b).toFixed(1); o.r2 = lerp(80, 220, b).toFixed(1); o.r3 = lerp(90, 290, b).toFixed(1);
+      o.ro1 = (b * 0.6).toFixed(2); o.ro2 = (b * 0.35).toFixed(2); o.ro3 = (b * 0.16).toFixed(2);
+      o.core = (b * 9).toFixed(1);
+      return o;
+    };
+
+
+    const W = 834, VHd = 1180, STAGE = 1120, HERO_END = 1180;
+    const T = { AG: 2410, STATS: 3730, ROSTER: 4910, AF: 6160, RE: 7160, FI: 7975 };
+    const s1 = RM ? HERO_END : (this.state.s1 || 0);
+    const s2 = RM ? T.STATS : (this.state.s2 || 0);
+    const fl = RM ? 255 : (this.state.flags || 0);
+    const on = (b) => (fl & (1 << b) ? 'on' : '');
+    const h = cl(s1 / STAGE);
+    const bloom = RM ? 1 : eio(cl((h - 0.04) / 0.46));
+    const ev = RM ? 1 : eo(cl((h - 0.36) / 0.22));
+    const fly = RM ? 0 : eio(cl((h - 0.72) / 0.28));
+    const intro = RM ? 0 : 1 - cl(h / 0.16);
+    const mark = RM ? 1 : cl((fly - 0.9) / 0.1);
+    const slide = RM ? 1 : eo(cl((fly - 0.5) / 0.4));
+    const pc = RM ? 1 : cl((s2 - (T.STATS - VHd * 0.7)) / (VHd * 0.7));
+    const po = RM ? 0 : eio(cl((s2 - (T.STATS + 120)) / (VHd * 0.6)));
+    const names = ['Originz', 'Rayzorks', 'Moonwave', 'Namdak', 'Klaak', 'Soul Edge', 'Kangapta', 'Marsupial', 'Rajax'];
+    const ov = this.orbitVals();
+    const sticky = false;
+    return {
+      ...ov,
+      nodes: ov.nodes.map((n, i) => ({ ...n, on: this.state.cur === i ? 'true' : 'false', tap: () => this.setState({ cur: this.state.cur === i ? -1 : i, tick: this.state.tick + 1 }) })),
+      beatStyle: ov.neutral ? 'width: 100%; height: 100%; transform-origin: 50% 50%; animation: breathe 5.5s ease-in-out infinite' : ov.beatStyle,
+      onScroll: (e) => {
+        const t = e.currentTarget || e.target;
+        this._st = t.scrollTop;
+        if (this._raf) return;
+        this._raf = requestAnimationFrame(() => {
+          this._raf = 0;
+          const st = this._st;
+          const root = t.parentNode;
+          if (!this._ring || !this._ring.isConnected) { this._ring = root.querySelector('.ringp'); this._mrot = root.querySelector('.markrot'); }
+          const max = t.scrollHeight - t.clientHeight;
+          if (this._ring) this._ring.style.strokeDashoffset = (1835 * (1 - Math.min(1, st / Math.max(1, max)))).toFixed(1);
+          if (this._mrot) this._mrot.style.transform = 'rotate(' + (st * 0.12).toFixed(1) + 'deg)';
+          const a = Math.min(st, HERO_END);
+          const b = Math.max(T.STATS - VHd, Math.min(st, T.STATS + VHd));
+          let f = 0;
+          [T.AG, T.ROSTER, T.AF, T.RE, T.FI, T.STATS].forEach((top, i) => { if (st + VHd * 0.78 > top) f |= (1 << i); });
+          const bg = st > 40 ? 1 : 0;
+          const key = Math.round(a) + '|' + Math.round(b) + '|' + f + '|' + bg;
+          if (key !== this._key) { this._key = key; this.setState({ s1: a, s2: b, flags: f, bg: bg }); }
+        });
+      },
+      menuOpen: this.state.menu ? 'true' : 'false',
+      menuOpenB: !!this.state.menu,
+      menuClosedB: !this.state.menu,
+      menuHidden: this.state.menu ? 'false' : 'true',
+      menuLabel: this.state.menu ? 'Fermer le menu' : 'Ouvrir le menu',
+      menuClass: this.state.menu ? 'on' : '',
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      menuStyle: 'position: absolute; top: 76px; left: 0; right: 0; bottom: 0; z-index: 9; overflow: hidden; background: #0a0712; transition: clip-path .55s cubic-bezier(.2,.7,.2,1), visibility .55s; clip-path: inset(0 0 ' + (this.state.menu ? '0' : '100%') + ' 0); visibility: ' + (this.state.menu ? 'visible' : 'hidden'),
+      headerBg: 'transition: background .4s; background: rgba(10, 7, 18, ' + (this.state.bg || this.state.menu ? 0.9 : 0) + ')',
+      markStyle: 'position: absolute; left: 0; top: 0; display: block; transition: opacity .3s, transform .45s cubic-bezier(.3,1.4,.5,1); opacity: ' + mark.toFixed(2) + '; transform: scale(' + lerp(0.5, 1, mark).toFixed(3) + ') rotate(' + lerp(-120, 0, mark).toFixed(1) + 'deg)',
+      logoStyle: 'display: block; height: 24px; width: auto; will-change: transform; transition: transform .45s cubic-bezier(.2,.7,.2,1); transform: translateX(' + (slide * 52).toFixed(1) + 'px)',
+      hero: lotus(bloom),
+      haloStyle: 'position: absolute; left: 50%; top: 50%; pointer-events: none; transform: translate(-50%, -50%) scale(' + lerp(0.5, 1.5, h).toFixed(3) + '); opacity: ' + (1 - fly).toFixed(2),
+      heroLotusStyle: 'position: absolute; left: 50%; top: 50%; width: 600px; height: 600px; pointer-events: none; --lev: ' + (1 - ev * 0.7).toFixed(3) + '; opacity: ' + ((1 - cl((fly - 0.86) / 0.14)) * (1 - ev * 0.4 * (1 - fly))).toFixed(3) + '; transform: translate(calc(-50% + ' + (-365.0 * fly).toFixed(1) + 'px), calc(-50% + ' + (-552.0 * fly).toFixed(1) + 'px)) scale(' + lerp(1, 0.0667, fly).toFixed(4) + ') rotate(' + (h * 110).toFixed(1) + 'deg)',
+      introStyle: 'position: absolute; left: 32px; right: 32px; top: 880px; display: flex; flex-direction: column; align-items: center; gap: 14px; opacity: ' + intro.toFixed(3) + '; transform: translateY(' + (-(1 - intro) * 50).toFixed(1) + 'px); pointer-events: ' + (intro > 0.5 ? 'auto' : 'none'),
+      eventStyle: 'position: absolute; left: 32px; right: 32px; top: 50%; display: flex; flex-direction: column; align-items: center; gap: 18px; opacity: ' + ev.toFixed(3) + '; transform: translateY(calc(-50% + ' + ((1 - ev) * 40).toFixed(1) + 'px)); pointer-events: ' + (ev > 0.5 ? 'auto' : 'none'),
+      marquee: names.concat(names, names, names).map((n, i) => ({ name: n, style: 'display: block; font-size: 40px; font-weight: 800; line-height: 1; white-space: nowrap; ' + (i % 2 ? 'color: transparent; -webkit-text-stroke: 1.2px #b98bff' : 'color: #f4f0fb') })),
+      fAg: on(0), fRo: on(1), fAf: on(2), fRe: on(3), fFi: on(4),
+      past: [['Dim. 03/05/2026', 'Daylight Gathering', 'La Rayonne — Villeurbanne'], ['Ven. 19/12/2025', 'Psychedelic Christmas', 'La Rayonne — Villeurbanne'], ['Sam. 09/08/2025', 'Outrance Open Air', 'Liège — Belgique']].map((r) => ({ date: r[0], title: r[1], venue: r[2] })),
+      irisStyle: 'position: absolute; inset: 0; background: #2a1652; ' + (false ? 'transition: clip-path 1.4s cubic-bezier(.2,.7,.2,1); clip-path: circle(' + (fl & 32 ? 82 : 0) + '% at 50% 50%)' : 'clip-path: circle(' + (eo(pc) * 82 * (1 - po)).toFixed(2) + '% at 50% ' + lerp(50, 62, po).toFixed(1) + '%)'),
+      statMandala: 'position: absolute; left: 50%; top: 50%; width: 1084px; height: 1084px; pointer-events: none; opacity: ' + ((pc * (1 - po)) * 0.2).toFixed(3) + '; transform: translate(-50%, -50%) scale(' + lerp(1, 0.4, po).toFixed(3) + ')',
+      statsStyle: 'position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 0 32px; opacity: ' + ((cl(pc * 1.6) * (1 - cl((po - 0.3) / 0.45)))).toFixed(3) + '; transform: translateY(' + (po * -40).toFixed(1) + 'px)' + (false ? '; transition: opacity .9s .35s, transform 1s cubic-bezier(.2,.7,.2,1) .35s' : ''),
+      stats: [[2, 'Pays'], [7, 'Villes'], [11, 'Lieux'], [120, 'Artistes internationaux'], [150, 'Artistes locaux']].map((s, i) => {
+        const out = eio(cl(po * 1.5 - Math.abs(i - 2) * 0.12));
+        const inn = eo(cl(pc * 1.25 - i * 0.05));
+        return { value: String(Math.round(s[0] * inn)), label: s[1], box: 'display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: ' + (1 - out).toFixed(3) + '; transform: translateY(' + (out * -60).toFixed(1) + 'px) scale(' + lerp(1, 0.75, out).toFixed(3) + ')', style: 'font-size: 64px; font-weight: 800; line-height: 1; color: ' + (i > 2 ? '#b98bff' : '#f4f0fb') };
+      }),
+      orbitLeft: 'align-self: stretch; display: flex; flex-direction: column; gap: 18px; transition: opacity .8s, transform .9s cubic-bezier(.2,.7,.2,1); opacity: ' + (fl & 2 ? 1 : 0) + '; transform: translateY(' + (fl & 2 ? 0 : 40) + 'px)',
+      orbitWrap: 'position: relative; flex: none; width: 640px; height: 640px; transition: opacity .9s .15s, transform 1.4s cubic-bezier(.2,.7,.2,1) .15s; opacity: ' + (fl & 2 ? 1 : 0) + '; transform: scale(' + (fl & 2 ? 1 : 0.5) + ') rotate(' + (fl & 2 ? 0 : -120) + 'deg)',
+      videos: [['5 Years Birthday', 'Le film de nos 5 ans, par Pastek Studio.'], ['Outrance Open Air', 'Notre premier open air, 2017. Par NO7HINK.'], ['Outrance ॐ Kao — Arjuna, Dust', 'Au Ninkasi Gerland Kao. Par NO7HINK.'], ['Outrance #37', 'Ace Ventura, Antonymous, Battousai…'], ['Outrance Belgium #4', 'Première édition à Bruxelles, au FFORMATT.']].map((v, i) => ({ title: v[0], text: v[1], style: 'width: 480px; transition-delay: ' + (0.1 + i * 0.08).toFixed(2) + 's' })),
+      insta: [1, 2, 3, 4, 5, 6].map((n, i) => ({ n: n, style: 'transition-delay: ' + (0.1 + i * 0.07).toFixed(2) + 's' })),
+      fin: Object.assign(lotus(fl & 16 ? 1 : 0), { r1: '150', r2: '220', r3: '290' })
+    };
+
+  }
+}
+</script>
+</body>
+</html>

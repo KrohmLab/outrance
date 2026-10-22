@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Outrance — Galerie</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0712}
+*{box-sizing:border-box}
+a{color:#b98bff}a:hover{color:#f4f0fb}
+.wrap{width:100%;max-width:1280px;margin:0 auto;padding-left:clamp(16px,4vw,48px);padding-right:clamp(16px,4vw,48px)}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+.xl{font-size:clamp(44px,7vw,96px);line-height:.92;font-weight:800;letter-spacing:-.02em}
+.l{font-size:clamp(34px,4.4vw,56px);line-height:1;font-weight:700;letter-spacing:-.01em}
+.ttl{font-family:Unbounded,"Arial Black",sans-serif;font-size:21px;line-height:1.15;font-weight:600;margin:0;text-transform:uppercase}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;line-height:1.3;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;font-family:Unbounded,"Arial Black",sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;white-space:nowrap;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s,color .25s}
+.btn-uv{background:#d4ff3a;color:#0a0712}.btn-uv:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(212,255,58,.16)}
+.btn-lotus{background:#b98bff;color:#0a0712}.btn-lotus:hover{color:#0a0712;transform:translateY(-2px);box-shadow:0 0 0 6px rgba(185,139,255,.2)}
+.btn-ghost{border:1.5px solid #73669a;color:#f4f0fb;background:transparent}.btn-ghost:hover{border-color:#b98bff;color:#f4f0fb;background:#2a1652}
+.lnk{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#b98bff;text-decoration:none}
+.lnk:hover{color:#f4f0fb}.lnk .ar{transition:transform .25s}.lnk:hover .ar{transform:translateX(5px)}
+.nav a{color:#f4f0fb;text-decoration:none;font-family:Unbounded,"Arial Black",sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:14px 0}
+.nav a:hover{color:#b98bff}
+.icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;color:#a99fc2;transition:color .2s,background .2s}
+.icon:hover{color:#f4f0fb;background:#161022}
+.card{background:#161022;border-radius:12px;overflow:hidden;text-decoration:none;color:#f4f0fb;display:flex;flex-direction:column;border:0;padding:0;text-align:left;font:inherit;cursor:pointer;transition:background .3s,transform .3s}
+.card:hover{background:#2a1652;color:#f4f0fb;transform:translateY(-4px)}
+.card:hover .zoom{transform:scale(1.04)}
+.zoom{transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.ph{position:relative;background:#120d1d;overflow:hidden;display:flex;align-items:flex-end;padding:14px}
+.chip{min-height:44px;padding:0 20px;border-radius:999px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.field{display:flex;flex-direction:column;gap:8px;flex:1 1 220px}
+.field input,.field select,.field textarea{min-height:52px;border-radius:4px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;padding:12px 16px;font:500 16px Manrope,system-ui,sans-serif}
+.field textarea{min-height:140px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#b98bff;outline:none}
+.x{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:#0a0712;color:#f4f0fb;cursor:pointer;transition:border-color .2s,transform .3s}
+.x:hover{border-color:#b98bff;transform:rotate(90deg)}
+:focus-visible{outline:2px solid #d4ff3a;outline-offset:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{opacity:.3}}
+.mandala{animation:spin 90s linear infinite;transform-origin:50% 50%}
+.mandala-rev{animation:spin 140s linear infinite reverse;transform-origin:50% 50%}
+.marquee{display:flex;width:max-content;animation:marquee 48s linear infinite}
+.marquee:hover{animation-play-state:paused}
+.reveal{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+.pulse{animation:pulse 2.4s ease-in-out infinite}
+.still .mandala,.still .mandala-rev,.still .marquee,.still .pulse,.still .reveal{animation:none}
+.past{transition:background .25s,padding .25s}.past:hover{background:#161022;padding-left:20px!important}
+.past .ar{transition:transform .25s}.past:hover .ar{transform:translateX(6px)}
+@media (prefers-reduced-motion:reduce){.mandala,.mandala-rev,.marquee,.pulse{animation:none}.reveal{animation-duration:.01s}}
+.album{position:relative;display:flex;align-items:flex-end;overflow:hidden;border:0;padding:0;border-radius:12px;background:#120d1d;color:#f4f0fb;cursor:pointer;font:inherit}
+.album .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,7,18,.9),rgba(10,7,18,0) 60%);transition:background .4s}
+.album:hover .zoom{transform:scale(1.05)}
+.album:hover .veil{background:linear-gradient(to top,rgba(42,22,82,.92),rgba(42,22,82,.15) 70%)}
+.vcard{width:100%}
+.playb{position:relative;display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:999px;border:1.5px solid #b98bff;color:#b98bff;transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s,color .3s}
+.vcard:hover .playb{transform:scale(1.15);background:#b98bff;color:#0a0712}
+
+</style>
+</helmet>
+<div style="background: #0a0712; color: #f4f0fb; font-family: Manrope, system-ui, sans-serif; font-size: 16px; line-height: 1.6; overflow-x: clip">
+
+<header style="position: sticky; top: 0; z-index: 20; background: rgba(10, 7, 18, .86); backdrop-filter: blur(14px); border-bottom: 1px solid #2e2645">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 32px; padding-top: 16px; padding-bottom: 16px">
+<a href="Main.dc.html" style="display: flex; align-items: center; min-height: 44px"><img src="/assets/logo/outrance-logo-white.png" alt="Outrance — accueil" style="display: block; height: 26px; width: auto"></a>
+<nav class="nav" aria-label="Navigation principale" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0 28px">
+<a href="Agenda.dc.html">Agenda</a>
+<a href="Artistes.dc.html">Artistes</a>
+<a href="Galerie.dc.html" aria-current="page" style="color: #b98bff">Galerie</a>
+<a href="Association.dc.html">L’association</a>
+<a href="https://outrance.be/">Belgium ↗</a>
+</nav>
+<a class="btn btn-ghost" href="Evenement.dc.html" style="min-height: 44px; border-color: #b98bff">Billetterie</a>
+</div>
+</header>
+
+<section>
+<div class="wrap" style="display: flex; flex-direction: column; gap: 32px; padding-top: 88px; padding-bottom: 40px">
+<div style="display: flex; flex-direction: column; gap: 20px; max-width: 760px">
+<span class="lbl reveal" style="color: #b98bff">Photos et vidéos</span>
+<h1 class="disp reveal d1" style="font-size: clamp(48px, 8vw, 112px); line-height: .9; font-weight: 800; letter-spacing: -.02em">Galerie</h1>
+<p class="reveal d2" style="margin: 0; font-size: 19px; color: #a99fc2">Les nuits Outrance vues par nos photographes et vidéastes. Tu t’es reconnu ? Identifie-nous sur Instagram.</p>
+</div>
+<div role="tablist" aria-label="Type de média" style="display: flex; gap: 32px; border-bottom: 1px solid #2e2645">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+<button role="tab" type="button" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}<span class="lbl" style="font-size: 11px; color: #a99fc2; margin-left: 10px">{{t.count}}</span></button>
+</sc-for>
+</div>
+</div>
+</section>
+
+<sc-if value="{{showPhotos}}" hint-placeholder-val="{{ true }}">
+<section class="wrap" style="padding-bottom: 96px">
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 220px; gap: 16px">
+<sc-for list="{{albums}}" as="a" hint-placeholder-count="8">
+<button class="album" type="button" onClick="{{a.open}}" aria-haspopup="dialog" aria-label="Ouvrir l’album {{a.title}}" style="{{a.span}}">
+<span class="ph zoom" style="position: absolute; inset: 0; padding: 0"><svg aria-hidden="true" viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645" stroke-width="1"><circle cx="200" cy="105" r="24"></circle><circle cx="200" cy="105" r="48"></circle><circle cx="200" cy="105" r="72"></circle><circle cx="200" cy="105" r="96"></circle><circle cx="200" cy="105" r="120"></circle><circle cx="200" cy="105" r="144"></circle><circle cx="200" cy="105" r="168"></circle><circle cx="200" cy="105" r="192"></circle></g></svg></span>
+<span class="veil"></span>
+<span style="position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 20px; text-align: left">
+<span class="lbl" style="font-size: 11px; color: #b98bff">{{a.date}}</span>
+<span class="ttl" style="font-size: 18px">{{a.title}}</span>
+<span class="lbl" style="font-size: 10px; color: #a99fc2">[N] photos · Photo : [Photographe]</span>
+</span>
+</button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{showVideos}}" hint-placeholder-val="{{ false }}">
+<section class="wrap" style="padding-bottom: 96px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px">
+<sc-for list="{{videos}}" as="v" hint-placeholder-count="7">
+<button class="card vcard" type="button" onClick="{{v.open}}" aria-haspopup="dialog" aria-label="Lire {{v.title}}">
+<span class="ph zoom" style="width: 100%; aspect-ratio: 16 / 9; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645" stroke-width="1"><circle cx="200" cy="105" r="24"></circle><circle cx="200" cy="105" r="48"></circle><circle cx="200" cy="105" r="72"></circle><circle cx="200" cy="105" r="96"></circle><circle cx="200" cy="105" r="120"></circle><circle cx="200" cy="105" r="144"></circle><circle cx="200" cy="105" r="168"></circle><circle cx="200" cy="105" r="192"></circle></g></svg><span class="playb" aria-hidden="true"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></span></span>
+<span style="display: flex; flex-direction: column; gap: 8px; padding: 22px 24px 24px"><span class="ttl" style="font-size: 18px">{{v.title}}</span><span style="font-size: 15px; color: #a99fc2">{{v.text}}</span></span>
+</button>
+</sc-for>
+</div>
+</section>
+</sc-if>
+
+<footer style="border-top: 1px solid #2e2645">
+<div class="wrap" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 40px; padding-top: 64px; padding-bottom: 48px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<img src="/assets/logo/outrance-logo-white.png" alt="Outrance" style="display: block; width: 220px; max-width: 100%; height: auto">
+<span class="lbl" style="font-size: 11px; letter-spacing: .3em; color: #a99fc2">Psychedelic Events</span>
+<p style="margin: 8px 0 0; font-size: 15px; color: #a99fc2">Association loi 1901 — Lyon, et en Belgique depuis 2018.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span class="lbl" style="font-size: 11px; color: #a99fc2">Contact</span>
+<a href="mailto:contact@outrance.org" style="text-decoration: none; font-weight: 600">contact@outrance.org</a>
+<span class="lbl" style="font-size: 11px; color: #a99fc2; margin-top: 12px">Booking artistes</span>
+<a href="mailto:booking@outrance.org" style="text-decoration: none; font-weight: 600">booking@outrance.org</a>
+</div>
+<nav class="nav" aria-label="Plan du site" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; align-content: start">
+<a href="Agenda.dc.html" style="padding: 8px 0">Agenda</a>
+<a href="Artistes.dc.html" style="padding: 8px 0">Artistes</a>
+<a href="Galerie.dc.html" style="padding: 8px 0">Galerie</a>
+<a href="Association.dc.html" style="padding: 8px 0">L’association</a>
+<a href="Presse-pro.dc.html" style="padding: 8px 0">Presse / Pro</a>
+<a href="https://outrance.be/" style="padding: 8px 0">Belgium ↗</a>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span class="lbl" style="font-size: 11px; color: #a99fc2">Nous suivre</span>
+<div style="display: flex; gap: 4px; margin-left: -10px">
+<a class="icon" href="https://www.instagram.com/outrancelyon" aria-label="Instagram"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg></a>
+<a class="icon" href="https://www.facebook.com/OutranceParty/" aria-label="Facebook"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"></path></svg></a>
+<a class="icon" href="https://soundcloud.com/outrancelyon" aria-label="SoundCloud"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h8a3.5 3.5 0 0 0 0-7h-.4A5 5 0 0 0 10 8.2"></path><path d="M3 17v-3M5.5 17v-5M8 17v-7"></path></svg></a>
+<a class="icon" href="https://www.youtube.com/@outrance9243" aria-label="YouTube"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z"></path></svg></a>
+</div>
+</div>
+</div>
+<div class="wrap" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; padding-top: 20px; padding-bottom: 28px; border-top: 1px solid #2e2645">
+<span class="lbl" style="font-size: 11px; color: #a99fc2">© 2026 Outrance — Fait avec ♡ par Kévin</span>
+<span style="display: flex; flex-wrap: wrap; gap: 8px 24px">
+<a class="lbl" href="Mentions-legales.dc.html" style="font-size: 11px; color: #a99fc2; text-decoration: none">Mentions légales</a>
+<span class="lbl" style="font-size: 11px; color: #a99fc2">Ce site n’utilise aucun cookie</span>
+</span>
+</div>
+</footer>
+
+<div role="dialog" aria-modal="true" aria-label="Visionneuse photo" aria-hidden="{{photoHidden}}" style="{{photoStyle}}">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 32px">
+<span style="display: flex; flex-direction: column"><span class="lbl" style="font-size: 11px; color: #b98bff">{{album.date}}</span><span class="ttl" style="font-size: 18px">{{album.title}}</span></span>
+<span class="lbl" style="color: #a99fc2">{{counter}}</span>
+<button class="x" type="button" onClick="{{closePhoto}}" aria-label="Fermer la visionneuse"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 72px minmax(0, 1fr) 72px; align-items: center; gap: 16px; padding: 0 32px">
+<button class="x" type="button" onClick="{{prevPhoto}}" aria-label="Photo précédente"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<div style="{{frameStyle}}">
+<div class="ph" style="width: 100%; height: 100%; border-radius: 12px; align-items: center; justify-content: center"><svg aria-hidden="true" viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645" stroke-width="1"><circle cx="200" cy="105" r="24"></circle><circle cx="200" cy="105" r="48"></circle><circle cx="200" cy="105" r="72"></circle><circle cx="200" cy="105" r="96"></circle><circle cx="200" cy="105" r="120"></circle><circle cx="200" cy="105" r="144"></circle><circle cx="200" cy="105" r="168"></circle><circle cx="200" cy="105" r="192"></circle></g></svg><span class="disp" style="position: relative; font-size: 120px; font-weight: 800; color: transparent; -webkit-text-stroke: 1.5px #2e2645">{{photoNum}}</span><span class="lbl" style="position: absolute; left: 16px; bottom: 16px; font-size: 11px; color: #a99fc2">[Photo 3:2]</span></div>
+</div>
+<button class="x" type="button" onClick="{{nextPhoto}}" aria-label="Photo suivante" style="justify-self: end"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+<div style="display: flex; justify-content: center; gap: 8px; padding: 20px 32px 28px">
+<sc-for list="{{thumbs}}" as="t" hint-placeholder-count="12">
+<button type="button" onClick="{{t.pick}}" aria-label="Photo {{t.n}}" aria-current="{{t.on}}" style="{{t.style}}"></button>
+</sc-for>
+</div>
+</div>
+
+<div role="dialog" aria-modal="true" aria-label="Lecteur vidéo" aria-hidden="{{videoHidden}}" style="{{videoStyle}}">
+<div style="width: min(1120px, 100%); display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+<span style="display: flex; flex-direction: column; gap: 4px"><span class="lbl" style="font-size: 11px; color: #b98bff">Aftermovie</span><span class="ttl" style="font-size: 24px">{{video.title}}</span></span>
+<button class="x" type="button" onClick="{{closeVideo}}" aria-label="Fermer le lecteur"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<div class="ph" style="width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; align-items: center; justify-content: center; border: 1px solid #2e2645"><svg aria-hidden="true" viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#2e2645" stroke-width="1"><circle cx="200" cy="105" r="24"></circle><circle cx="200" cy="105" r="48"></circle><circle cx="200" cy="105" r="72"></circle><circle cx="200" cy="105" r="96"></circle><circle cx="200" cy="105" r="120"></circle><circle cx="200" cy="105" r="144"></circle><circle cx="200" cy="105" r="168"></circle><circle cx="200" cy="105" r="192"></circle></g></svg><span aria-hidden="true" style="position: relative; display: flex; align-items: center; justify-content: center; width: 104px; height: 104px; border-radius: 999px; background: #b98bff; color: #0a0712"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></span><span class="lbl" style="position: absolute; left: 16px; bottom: 16px; font-size: 11px; color: #a99fc2">[Lecteur YouTube intégré, sans cookie]</span></div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px"><span style="color: #a99fc2">{{video.text}}</span><a class="lnk" href="https://www.youtube.com/@outrance9243">Voir sur YouTube <span class="ar" aria-hidden="true">↗</span></a></div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: 'photos', album: -1, lastAlbum: 0, photo: 0, video: -1, lastVideo: 0 };
+  }
+  renderVals() {
+    const albums = [
+      ['Ven. 09/10/2026', 'Outrance Label Night', 'grid-column: span 2; grid-row: span 2'],
+      ['Dim. 03/05/2026', 'Daylight Gathering', 'grid-column: span 2'],
+      ['Ven. 19/12/2025', 'Psychedelic Christmas', ''],
+      ['Sam. 09/08/2025', 'Open Air — Liège', ''],
+      ['Ven. 27/12/2019', 'Outrance #37', 'grid-row: span 2'],
+      ['Ven. 22/02/2019', 'Outrance Belgium #1', 'grid-column: span 2'],
+      ['Sam. 16/09/2017', 'Outrance Open Air', ''],
+      ['Ven. 27/03/2015', 'Premier Ninkasi Kao', 'grid-column: span 2']
+    ];
+    const videos = [
+      ['Outrance 5 Years Birthday', 'Le film de nos 5 ans, signé Pastek Studio.'],
+      ['Outrance Open Air', 'Notre premier open air, en 2017. Aftermovie par NO7HINK.'],
+      ['Outrance ॐ Kao — Arjuna, Dust', 'Dust, Arjuna, Kokmok et Miss TeKiX au Ninkasi Gerland Kao. Par NO7HINK.'],
+      ['Outrance #37', 'Ace Ventura, Antonymous, Battousai, Soul Edge, Floush.'],
+      ['Outrance Belgium #4', 'Notre 4e édition en Belgique, la première à Bruxelles, au FFORMATT.'],
+      ['Outrance Belgium #3', 'Psytrance Afternoon — Outrance au USE-in.'],
+      ['Outrance ॐ Kao — Vertical Mode', 'Vertical Mode, Kali, Rabbit Fury et Yosiris au Kao.']
+    ];
+    const N = 12;
+    const s = this.state;
+    const pOpen = s.album >= 0;
+    const vOpen = s.video >= 0;
+    const al = albums[pOpen ? s.album : s.lastAlbum];
+    const vi = videos[vOpen ? s.video : s.lastVideo];
+    const ease = 'cubic-bezier(.2,.7,.2,1)';
+    const tab = (on) => 'display: flex; align-items: baseline; min-height: 56px; padding: 0; background: none; border: 0; border-bottom: 2px solid ' + (on ? '#b98bff' : 'transparent') + '; margin-bottom: -1px; color: ' + (on ? '#f4f0fb' : '#a99fc2') + '; font-family: Unbounded, sans-serif; font-size: 15px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; cursor: pointer';
+    const iris = (open) => 'transition: clip-path .7s ' + ease + ', visibility .7s; clip-path: circle(' + (open ? '150%' : '0%') + ' at 50% 50%); visibility: ' + (open ? 'visible' : 'hidden');
+    return {
+      tabs: [
+        { label: 'Photos', count: String(albums.length) + ' albums', on: s.tab === 'photos', style: tab(s.tab === 'photos'), pick: () => this.setState({ tab: 'photos' }) },
+        { label: 'Aftermovies', count: String(videos.length), on: s.tab === 'videos', style: tab(s.tab === 'videos'), pick: () => this.setState({ tab: 'videos' }) }
+      ],
+      showPhotos: s.tab === 'photos',
+      showVideos: s.tab === 'videos',
+      albums: albums.map((a, i) => ({ date: a[0], title: a[1], span: a[2], open: () => this.setState({ album: i, lastAlbum: i, photo: 0 }) })),
+      videos: videos.map((v, i) => ({ title: v[0], text: v[1], open: () => this.setState({ video: i, lastVideo: i }) })),
+      album: { date: al[0], title: al[1] },
+      counter: String(s.photo + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0'),
+      photoNum: String(s.photo + 1).padStart(2, '0'),
+      photoHidden: pOpen ? 'false' : 'true',
+      photoStyle: 'position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; background: rgba(10, 7, 18, .97); ' + iris(pOpen),
+      frameStyle: 'height: 100%; max-height: 640px; aspect-ratio: 3 / 2; justify-self: center; transition: opacity .35s, transform .5s ' + ease + '; opacity: ' + (pOpen ? 1 : 0) + '; transform: scale(' + (pOpen ? 1 : 0.92) + ')',
+      thumbs: Array.from({ length: N }, (_, i) => ({
+        n: i + 1, on: i === s.photo ? 'true' : 'false',
+        pick: () => this.setState({ photo: i }),
+        style: 'width: 56px; height: 40px; border-radius: 4px; cursor: pointer; background: #161022; transition: border-color .2s, transform .2s; border: 2px solid ' + (i === s.photo ? '#b98bff' : '#2e2645') + '; transform: translateY(' + (i === s.photo ? -4 : 0) + 'px)'
+      })),
+      prevPhoto: () => this.setState({ photo: (s.photo + N - 1) % N }),
+      nextPhoto: () => this.setState({ photo: (s.photo + 1) % N }),
+      closePhoto: () => this.setState({ album: -1 }),
+      video: { title: vi[0], text: vi[1] },
+      videoHidden: vOpen ? 'false' : 'true',
+      videoStyle: 'position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 32px; background: rgba(10, 7, 18, .96); ' + iris(vOpen),
+      closeVideo: () => this.setState({ video: -1 })
+    };
+  }
+}
+</script>
+</body>
+</html>

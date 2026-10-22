@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Outrance — Fiche événement tablette</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0712}
+*{box-sizing:border-box}
+a{color:#b98bff}a:hover{color:#f4f0fb}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:1.3;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.ttl{font-family:Unbounded,"Arial Black",sans-serif;font-size:18px;line-height:1.15;font-weight:600;margin:0;text-transform:uppercase}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font-family:Unbounded,"Arial Black",sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;white-space:nowrap}
+.btn-uv{background:#d4ff3a;color:#0a0712}.btn-uv:hover{color:#0a0712}
+.btn-ghost{border:1.5px solid #73669a;color:#f4f0fb;background:transparent}.btn-ghost:hover{color:#f4f0fb;border-color:#b98bff;background:#2a1652}
+.burger{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:transparent;color:#f4f0fb;cursor:pointer}
+.card{background:#161022;border-radius:12px;overflow:hidden;text-decoration:none;color:#f4f0fb;display:flex;flex-direction:column}
+.card:hover{color:#f4f0fb;background:#2a1652}
+.ph{position:relative;background:#120d1d;overflow:hidden;display:flex;align-items:flex-end;padding:12px}
+.info{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #3d2a6b}
+.info svg{flex:none;color:#b98bff}
+:focus-visible{outline:2px solid #d4ff3a;outline-offset:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mandala{animation:spin 120s linear infinite;transform-origin:50% 50%}
+@media (prefers-reduced-motion:reduce){.mandala{animation:none}}
+.icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;color:#a99fc2;transition:color .2s,background .2s}
+.icon:hover{color:#f4f0fb;background:#161022}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mandala{animation:spin 90s linear infinite;transform-origin:50% 50%}
+.tm a{opacity:0;transform:translateY(18px);transition:opacity .4s,transform .55s cubic-bezier(.2,.7,.2,1),color .2s}
+.tm.on a{opacity:1;transform:none}
+.tm a:nth-child(2){transition-delay:.05s}.tm a:nth-child(3){transition-delay:.1s}.tm a:nth-child(4){transition-delay:.15s}.tm a:nth-child(5){transition-delay:.2s}.tm a:nth-child(6){transition-delay:.25s}
+.tm a:hover{color:#b98bff}
+.burger{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:transparent;color:#f4f0fb;cursor:pointer;transition:border-color .2s}
+.burger:hover{border-color:#b98bff}
+</style>
+</helmet>
+<div style="position: relative; width: 834px; min-height: 3600px; background: #0a0712; color: #f4f0fb; font-family: Manrope, system-ui, sans-serif; font-size: 16px; line-height: 1.6; overflow-x: clip">
+
+<header style="position: sticky; top: 0; z-index: 31; display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 76px; padding: 0 32px; background: rgba(10, 7, 18, .92); backdrop-filter: blur(14px); border-bottom: 1px solid #2e2645">
+<a href="Accueil-tablette.dc.html" style="display: flex; align-items: center; min-height: 44px"><img src="/assets/logo/outrance-logo-white.png" alt="Outrance — accueil" style="display: block; height: 24px; width: auto"></a>
+<div style="display: flex; align-items: center; gap: 12px">
+<a class="btn btn-ghost" href="Evenement-tablette.dc.html" style="min-height: 44px; border-color: #b98bff">Billetterie</a>
+<button class="burger" type="button" onClick="{{toggleMenu}}" aria-label="{{menuLabel}}" aria-expanded="{{menuOpen}}">
+<sc-if value="{{menuOpenB}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
+<sc-if value="{{menuClosedB}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 8h16M4 16h16"></path></svg></sc-if>
+</button>
+</div>
+</header>
+<div aria-hidden="{{menuHidden}}" style="{{menuStyle}}">
+<div aria-hidden="true" style="position: absolute; right: -260px; bottom: -260px; width: 640px; height: 640px; opacity: .35; pointer-events: none"><svg class="mandala" viewBox="-300 -300 600 600" style="width: 100%; height: 100%; display: block"><g fill="none" stroke="#b98bff" stroke-width=".9"><circle r="40"></circle><circle r="100" stroke-opacity=".6"></circle><circle r="200" stroke-opacity=".4"></circle><circle r="270" stroke-opacity=".25"></circle><g stroke-opacity=".55"><ellipse cx="0" cy="-150" rx="34" ry="96"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(30)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(60)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(90)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(120)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(150)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(180)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(210)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(240)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(270)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(300)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(330)"></ellipse></g></g></svg></div>
+<div style="position: relative; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; padding: 48px 32px">
+<nav class="tm {{menuClass}}" aria-label="Navigation principale" style="display: flex; flex-direction: column">
+<a class="disp" href="Agenda-tablette.dc.html" aria-current="page" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: #b98bff; text-decoration: none; border-bottom: 1px solid #2e2645">Agenda</a>
+<a class="disp" href="Artistes-tablette.dc.html" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: inherit; text-decoration: none; border-bottom: 1px solid #2e2645">Artistes</a>
+<a class="disp" href="Galerie-tablette.dc.html" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: inherit; text-decoration: none; border-bottom: 1px solid #2e2645">Galerie</a>
+<a class="disp" href="Association-tablette.dc.html" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: inherit; text-decoration: none; border-bottom: 1px solid #2e2645">L’association</a>
+<a class="disp" href="Presse-pro.dc.html" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: inherit; text-decoration: none; border-bottom: 1px solid #2e2645">Presse / Pro</a>
+<a class="disp" href="https://outrance.be/" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: #b98bff; text-decoration: none">Belgium ↗</a>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 20px; padding-top: 12px">
+<span class="lbl" style="font-size: 11px; color: #a99fc2">Prochain événement</span>
+<span class="ttl" style="font-size: 20px">Outrance Label Night</span>
+<span class="lbl" style="font-size: 11px; color: #b98bff">Ven. 09/10/2026 ◉ Péniche Loupika</span>
+<a class="btn btn-uv" href="Evenement-tablette.dc.html" style="min-height: 52px">Billetterie →</a>
+<span class="lbl" style="font-size: 11px; color: #a99fc2; padding-top: 24px">Nous suivre</span>
+<div style="display: flex; gap: 4px; margin-left: -10px"><a class="icon" href="https://www.instagram.com/outrancelyon" aria-label="Instagram"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg></a>
+<a class="icon" href="https://www.facebook.com/OutranceParty/" aria-label="Facebook"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"></path></svg></a>
+<a class="icon" href="https://soundcloud.com/outrancelyon" aria-label="SoundCloud"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h8a3.5 3.5 0 0 0 0-7h-.4A5 5 0 0 0 10 8.2"></path><path d="M3 17v-3M5.5 17v-5M8 17v-7"></path></svg></a>
+<a class="icon" href="https://www.youtube.com/@outrance9243" aria-label="YouTube"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z"></path></svg></a></div>
+<a href="mailto:contact@outrance.org" style="font-weight: 600; text-decoration: none">contact@outrance.org</a>
+</div>
+</div>
+</div>
+
+<section style="position: relative; overflow: hidden; padding: 32px 32px 72px">
+<div aria-hidden="true" style="position: absolute; right: -380px; top: -260px; width: 900px; height: 900px; opacity: .25; pointer-events: none">
+<svg class="mandala" viewBox="-300 -300 600 600" style="width: 100%; height: 100%; display: block"><g fill="none" stroke="#b98bff" stroke-width=".8"><circle r="60"></circle><circle r="140"></circle><circle r="220"></circle><circle r="290"></circle><ellipse cx="0" cy="-160" rx="36" ry="100"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(45)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(90)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(135)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(180)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(225)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(270)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(315)"></ellipse></g></svg>
+</div>
+<p class="lbl" style="position: relative; margin: 0 0 32px; font-size: 11px; color: #a99fc2"><a href="Accueil-tablette.dc.html" style="color: #a99fc2; text-decoration: none">Agenda</a> <span aria-hidden="true">/</span> Psychedelic Christmas</p>
+<div style="position: relative; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 36px; align-items: center">
+<div class="ph" style="aspect-ratio: 4 / 5; border-radius: 12px; border: 1px solid #2e2645"><span class="lbl" style="position: relative; font-size: 10px; color: #a99fc2">[Affiche 4:5]</span></div>
+<div style="display: flex; flex-direction: column; gap: 18px">
+<p class="lbl" style="margin: 0; font-size: 13px; color: #b98bff">Ven. 19/12/2025 ◉ 23H30 – 05H00</p>
+<h1 class="disp" style="font-size: 48px; line-height: .94; font-weight: 800; letter-spacing: -.02em"><span style="display: block; font-size: 18px; letter-spacing: .04em; color: #a99fc2; margin-bottom: 10px">Outrance</span>Psychedelic Christmas</h1>
+<p class="lbl" style="margin: 0">La Rayonne — Villeurbanne</p>
+<p style="margin: 0; font-size: 17px; color: #a99fc2">La Psychedelic Christmas renaît des limbes pour illuminer la nuit d’hiver, pour la première fois sous le sapin de La Rayonne.</p>
+</div>
+</div>
+<div id="billetterie" style="position: relative; display: flex; gap: 12px; padding-top: 32px">
+<a class="btn btn-uv" href="https://shotgun.live/fr/events/outrance-psychedelic-christmas" style="flex: 1">Billetterie Shotgun <span aria-hidden="true">↗</span></a>
+<a class="btn btn-ghost" href="#" style="flex: 1">Ajouter à l’agenda</a>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 40px; padding: 72px 32px; border-top: 1px solid #2e2645">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<span class="lbl" style="color: #b98bff">Description</span>
+<p style="margin: 0; font-size: 20px; line-height: 1.5">Depuis près de 10 ans, la Psychedelic Christmas se veut la réunion de fin d’année de tous les amoureux de psytrance sérieuse, sombre, intensément psychédélique. Cette année ne manquera pas à la règle, avec une déclinaison de styles plus profonds, aux enclins de la dark, à tous les BPM.</p>
+<p style="margin: 0; font-size: 17px; color: #a99fc2">Nous accueillerons Hypogeo, grand maître de la dark prog de chez Zenon Records. Avec lui, nul autre que Rawar, icône de la darkpsy signé chez Osom Music. Krauzer de MVR ouvrira en psytech et dark prog, et Agop, espoir montant de la scène française, viendra défendre son set psygroovy.</p>
+<p style="margin: 0; font-size: 17px; color: #a99fc2">Et l’étoile sur le sapin : Klaak d’Outrance, co-fondateur de l’association, pour un closing hitech — tradition oblige. À la déco, Aktopasa Production fait son retour.</p>
+</div>
+<aside aria-label="Infos pratiques" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; padding: 28px 32px; border-radius: 12px; background: #2a1652">
+<h2 class="disp" style="grid-column: 1 / -1; font-size: 17px; font-weight: 700; letter-spacing: .04em; margin-bottom: 8px">Infos pratiques</h2>
+<div class="info"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"></rect><path d="M3.5 10h17M8 3v4M16 3v4"></path></svg><span>Vendredi 19 décembre 2025</span></div>
+<div class="info"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg><span>23h30 – 05h00</span></div>
+<div class="info"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5a2 2 0 0 0 0 4v3.5h16v-3.5a2 2 0 0 1 0-4V5H4z"></path></svg><span>Tarif à venir</span></div>
+<div class="info"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"></path><circle cx="12" cy="10" r="2.3"></circle></svg><span>La Rayonne — Villeurbanne</span></div>
+<div class="info" style="border-bottom: 0"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M6 6l12 12"></path></svg><span>Mineurs non autorisés</span></div>
+<div class="info" style="border-bottom: 0"><a href="#" style="font-weight: 600">Voir l’itinéraire →</a></div>
+</aside>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 32px; padding: 72px 32px; border-top: 1px solid #2e2645">
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 12px"><span class="lbl" style="color: #b98bff">Line-up</span><h2 class="disp" style="font-size: 44px; line-height: 1; font-weight: 700">Artistes</h2></div>
+<span class="lbl" style="font-size: 11px; color: #a99fc2">Déco : Aktopasa Production</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+<sc-for list="{{lineup}}" as="a" hint-placeholder-count="5">
+<a class="card" href="Artistes-tablette.dc.html">
+<div class="ph" style="aspect-ratio: 4 / 5"><span class="lbl" style="position: relative; font-size: 10px; color: #a99fc2">[Photo]</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 16px 18px 18px">
+<span class="ttl" style="font-size: 16px">{{a.name}}</span>
+<span class="lbl" style="font-size: 10px; color: #b98bff">{{a.genre}}</span>
+<span class="lbl" style="font-size: 10px; color: #a99fc2">{{a.label}}</span>
+</div>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="margin: 0 32px 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 32px; border-radius: 12px; background: #161022">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h2 class="disp" style="font-size: 24px; line-height: 1.05; font-weight: 700">Ne rate pas la prochaine</h2>
+<p style="margin: 0; color: #a99fc2">Line-up et ouverture de billetterie : tout arrive d’abord dans la newsletter.</p>
+</div>
+<a class="btn btn-ghost" href="Accueil-tablette.dc.html#newsletter" style="border-color: #b98bff">Je m’inscris</a>
+</section>
+
+<footer style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 28px 32px; border-top: 1px solid #2e2645">
+<img src="/assets/logo/outrance-logo-white.png" alt="Outrance" style="display: block; width: 150px; height: auto">
+<span style="display: flex; gap: 20px"><a href="mailto:contact@outrance.org" style="text-decoration: none; font-weight: 600; font-size: 15px">contact@outrance.org</a><a href="mailto:booking@outrance.org" style="text-decoration: none; font-weight: 600; font-size: 15px">booking@outrance.org</a></span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":834,"height":3600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { menu: false };
+  }
+  renderVals() {
+    return {
+      menuOpen: this.state.menu ? 'true' : 'false',
+      menuOpenB: !!this.state.menu,
+      menuClosedB: !this.state.menu,
+      menuHidden: this.state.menu ? 'false' : 'true',
+      menuLabel: this.state.menu ? 'Fermer le menu' : 'Ouvrir le menu',
+      menuClass: this.state.menu ? 'on' : '',
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      menuStyle: 'position: fixed; top: 76px; left: 0; z-index: 30; width: 834px; height: calc(100vh - 76px); min-height: 820px; overflow: hidden; background: #0a0712; transition: clip-path .55s cubic-bezier(.2,.7,.2,1), visibility .55s; clip-path: inset(0 0 ' + (this.state.menu ? '0' : '100%') + ' 0); visibility: ' + (this.state.menu ? 'visible' : 'hidden'),
+      lineup: [
+        { name: 'Hypogeo', genre: 'Live ◉ Darkprog', label: 'Zenon Records' },
+        { name: 'Rawar', genre: 'Live ◉ Darkpsy', label: 'Osom Music' },
+        { name: 'Krauzer', genre: 'DJset ◉ Psytech/Darkprog', label: 'MVR' },
+        { name: 'Agop', genre: 'DJset ◉ Groovy psytrance', label: 'Espoir de la scène française' },
+        { name: 'Klaak', genre: 'DJset ◉ Hitech', label: 'Outrance — closing' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

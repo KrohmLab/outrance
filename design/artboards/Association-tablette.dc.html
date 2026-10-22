@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Outrance — L’association tablette</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0712}
+*{box-sizing:border-box}
+a{color:#b98bff}a:hover{color:#f4f0fb}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+.lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;line-height:1.3;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.ttl{font-family:Unbounded,"Arial Black",sans-serif;font-size:18px;line-height:1.15;font-weight:600;margin:0;text-transform:uppercase}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font-family:Unbounded,"Arial Black",sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;white-space:nowrap}
+.btn-ghost{border:1.5px solid #73669a;color:#f4f0fb;background:transparent}.btn-ghost:hover{color:#f4f0fb;border-color:#b98bff;background:#2a1652}
+.burger{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:transparent;color:#f4f0fb;cursor:pointer}
+.card{background:#161022;border-radius:12px;overflow:hidden;text-decoration:none;color:#f4f0fb;display:flex;flex-direction:column}
+.card:hover{color:#f4f0fb;background:#2a1652}
+.ph{position:relative;background:#120d1d;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 32px}
+.rail>*{scroll-snap-align:start;flex:none}
+.member{display:flex;align-items:center;gap:14px;padding:16px;border-radius:12px;background:#161022}
+:focus-visible{outline:2px solid #d4ff3a;outline-offset:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mandala{animation:spin 100s linear infinite;transform-origin:50% 50%}
+@media (prefers-reduced-motion:reduce){.mandala{animation:none}}
+.icon{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;color:#a99fc2;transition:color .2s,background .2s}
+.icon:hover{color:#f4f0fb;background:#161022}
+.disp{font-family:Unbounded,"Arial Black",sans-serif;text-transform:uppercase;margin:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.mandala{animation:spin 90s linear infinite;transform-origin:50% 50%}
+.tm a{opacity:0;transform:translateY(18px);transition:opacity .4s,transform .55s cubic-bezier(.2,.7,.2,1),color .2s}
+.tm.on a{opacity:1;transform:none}
+.tm a:nth-child(2){transition-delay:.05s}.tm a:nth-child(3){transition-delay:.1s}.tm a:nth-child(4){transition-delay:.15s}.tm a:nth-child(5){transition-delay:.2s}.tm a:nth-child(6){transition-delay:.25s}
+.tm a:hover{color:#b98bff}
+.burger{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:999px;border:1.5px solid #73669a;background:transparent;color:#f4f0fb;cursor:pointer;transition:border-color .2s}
+.burger:hover{border-color:#b98bff}
+</style>
+</helmet>
+<div style="position: relative; width: 834px; min-height: 3300px; background: #0a0712; color: #f4f0fb; font-family: Manrope, system-ui, sans-serif; font-size: 16px; line-height: 1.6; overflow-x: clip">
+
+<header style="position: sticky; top: 0; z-index: 31; display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 76px; padding: 0 32px; background: rgba(10, 7, 18, .92); backdrop-filter: blur(14px); border-bottom: 1px solid #2e2645">
+<a href="Accueil-tablette.dc.html" style="display: flex; align-items: center; min-height: 44px"><img src="/assets/logo/outrance-logo-white.png" alt="Outrance — accueil" style="display: block; height: 24px; width: auto"></a>
+<div style="display: flex; align-items: center; gap: 12px">
+<a class="btn btn-ghost" href="Evenement-tablette.dc.html" style="min-height: 44px; border-color: #b98bff">Billetterie</a>
+<button class="burger" type="button" onClick="{{toggleMenu}}" aria-label="{{menuLabel}}" aria-expanded="{{menuOpen}}">
+<sc-if value="{{menuOpenB}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></sc-if>
+<sc-if value="{{menuClosedB}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 8h16M4 16h16"></path></svg></sc-if>
+</button>
+</div>
+</header>
+<div aria-hidden="{{menuHidden}}" style="{{menuStyle}}">
+<div aria-hidden="true" style="position: absolute; right: -260px; bottom: -260px; width: 640px; height: 640px; opacity: .35; pointer-events: none"><svg class="mandala" viewBox="-300 -300 600 600" style="width: 100%; height: 100%; display: block"><g fill="none" stroke="#b98bff" stroke-width=".9"><circle r="40"></circle><circle r="100" stroke-opacity=".6"></circle><circle r="200" stroke-opacity=".4"></circle><circle r="270" stroke-opacity=".25"></circle><g stroke-opacity=".55"><ellipse cx="0" cy="-150" rx="34" ry="96"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(30)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(60)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(90)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(120)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(150)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(180)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(210)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(240)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(270)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(300)"></ellipse><ellipse cx="0" cy="-150" rx="34" ry="96" transform="rotate(330)"></ellipse></g></g></svg></div>
+<div style="position: relative; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; padding: 48px 32px">
+<nav class="tm {{menuClass}}" aria-label="Navigation principale" style="display: flex; flex-direction: column">
+<a class="disp" href="Agenda-tablette.dc.html" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: inherit; text-decoration: none; border-bottom: 1px solid #2e2645">Agenda</a>
+<a class="disp" href="Artistes-tablette.dc.html" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: inherit; text-decoration: none; border-bottom: 1px solid #2e2645">Artistes</a>
+<a class="disp" href="Galerie-tablette.dc.html" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: inherit; text-decoration: none; border-bottom: 1px solid #2e2645">Galerie</a>
+<a class="disp" href="Association-tablette.dc.html" aria-current="page" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: #b98bff; text-decoration: none; border-bottom: 1px solid #2e2645">L’association</a>
+<a class="disp" href="Presse-pro.dc.html" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: inherit; text-decoration: none; border-bottom: 1px solid #2e2645">Presse / Pro</a>
+<a class="disp" href="https://outrance.be/" style="font-size: 44px; font-weight: 700; line-height: 1.1; padding: 10px 0; color: #b98bff; text-decoration: none">Belgium ↗</a>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 20px; padding-top: 12px">
+<span class="lbl" style="font-size: 11px; color: #a99fc2">Prochain événement</span>
+<span class="ttl" style="font-size: 20px">Outrance Label Night</span>
+<span class="lbl" style="font-size: 11px; color: #b98bff">Ven. 09/10/2026 ◉ Péniche Loupika</span>
+<a class="btn btn-uv" href="Evenement-tablette.dc.html" style="min-height: 52px">Billetterie →</a>
+<span class="lbl" style="font-size: 11px; color: #a99fc2; padding-top: 24px">Nous suivre</span>
+<div style="display: flex; gap: 4px; margin-left: -10px"><a class="icon" href="https://www.instagram.com/outrancelyon" aria-label="Instagram"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6"></circle></svg></a>
+<a class="icon" href="https://www.facebook.com/OutranceParty/" aria-label="Facebook"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"></path></svg></a>
+<a class="icon" href="https://soundcloud.com/outrancelyon" aria-label="SoundCloud"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h8a3.5 3.5 0 0 0 0-7h-.4A5 5 0 0 0 10 8.2"></path><path d="M3 17v-3M5.5 17v-5M8 17v-7"></path></svg></a>
+<a class="icon" href="https://www.youtube.com/@outrance9243" aria-label="YouTube"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z"></path></svg></a></div>
+<a href="mailto:contact@outrance.org" style="font-weight: 600; text-decoration: none">contact@outrance.org</a>
+</div>
+</div>
+</div>
+
+<section style="position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 22px; padding: 80px 32px">
+<div aria-hidden="true" style="position: absolute; right: -300px; top: -160px; width: 700px; height: 700px; opacity: .5; pointer-events: none">
+<svg class="mandala" viewBox="-300 -300 600 600" style="width: 100%; height: 100%; display: block"><g fill="none" stroke="#b98bff" stroke-width=".9"><circle r="44"></circle><circle r="110" stroke-opacity=".6"></circle><circle r="210" stroke-opacity=".35"></circle><circle r="280" stroke-opacity=".2"></circle><g stroke-opacity=".5"><ellipse cx="0" cy="-160" rx="36" ry="100"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(40)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(80)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(120)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(160)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(200)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(240)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(280)"></ellipse><ellipse cx="0" cy="-160" rx="36" ry="100" transform="rotate(320)"></ellipse></g></g></svg>
+</div>
+<span class="lbl" style="position: relative; color: #b98bff">Notre histoire depuis 2014</span>
+<h1 class="disp" style="position: relative; font-size: 68px; line-height: .92; font-weight: 800; letter-spacing: -.02em">L’association<br>Outrance</h1>
+<p style="position: relative; margin: 0; max-width: 640px; font-size: 19px">Le projet Outrance est né en avril 2014 d’une envie commune de deux passionnés de musique électronique : partager une culture qui leur est chère, la psytrance.</p>
+<p style="position: relative; margin: 0; max-width: 640px; font-size: 17px; color: #a99fc2">D’abord bénévoles au sein de l’association Tapage Nocturne, dont nous sommes devenus la branche psytrance, nous avons vite voulu créer nos propres événements. Aujourd’hui association loi 1901 à part entière, Outrance investit de grands lieux lyonnais et accueille les plus grands artistes internationaux.</p>
+</section>
+
+<section style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; padding: 56px 32px; background: #2a1652">
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="disp" style="font-size: 52px; font-weight: 800; line-height: 1">2</span><span class="lbl" style="font-size: 11px; color: #a99fc2">Pays</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="disp" style="font-size: 52px; font-weight: 800; line-height: 1">7</span><span class="lbl" style="font-size: 11px; color: #a99fc2">Villes</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="disp" style="font-size: 52px; font-weight: 800; line-height: 1">11</span><span class="lbl" style="font-size: 11px; color: #a99fc2">Lieux</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="disp" style="font-size: 52px; font-weight: 800; line-height: 1; color: #b98bff">120</span><span class="lbl" style="font-size: 11px; color: #a99fc2">Artistes internationaux</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="disp" style="font-size: 52px; font-weight: 800; line-height: 1; color: #b98bff">150</span><span class="lbl" style="font-size: 11px; color: #a99fc2">Artistes locaux</span></div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 36px; padding: 80px 32px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span class="lbl" style="color: #b98bff">Les grandes étapes</span>
+<h2 class="disp" style="font-size: 40px; line-height: 1; font-weight: 700">De Lyon à la Belgique</h2>
+</div>
+<ol style="list-style: none; margin: 0 0 0 8px; padding: 0 0 0 28px; border-left: 1.5px solid #2e2645; display: flex; flex-direction: column; gap: 32px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+<li style="position: relative; display: flex; flex-direction: column; gap: 6px">
+<span aria-hidden="true" style="position: absolute; left: -37px; top: 3px; width: 16px; height: 16px; border-radius: 999px; background: #0a0712; border: 2px solid #b98bff"></span>
+<span class="lbl" style="color: #b98bff">{{s.date}}</span>
+<span class="ttl">{{s.title}}</span>
+<span style="color: #a99fc2">{{s.text}}</span>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 32px; padding: 80px 32px; border-top: 1px solid #2e2645">
+<div style="display: flex; flex-direction: column; gap: 12px"><span class="lbl" style="color: #b98bff">Contacts</span><h2 class="disp" style="font-size: 40px; line-height: 1; font-weight: 700">L’équipe</h2></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{team}}" as="m" hint-placeholder-count="8">
+<div class="member">
+<span class="disp" aria-hidden="true" style="flex: none; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; background: #2a1652; color: #b98bff; font-size: 18px; font-weight: 800">{{m.initial}}</span>
+<span style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span class="ttl" style="font-size: 15px">{{m.name}}</span>
+<span style="font-size: 13px; line-height: 1.4; color: #a99fc2">{{m.role}}</span>
+<a href="mailto:{{m.email}}" style="font-size: 13px; font-weight: 600; text-decoration: none">{{m.email}}</a>
+</span>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; gap: 40px">
+<span style="display: flex; flex-direction: column; gap: 4px"><span class="lbl" style="font-size: 10px; color: #a99fc2">Contact</span><a href="mailto:contact@outrance.org" style="font-family: Unbounded, sans-serif; font-size: 16px; font-weight: 600; text-decoration: none">contact@outrance.org</a></span>
+<span style="display: flex; flex-direction: column; gap: 4px"><span class="lbl" style="font-size: 10px; color: #a99fc2">Booking</span><a href="mailto:booking@outrance.org" style="font-family: Unbounded, sans-serif; font-size: 16px; font-weight: 600; text-decoration: none">booking@outrance.org</a></span>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 28px; padding: 80px 0; border-top: 1px solid #2e2645">
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 0 32px"><span class="lbl" style="color: #b98bff">En images</span><h2 class="disp" style="font-size: 40px; line-height: 1; font-weight: 700">Aftermovies</h2></div>
+<div class="rail">
+<sc-for list="{{videos}}" as="v" hint-placeholder-count="3">
+<a class="card" href="#" style="width: 340px">
+<div class="ph" style="aspect-ratio: 16 / 9"><span aria-hidden="true" style="display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 999px; border: 1.5px solid #b98bff; color: #b98bff"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg></span></div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 20px"><span class="ttl" style="font-size: 15px">{{v.title}}</span><span style="font-size: 14px; line-height: 1.5; color: #a99fc2">{{v.text}}</span></div>
+</a>
+</sc-for>
+</div>
+</section>
+
+<footer style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 28px 32px; border-top: 1px solid #2e2645">
+<img src="/assets/logo/outrance-logo-white.png" alt="Outrance" style="display: block; width: 150px; height: auto">
+<span class="lbl" style="font-size: 10px; color: #a99fc2">© 2026 Outrance — Fait avec ♡ par Kévin</span>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":834,"height":3300}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { menu: false };
+  }
+  renderVals() {
+    return {
+      menuOpen: this.state.menu ? 'true' : 'false',
+      menuOpenB: !!this.state.menu,
+      menuClosedB: !this.state.menu,
+      menuHidden: this.state.menu ? 'false' : 'true',
+      menuLabel: this.state.menu ? 'Fermer le menu' : 'Ouvrir le menu',
+      menuClass: this.state.menu ? 'on' : '',
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      menuStyle: 'position: fixed; top: 76px; left: 0; z-index: 30; width: 834px; height: calc(100vh - 76px); min-height: 820px; overflow: hidden; background: #0a0712; transition: clip-path .55s cubic-bezier(.2,.7,.2,1), visibility .55s; clip-path: inset(0 0 ' + (this.state.menu ? '0' : '100%') + ' 0); visibility: ' + (this.state.menu ? 'visible' : 'hidden'),
+      steps: [
+        { date: '09 mai 2014', title: 'Outrance #1', text: 'Notre premier événement au Petit Salon, avec Groove Inspektorz aux commandes.' },
+        { date: '27 mars 2015', title: 'Premier Ninkasi Kao', text: 'Hors des murs du LPS, dans la mythique salle du Ninkasi Kao, avec Azax Syndrom.' },
+        { date: '17 avril 2017', title: 'Carte blanche Reperkusound #12', text: 'La Moon Stage du festival Reperkusound, au Double Mixte.' },
+        { date: '16 septembre 2017', title: 'Outrance Open Air', text: 'Notre premier événement en plein air, à Châtillon-la-Palud (01).' },
+        { date: '22 février 2019', title: 'Outrance Belgium #1', text: 'Premier événement en Belgique, au Kultura à Liège.' }
+      ],
+      team: [
+        { initial: 'R', name: 'Raphael', role: 'Président / fondateur', email: 'raphael@outrance.org' },
+        { initial: 'K', name: 'Kevin', role: 'Fondateur / web & shop', email: 'kevin@outrance.org' },
+        { initial: 'S', name: 'Stan', role: 'Directeur Outrance Belgique', email: 'stan@outrance.org' },
+        { initial: 'W', name: 'William', role: 'Programmation & roster', email: 'william@outrance.org' },
+        { initial: 'N', name: 'Nicolas', role: 'Logistique & coordination', email: 'nico@outrance.org' },
+        { initial: 'C', name: 'Charlotte', role: 'Communication & bénévoles', email: 'charlotte@outrance.org' },
+        { initial: 'C', name: 'Charly', role: 'Sécurité & logistique', email: 'charly@outrance.org' },
+        { initial: 'A', name: 'Arnaud', role: 'Membre du CA', email: 'arno@outrance.org' }
+      ],
+      videos: [
+        { title: 'Outrance Open Air', text: 'Notre premier open air de 2017, par NO7HINK.' },
+        { title: 'Outrance ॐ Kao — Arjuna, Dust', text: 'Au Ninkasi Gerland Kao, par NO7HINK.' },
+        { title: 'Outrance #37', text: 'Ace Ventura, Antonymous, Battousai, Soul Edge, Floush.' },
+        { title: 'Outrance Belgium #4', text: 'Première édition à Bruxelles, au FFORMATT.' },
+        { title: '5 Years Birthday', text: 'Le film de nos 5 ans, signé Pastek Studio.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

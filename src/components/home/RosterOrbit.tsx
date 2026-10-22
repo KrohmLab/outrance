@@ -1,8 +1,10 @@
-import { useState, type CSSProperties } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { Link } from "react-router";
 import type { MotionLevel } from "../../lib/useMotionLevel";
 import { Reveal } from "../Reveal";
 import { PETAL } from "./Lotus";
+import { clamp01, easeOut, lerp } from "./motion-math";
+import { usePageScroll } from "./usePageScroll";
 import { NEUTRAL, ORBIT_ORDER, SIGNATURES } from "./signatures";
 
 // Orbite du roster (orbitVals() de Main.dc.html) : chaque artiste fait éclore sa propre fleur, qui bat
@@ -76,6 +78,23 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
   const [hovered, setHovered] = useState<string | null>(null);
   const current = ordered.find((a) => a.slug === (hovered ?? picked)) ?? null;
   const mouse = level === "full";
+  const sectionRef = useRef<HTMLElement>(null);
+  const spinRef = useRef<HTMLDivElement>(null);
+
+  // Entrée liée au scroll (orbitWrap de Main.dc.html) : l’orbite tourne de −120° à 0° et grandit
+  // de 45 % à 100 % pendant que la section arrive à l’écran. Desktop uniquement.
+  usePageScroll(
+    sectionRef,
+    (st, top, vh) => {
+      const el = spinRef.current;
+      if (!el) return;
+      const er = clamp01((st + vh - top) / vh);
+      const t = easeOut(clamp01(er * 1.3 - 0.1));
+      el.style.opacity = clamp01(er * 1.5 - 0.2).toFixed(3);
+      el.style.transform = `scale(${lerp(0.45, 1, t).toFixed(3)}) rotate(${lerp(-120, 0, t).toFixed(1)}deg)`;
+    },
+    mouse,
+  );
   const toggle = (slug: string) => setPicked((p) => (p === slug ? null : slug));
 
   const info = (
@@ -127,7 +146,7 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
   );
 
   return (
-    <section aria-labelledby="home-roster" className="relative overflow-hidden py-16 sm:py-24 lg:flex lg:min-h-[100vh] lg:items-center">
+    <section ref={sectionRef} aria-labelledby="home-roster" className="relative overflow-hidden py-16 sm:py-24 lg:flex lg:min-h-[100vh] lg:items-center">
       <div className="wrap flex flex-col items-center gap-10 lg:flex-row lg:gap-14">
         <Reveal className="flex w-full min-w-0 flex-1 flex-col gap-5 lg:gap-[22px]">
           <span className="lbl text-lotus">Artistes</span>
@@ -140,6 +159,7 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
 
         {/* Tablette et desktop : l’orbite. */}
         <Reveal delay={150} className="orbit-wrap relative hidden size-[560px] flex-none sm:block lg:size-[640px]">
+          <div ref={spinRef} className="absolute inset-0">
           <svg aria-hidden="true" viewBox="-320 -320 640 640" className="absolute inset-0 size-full">
             <circle r="270" fill="none" stroke="var(--color-line)" strokeWidth="1" strokeDasharray="2 8" />
           </svg>
@@ -188,6 +208,7 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
               );
             })}
           </ul>
+          </div>
         </Reveal>
 
         {/* Mobile : la fleur, puis un rail d’artistes au toucher. */}

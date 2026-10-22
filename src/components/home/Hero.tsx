@@ -188,7 +188,7 @@ export function Hero({ event, upcoming, level }: Props) {
             <img src={logoUrl} alt="Outrance" width={1600} height={233} className="block h-auto w-[min(300px,78vw)] sm:w-[440px] lg:w-[560px]" />
           </h1>
           <span className="lbl text-[11px] tracking-[0.32em] text-ink-muted sm:text-[13px]">
-            {site.tagline} — Lyon &amp; Belgium
+            {site.tagline} — Lyon &amp; Belgium since {site.association.founded.slice(0, 4)}
           </span>
           <span className="lbl nudge mt-6 flex flex-col items-center gap-1.5 text-[11px] text-lotus sm:mt-14">
             Scrolle pour faire éclore

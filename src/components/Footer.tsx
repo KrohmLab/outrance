@@ -18,19 +18,19 @@ export function Footer() {
           className="block h-auto w-[240px]"
         />
         <span className="lbl text-[10px] tracking-[0.3em] text-ink-muted">{site.tagline}</span>
-        <a href={`mailto:${site.emails.contact}`} className="pt-2 font-semibold no-underline">
+        <a href={`mailto:${site.emails.contact}`} className="inline-flex min-h-11 w-fit items-center font-semibold no-underline">
           {site.emails.contact}
         </a>
         <SocialLinks className="-ml-2.5" />
         <div className="flex flex-wrap gap-x-5 gap-y-1 border-t border-line pt-3">
-          <Link to="/presse-pro" className="lbl py-2.5 text-[10px] text-ink-muted! no-underline">
+          <Link to="/presse-pro" className="lbl inline-flex min-h-11 items-center text-[11px] text-ink-muted! no-underline">
             Presse / Pro
           </Link>
-          <Link to="/mentions-legales" className="lbl py-2.5 text-[10px] text-ink-muted! no-underline">
+          <Link to="/mentions-legales" className="lbl inline-flex min-h-11 items-center text-[11px] text-ink-muted! no-underline">
             Mentions légales
           </Link>
         </div>
-        <span className="lbl text-[10px] text-ink-muted">© {YEAR} Outrance — aucun cookie</span>
+        <span className="lbl text-[11px] text-ink-muted">© {YEAR} Outrance — aucun cookie</span>
       </div>
 
       {/* Tablette et desktop (Page-404, Agenda-tablette). */}
@@ -47,17 +47,17 @@ export function Footer() {
             />
             <span className="lbl text-[11px] tracking-[0.3em] text-ink-muted">{site.tagline}</span>
             <p className="mt-2 mb-0 text-[15px] text-ink-muted">
-              {site.association.legalForm} — Lyon, et en Belgique depuis {site.association.belgiumSince}.
+              {site.association.legalForm} — {site.association.city}, et en Belgique depuis {site.association.belgiumSince}.
             </p>
           </div>
 
           <div className="flex flex-col gap-1.5">
             <span className="lbl text-[11px] text-ink-muted">Contact</span>
-            <a href={`mailto:${site.emails.contact}`} className="font-semibold no-underline">
+            <a href={`mailto:${site.emails.contact}`} className="inline-flex min-h-11 w-fit items-center font-semibold no-underline">
               {site.emails.contact}
             </a>
-            <span className="lbl mt-3 text-[11px] text-ink-muted">Booking artistes</span>
-            <a href={`mailto:${site.emails.booking}`} className="font-semibold no-underline">
+            <span className="lbl mt-2 text-[11px] text-ink-muted">Booking artistes</span>
+            <a href={`mailto:${site.emails.booking}`} className="inline-flex min-h-11 w-fit items-center font-semibold no-underline">
               {site.emails.booking}
             </a>
           </div>
@@ -65,11 +65,11 @@ export function Footer() {
           <nav aria-label="Plan du site" className="grid grid-cols-2 content-start gap-x-6">
             {footerNav.map((item) =>
               item.external ? (
-                <a key={item.href} href={item.href} className="nav-link py-2!">
+                <a key={item.href} href={item.href} className="nav-link inline-flex min-h-11 items-center py-0!">
                   {item.label} <span aria-hidden="true">↗</span>
                 </a>
               ) : (
-                <Link key={item.href} to={item.href} className="nav-link py-2!" prefetch="intent">
+                <Link key={item.href} to={item.href} className="nav-link inline-flex min-h-11 items-center py-0!" prefetch="intent">
                   {item.label}
                 </Link>
               ),
@@ -82,18 +82,20 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="wrap flex flex-wrap justify-between gap-x-8 gap-y-3 border-t border-line pt-5 pb-7">
+        <div className="wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-1 border-t border-line pt-3 pb-5">
           <span className="lbl text-[11px] text-ink-muted">
             © {YEAR} Outrance —{" "}
-            <a href={site.footer.creditUrl} className="text-ink-muted! no-underline hover:text-ink!">
+            <a href={site.footer.creditUrl} className="inline-flex min-h-11 items-center text-ink-muted! no-underline hover:text-ink!">
               {site.footer.credit}
             </a>
           </span>
-          <span className="flex flex-wrap gap-x-6 gap-y-2">
-            <Link to="/mentions-legales" className="lbl text-[11px] text-ink-muted! no-underline">
+          <span className="flex flex-wrap gap-x-6">
+            <Link to="/mentions-legales" className="lbl inline-flex min-h-11 items-center text-[11px] text-ink-muted! no-underline">
               Mentions légales
             </Link>
-            <span className="lbl text-[11px] text-ink-muted">Ce site n’utilise aucun cookie</span>
+            <Link to="/mentions-legales#cookies" className="lbl inline-flex min-h-11 items-center text-[11px] text-ink-muted! no-underline">
+              Ce site n’utilise aucun cookie
+            </Link>
           </span>
         </div>
       </div>

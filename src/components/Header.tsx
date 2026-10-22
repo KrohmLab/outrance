@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
-import { logoUrl, nav, ticketingHref } from "../site";
+import { useTicketingHref } from "../lib/featured";
+import { logoUrl, nav } from "../site";
 import { BurgerIcon, CloseIcon } from "./icons";
 import { MobileMenu } from "./MobileMenu";
 
@@ -9,6 +10,7 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const ticketingHref = useTicketingHref();
 
   return (
     <>
@@ -42,9 +44,10 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2.5">
-            <a className="btn btn-ghost hidden min-h-11 border-lotus! sm:inline-flex" href={ticketingHref}>
+            {/* Le brand book garde BILLETTERIE visible en mobile et en tablette. */}
+            <Link className="btn btn-ghost min-h-11 border-lotus! px-4 sm:px-6" to={ticketingHref} prefetch="intent">
               Billetterie
-            </a>
+            </Link>
             <button
               ref={burgerRef}
               type="button"

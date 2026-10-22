@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { LotusBloom } from "../components/LotusBloom";
 import { Mandala } from "../components/Mandala";
+import { Newsletter } from "../components/Newsletter";
 import { site } from "../site";
 import type { Route } from "./+types/home";
 
@@ -17,7 +18,7 @@ export default function Home() {
         aria-hidden="true"
         className="pointer-events-none absolute -top-[300px] -right-[300px] size-[900px] opacity-35"
       >
-        <Mandala className="animate-spin-slow" />
+        <Mandala />
       </div>
       <div className="wrap relative grid min-h-[calc(100svh-68px)] grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-center gap-12 py-16 sm:py-24">
         <div className="flex flex-col gap-6">
@@ -38,6 +39,9 @@ export default function Home() {
         <div className="w-[min(100%,460px)] justify-self-center">
           <LotusBloom open />
         </div>
+      </div>
+      <div className="wrap relative pb-16 sm:pb-24">
+        <Newsletter id="newsletter" />
       </div>
     </section>
   );

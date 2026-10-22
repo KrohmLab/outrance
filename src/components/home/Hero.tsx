@@ -145,16 +145,21 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
         <Motes count={MOTE_COUNT[level]} />
 
         {/* Halo, ondes et cercles concentriques. */}
-        <div aria-hidden="true" ref={haloRef} className="pointer-events-none absolute top-1/2 left-1/2" style={{ transform: "translate(-50%, -50%) scale(.5)" }}>
+        {/* Au-dessus du voile de chargement : ses cercles naissent du bouton au premier battement. */}
+        <div aria-hidden="true" ref={haloRef} className="pointer-events-none absolute top-1/2 left-1/2 z-[15]" style={{ transform: "translate(-50%, -50%) scale(.5)" }}>
           <div className="par" style={{ transform: "translate(calc(var(--mx, 0) * -62px * var(--damp, 1)), calc(var(--my, 0) * -47px * var(--damp, 1)))" }}>
             <svg viewBox="-300 -300 600 600" className="block size-[700px] overflow-visible sm:size-[1100px] lg:size-[1400px]">
               <circle className="wave" r="200" fill="none" stroke="var(--color-lotus)" strokeWidth="1" />
               <circle className="wave w2" r="200" fill="none" stroke="var(--color-lotus)" strokeWidth="1" />
               <g fill="none" stroke="var(--color-lotus)">
-                <circle r="120" strokeOpacity=".18" />
-                <circle r="180" strokeOpacity=".14" />
-                <circle r="240" strokeOpacity=".1" />
-                <circle r="296" strokeOpacity=".07" />
+                {[
+                  [120, 0.18],
+                  [180, 0.14],
+                  [240, 0.1],
+                  [296, 0.07],
+                ].map(([r, o], i) => (
+                  <circle key={r} className="halo-ring" r={r} strokeOpacity={o} style={{ "--i": i } as CSSProperties} />
+                ))}
               </g>
             </svg>
           </div>
@@ -184,11 +189,6 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
                     <div className="slowspin size-full">
                       <Lotus />
                     </div>
-                    {intro && (
-                      <svg viewBox="-300 -300 600 600" className="absolute inset-0 size-full overflow-visible">
-                        <circle className="home-intro-wave" cx="0" cy="40" r="60" fill="none" stroke="var(--color-lotus)" strokeWidth="1.2" />
-                      </svg>
-                    )}
                   </div>
                 </div>
               </div>

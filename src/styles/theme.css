@@ -847,11 +847,6 @@
 .home-intro .lotus-core {
   animation: loader-core 0.7s 0.75s ease-out forwards;
 }
-.home-intro-wave {
-  transform-origin: 0 40px;
-  opacity: 0;
-  animation: loader-wave 0.8s 0.85s ease-out forwards;
-}
 }
 html:has(.home-intro) [data-home-header] {
   opacity: 0;
@@ -867,9 +862,10 @@ html:has(.home-intro) [data-home-header] {
   35% { transform: scale(1.6); }
   100% { transform: scale(0); }
 }
-@keyframes loader-wave {
-  0% { transform: scale(0.6); opacity: 0.7; }
-  100% { transform: scale(3.2); opacity: 0; }
+/* Les cercles du hero naissent du bouton et s’écartent en cascade jusqu’à leur place de repos. */
+@keyframes loader-ring {
+  from { transform: scale(0.12); opacity: 0; }
+  to { transform: none; opacity: 1; }
 }
 @keyframes loader-iris {
   from { clip-path: circle(150% at 50% 50%); }
@@ -877,12 +873,15 @@ html:has(.home-intro) [data-home-header] {
 }
 @keyframes loader-header { to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
-  .home-intro-veil,
-  .home-intro-wave { display: none; }
+  .home-intro-veil { display: none; }
   html:has(.home-intro) [data-home-header] { opacity: 1; animation: none; }
 }
 /* Pendant le chargement, les textes du hero restent cachés puis apparaissent avec l’ouverture de l’iris. */
 @media (prefers-reduced-motion: no-preference) {
+  .home-intro .halo-ring {
+    transform-origin: 0 0;
+    animation: loader-ring 1.1s calc(0.8s + var(--i) * 0.12s) var(--ease-nuit) both;
+  }
   .home-intro .hero-text {
     opacity: 0;
     animation: loader-header 0.5s 1.25s ease-out forwards;

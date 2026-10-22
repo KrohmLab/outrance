@@ -3,11 +3,10 @@ import { Link } from "react-router";
 import { LotusBloom } from "../components/LotusBloom";
 import { site } from "../site";
 import type { Route } from "./+types/not-found";
+import { pageMeta } from "../lib/seo";
 
-export const meta: Route.MetaFunction = () => [
-  { title: `Page introuvable — ${site.name}` },
-  { name: "robots", content: "noindex" },
-];
+export const meta: Route.MetaFunction = () =>
+  pageMeta({ title: `Page introuvable — ${site.name}`, description: site.metaDescription, path: "/404", noindex: true });
 
 export default function NotFound() {
   const [open, setOpen] = useState(false);

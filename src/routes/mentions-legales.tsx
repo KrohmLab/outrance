@@ -3,6 +3,7 @@ import { LegalToc, type TocItem } from "../components/legal/LegalToc";
 import { aftermovies, galerie, legal, site } from "../content/load.server";
 import { site as clientSite } from "../site";
 import type { Route } from "./+types/mentions-legales";
+import { pageMeta } from "../lib/seo";
 
 const unique = (values: (string | null)[]) => [...new Set(values.filter((v): v is string => Boolean(v)))];
 
@@ -23,18 +24,12 @@ export function loader() {
   };
 }
 
-export const meta: Route.MetaFunction = () => {
-  const title = `Mentions légales — ${clientSite.name}`;
-  const description = "Mentions légales du site d’Outrance : éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.";
-  return [
-    { title },
-    { name: "description", content: description },
-    { property: "og:title", content: title },
-    { property: "og:description", content: description },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: `${clientSite.url}/mentions-legales` },
-  ];
-};
+export const meta: Route.MetaFunction = () =>
+  pageMeta({
+    title: `Mentions légales — ${clientSite.name}`,
+    description: "Mentions légales du site d’Outrance : éditeur, hébergement, propriété intellectuelle, données personnelles et cookies.",
+    path: "/mentions-legales",
+  });
 
 // Ids repris de la maquette (la redirection /politique-de-cookies-ue/ vise #cookies).
 const TOC: TocItem[] = [

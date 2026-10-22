@@ -16,10 +16,21 @@ import { useMotionLevel } from "../lib/useMotionLevel";
 import { useNow } from "../lib/useNow";
 import { site } from "../site";
 import type { Route } from "./+types/home";
+import { pageMeta } from "../lib/seo";
 
 export const meta: Route.MetaFunction = () => [
-  { title: `${site.name} — ${site.tagline}` },
-  { name: "description", content: site.metaDescription },
+  ...pageMeta({ title: `${site.name} — ${site.tagline}`, description: site.metaDescription, path: "/" }),
+  {
+    "script:ld+json": {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+      logo: `${site.url}/og/outrance.png`,
+      email: site.emails.contact,
+      sameAs: [site.socials.instagram, site.socials.facebook, site.socials.soundcloud, site.socials.youtube],
+    },
+  },
 ];
 
 export function loader() {

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Hero, type HeroEvent } from "../components/home/Hero";
-import { HomeLoader } from "../components/home/HomeLoader";
+import { useHomeIntro } from "../components/home/useHomeIntro";
 import { HomeAgenda } from "../components/home/HomeAgenda";
 import { RosterMarquee } from "../components/home/RosterMarquee";
 import { RosterOrbit } from "../components/home/RosterOrbit";
@@ -54,11 +54,11 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const featured = featuredEvent(loaderData.events, now);
   const past = loaderData.events.filter((e) => !isUpcoming(e, now) && e.slug !== featured?.event.slug).slice(0, 3);
   useMouseEffects(rootRef, level === "full");
+  const intro = useHomeIntro();
 
   return (
-    <div ref={rootRef} data-motion={level} className="relative">
-      <HomeLoader />
-      <Hero event={featured?.event ?? null} upcoming={featured?.upcoming ?? false} level={level} />
+    <div ref={rootRef} data-motion={level} className={`relative ${intro ? "home-intro" : ""}`}>
+      <Hero event={featured?.event ?? null} upcoming={featured?.upcoming ?? false} level={level} intro={intro} />
       <RosterMarquee names={loaderData.roster.map((a) => a.name)} level={level} />
       <HomeAgenda featured={featured?.event ?? null} upcoming={featured?.upcoming ?? false} past={past} />
       <StatsIris stats={loaderData.stats} founded={loaderData.founded} level={level} />

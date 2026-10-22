@@ -20,7 +20,13 @@ export type HeroEvent = Pick<
   "slug" | "title" | "titlePrefix" | "date" | "venue" | "city" | "ticketUrl" | "ticketStatus"
 > & { lineup: LineupItem[] };
 
-type Props = { event: HeroEvent | null; upcoming: boolean; level: MotionLevel };
+type Props = {
+  event: HeroEvent | null;
+  upcoming: boolean;
+  level: MotionLevel;
+  /** Premier chargement de la page : voile nuit sous le lotus, qui se dessine puis s’ouvre en iris. */
+  intro?: boolean;
+};
 
 function splitTitle(e: HeroEvent): [string | null, string] {
   if (e.titlePrefix) return [e.titlePrefix, e.title];
@@ -28,7 +34,7 @@ function splitTitle(e: HeroEvent): [string | null, string] {
   return m ? [m[1] ?? null, m[2] ?? e.title] : [null, e.title];
 }
 
-export function Hero({ event, upcoming, level }: Props) {
+export function Hero({ event, upcoming, level, intro = false }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const lotusRef = useRef<HTMLDivElement>(null);
   const haloRef = useRef<HTMLDivElement>(null);
@@ -154,11 +160,14 @@ export function Hero({ event, upcoming, level }: Props) {
           </div>
         </div>
 
+        {/* Écran de chargement : voile nuit qui se referme en iris sous le lotus du hero (le même lotus). */}
+        {intro && <div aria-hidden="true" className="home-intro-veil pointer-events-none absolute inset-0 z-10 bg-nuit" />}
+
         {/* Le lotus : bouton → fleur → jauge du header. */}
         <div
           ref={lotusRef}
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 left-1/2 size-[340px] sm:size-[600px] lg:size-[760px]"
+          className="pointer-events-none absolute top-1/2 left-1/2 z-20 size-[340px] sm:size-[600px] lg:size-[760px]"
           style={{ transform: "translate(-50%, -50%)", "--b": 0 } as CSSProperties}
         >
           <div
@@ -171,10 +180,15 @@ export function Hero({ event, upcoming, level }: Props) {
             <div className="lev-x size-full">
               <div className="lev-y size-full">
                 <div className="lev-tilt size-full">
-                  <div className="breathe size-full">
+                  <div className="breathe relative size-full">
                     <div className="slowspin size-full">
                       <Lotus />
                     </div>
+                    {intro && (
+                      <svg viewBox="-300 -300 600 600" className="absolute inset-0 size-full overflow-visible">
+                        <circle className="home-intro-wave" cx="0" cy="40" r="60" fill="none" stroke="var(--color-lotus)" strokeWidth="1.2" />
+                      </svg>
+                    )}
                   </div>
                 </div>
               </div>

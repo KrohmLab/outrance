@@ -23,8 +23,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0a0712" />
-        {/* Les apparitions au scroll ne masquent le contenu que si le JavaScript s’exécute. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* Sans JavaScript, les éléments à apparition restent visibles. */}
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
         <Meta />
         <Links />
       </head>

@@ -2,6 +2,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "outrance",
   "compatibility_date": "2026-10-01",
+  // Adresse provisoire *.workers.dev et URL de preview par branche / PR (Workers Builds).
+  "workers_dev": true,
+  "preview_urls": true,
   // Site statique pré-rendu par React Router : pas de script Worker, uniquement des assets.
   "assets": {
     "directory": "./build/client",

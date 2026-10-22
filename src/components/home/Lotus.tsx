@@ -82,6 +82,7 @@ export function Lotus({ className = "", style }: Props) {
                   <path
                     className="lotus-tip"
                     d={PETAL}
+                    pathLength={1}
                     fill={c.fill}
                     fillOpacity={c.fillOpacity}
                     stroke="var(--color-lotus)"

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Hero, type HeroEvent } from "../components/home/Hero";
+import { HomeLoader } from "../components/home/HomeLoader";
 import { HomeAgenda } from "../components/home/HomeAgenda";
 import { RosterMarquee } from "../components/home/RosterMarquee";
 import { RosterOrbit } from "../components/home/RosterOrbit";
@@ -56,6 +57,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <div ref={rootRef} data-motion={level} className="relative">
+      <HomeLoader />
       <Hero event={featured?.event ?? null} upcoming={featured?.upcoming ?? false} level={level} />
       <RosterMarquee names={loaderData.roster.map((a) => a.name)} level={level} />
       <HomeAgenda featured={featured?.event ?? null} upcoming={featured?.upcoming ?? false} past={past} />

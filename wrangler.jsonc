@@ -5,6 +5,8 @@
   // Adresse provisoire *.workers.dev et URL de preview par branche / PR (Workers Builds).
   "workers_dev": true,
   "preview_urls": true,
+  // Requis par `wrangler preview` (Worker Previews, commande de preview des branches dans Workers Builds).
+  "previews": {},
   // Site statique pré-rendu par React Router : pas de script Worker, uniquement des assets.
   "assets": {
     "directory": "./build/client",

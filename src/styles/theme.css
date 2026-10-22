@@ -228,6 +228,183 @@
   .nav-link[aria-current="page"] {
     color: var(--color-lotus);
   }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--color-border);
+    background: transparent;
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      color 0.2s,
+      border-color 0.2s;
+  }
+  .chip:hover {
+    border-color: var(--color-lotus);
+  }
+  .chip-on {
+    background: var(--color-lotus);
+    border-color: var(--color-lotus);
+    color: var(--color-nuit);
+  }
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0;
+    margin-bottom: -1px;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    color: var(--color-ink-muted);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      color 0.2s,
+      border-color 0.2s;
+  }
+  @media (min-width: 640px) {
+    .tab {
+      min-height: 56px;
+      font-size: 15px;
+    }
+  }
+  .tab:hover {
+    color: var(--color-ink);
+  }
+  .tab-on {
+    color: var(--color-ink);
+    border-bottom-color: var(--color-lotus);
+  }
+  /* Carte : nuit-raised, passe sur lotus-deep, monte de 4px et zoome son visuel de 4 % au survol. */
+  .card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--color-nuit-raised);
+    color: var(--color-ink);
+    text-decoration: none;
+    text-align: left;
+    transition:
+      background 0.3s,
+      transform 0.3s;
+  }
+  .card:hover {
+    background: var(--color-lotus-deep);
+    color: var(--color-ink);
+  }
+  @media (hover: hover) {
+    .card:hover {
+      transform: translateY(-4px);
+    }
+  }
+  .zoom {
+    transition: transform 0.7s var(--ease-nuit);
+  }
+  .card:hover .zoom {
+    transform: scale(1.04);
+  }
+  /* Bouton rond (fermer, précédent, suivant). Seule la croix pivote au survol. */
+  .round-btn {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--color-border);
+    background: var(--color-nuit);
+    color: var(--color-ink);
+    cursor: pointer;
+    transition:
+      border-color 0.2s,
+      transform 0.3s;
+  }
+  .round-btn:hover {
+    border-color: var(--color-lotus);
+  }
+  .round-btn-close:hover {
+    transform: rotate(90deg);
+  }
+  /* Item des menus contextuels (agenda, partage). */
+  .menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 44px;
+    width: 100%;
+    padding: 0 14px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-ink);
+    font: 600 15px var(--font-sans);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .menu-item:hover,
+  .menu-item:focus-visible {
+    background: var(--color-lotus-deep);
+    color: var(--color-ink);
+  }
+  /* Champs de formulaire : bordure lotus au focus, contour uv conservé au clavier. */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .field-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+  .field:focus-within .field-label {
+    color: var(--color-lotus);
+  }
+  .field-control {
+    min-height: 52px;
+    width: 100%;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--color-border);
+    background: var(--color-nuit);
+    color: var(--color-ink);
+    padding: 12px 16px;
+    font: 500 16px var(--font-sans);
+  }
+  .field-control:focus {
+    border-color: var(--color-lotus);
+  }
+  .field-control[aria-invalid="true"] {
+    border-color: var(--color-ember);
+  }
+  .field-control:disabled {
+    opacity: 0.6;
+  }
+  textarea.field-control {
+    min-height: 140px;
+    resize: vertical;
+  }
   .burger {
     display: flex;
     align-items: center;
@@ -285,7 +462,42 @@
 .menu-links > a:nth-child(5) { transition-delay: 0.2s; }
 .menu-links > a:nth-child(6) { transition-delay: 0.25s; }
 
+/* Apparition : fondu + 24px, 600 ms, cascade de 80 ms (brand book). */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reveal {
+  animation: rise 0.6s var(--ease-nuit) both;
+}
+.reveal-d1 { animation-delay: 0.08s; }
+.reveal-d2 { animation-delay: 0.16s; }
+.reveal-d3 { animation-delay: 0.24s; }
+/* Apparition au scroll, une seule fois (<Reveal>). Sans JavaScript, une règle <noscript> les affiche. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s var(--ease-nuit),
+    transform 0.6s var(--ease-nuit);
+  transition-delay: var(--reveal-delay, 0s);
+}
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
   *,
   *::before,
   *::after {
@@ -294,5 +506,106 @@
     transition-duration: 0.01ms !important;
     transition-delay: 0s !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Notification : depuis le bas, remontée au-dessus de la barre de billetterie collante si besoin. */
+.toast {
+  bottom: calc(32px + var(--toast-offset, 0px) + env(safe-area-inset-bottom));
+  opacity: 0;
+  transform: translate(-50%, 20px);
+  transition:
+    opacity 0.3s,
+    transform 0.4s var(--ease-nuit);
+}
+.toast[data-visible] {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.popover {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-6px) scale(0.97);
+  transform-origin: top left;
+  transition:
+    opacity 0.2s,
+    transform 0.3s var(--ease-nuit),
+    visibility 0.3s;
+}
+.popover[data-open] {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.2s,
+    transform 0.3s var(--ease-nuit),
+    visibility 0s;
+}
+
+.iris {
+  visibility: hidden;
+  clip-path: circle(0% at 50% 50%);
+  transition:
+    clip-path 0.7s var(--ease-nuit),
+    visibility 0.7s;
+}
+.iris[data-open] {
+  visibility: visible;
+  clip-path: circle(150% at 50% 50%);
+  transition:
+    clip-path 0.7s var(--ease-nuit),
+    visibility 0s;
+}
+.iris-content {
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity 0.35s,
+    transform 0.5s var(--ease-nuit);
+}
+.iris[data-open] .iris-content {
+  opacity: 1;
+  transform: none;
+}
+
+/* Fiche artiste : fond qui s’assombrit, panneau du bas (mobile) ou latéral (≥ 640px). */
+.artist-overlay {
+  visibility: hidden;
+  transition: visibility 0.55s;
+}
+.artist-overlay[data-open] {
+  visibility: visible;
+  transition: visibility 0s;
+}
+.artist-backdrop {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.artist-overlay[data-open] .artist-backdrop {
+  opacity: 1;
+}
+.artist-panel {
+  transform: translateY(105%);
+  transition: transform 0.45s cubic-bezier(0.3, 1.25, 0.5, 1);
+}
+.artist-overlay[data-open] .artist-panel {
+  transform: none;
+}
+.artist-content {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s 0.15s,
+    transform 0.6s 0.15s var(--ease-nuit);
+}
+.artist-overlay[data-open] .artist-content {
+  opacity: 1;
+  transform: none;
+}
+@media (min-width: 640px) {
+  .artist-panel {
+    transform: translateX(104%);
+    transition: transform 0.55s var(--ease-nuit);
   }
 }

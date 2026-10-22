@@ -2,19 +2,31 @@ import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration }
 import type { Route } from "./+types/root";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { ToastProvider } from "./components/Toast";
+import { events } from "./content/load.server";
+import { toSummary } from "./lib/featured";
+import { buildTime } from "./lib/useNow";
 import "./styles/theme.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
 ];
 
+export async function loader() {
+  return { events: events.map(toSummary) };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr">
+    <html lang="fr" data-build-time={buildTime}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0a0712" />
+        {/* Sans JavaScript, les éléments à apparition restent visibles. */}
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
         <Meta />
         <Links />
       </head>
@@ -29,7 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <>
+    <ToastProvider>
       <a
         href="#contenu"
         className="btn btn-lotus fixed top-3 left-3 z-50 -translate-y-24 focus-visible:translate-y-0"
@@ -41,7 +53,7 @@ export default function App() {
         <Outlet />
       </main>
       <Footer />
-    </>
+    </ToastProvider>
   );
 }
 

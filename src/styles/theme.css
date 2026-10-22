@@ -762,3 +762,17 @@
   transform-origin: 0 0;
   animation: spin 45s linear infinite;
 }
+
+[data-motion]:not([data-motion="reduced"]) .drift-x { animation: driftx 140s linear infinite; }
+[data-motion]:not([data-motion="reduced"]) .drift-b { animation: driftb 70s linear infinite; }
+.drift-b { display: inline-block; }
+.marquee-band:hover .drift-x,
+.marquee-band:focus-within .drift-x { animation-play-state: paused; }
+@keyframes driftx { to { transform: translateX(-50%); } }
+@keyframes driftb { to { transform: translateX(-25%); } }
+[data-motion]:not([data-motion="reduced"]) .kb { animation: kb 16s ease-in-out infinite alternate; }
+@keyframes kb { from { transform: scale(1); } to { transform: scale(1.08) translateX(-14px); } }
+.pulse-dot { animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.3; } }
+[data-motion]:not([data-motion="reduced"]) .slowspin-rev { transform-origin: 0 0; animation: spin 160s linear infinite reverse; }
+[data-motion]:not([data-motion="reduced"]) .orbiter { transform-origin: 0 0; animation: spin 40s linear infinite; }

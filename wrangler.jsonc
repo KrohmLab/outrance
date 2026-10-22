@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "outrance",
+  "compatibility_date": "2026-10-01",
+  // Site statique pré-rendu par React Router : pas de script Worker, uniquement des assets.
+  "assets": {
+    "directory": "./build/client",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

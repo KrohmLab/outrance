@@ -1,0 +1,298 @@
+@import "tailwindcss";
+
+/* Polices auto-hébergées (Fontsource), sous-ensemble latin uniquement. */
+@import "@fontsource/unbounded/latin-600.css";
+@import "@fontsource/unbounded/latin-700.css";
+@import "@fontsource/unbounded/latin-800.css";
+@import "@fontsource/manrope/latin-400.css";
+@import "@fontsource/manrope/latin-500.css";
+@import "@fontsource/manrope/latin-600.css";
+@import "@fontsource/manrope/latin-700.css";
+@import "@fontsource/jetbrains-mono/latin-500.css";
+
+/* Tokens du design system « Nuit » (design/tokens.json). La palette Tailwind par défaut
+   est retirée : seules les couleurs de la marque existent. */
+@theme {
+  --color-*: initial;
+  --color-nuit: #0a0712;
+  --color-nuit-raised: #161022;
+  --color-line: #2e2645;
+  --color-border: #73669a;
+  --color-ink: #f4f0fb;
+  --color-ink-muted: #a99fc2;
+  --color-lotus: #b98bff;
+  --color-lotus-deep: #2a1652;
+  --color-uv: #d4ff3a;
+  --color-ember: #ff6b4a;
+  --color-placeholder: #120d1d;
+
+  --font-display: "Unbounded", "Arial Black", sans-serif;
+  --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-display-xl: 96px;
+  --text-display-xl--line-height: 0.92;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-xl--font-weight: 800;
+  --text-display-l: 56px;
+  --text-display-l--line-height: 1;
+  --text-display-l--letter-spacing: -0.01em;
+  --text-display-l--font-weight: 700;
+  --text-title: 24px;
+  --text-title--line-height: 1.15;
+  --text-title--font-weight: 600;
+  --text-button: 14px;
+  --text-button--line-height: 1;
+  --text-button--letter-spacing: 0.08em;
+  --text-button--font-weight: 600;
+  --text-body-l: 19px;
+  --text-body-l--line-height: 1.6;
+  --text-body: 16px;
+  --text-body--line-height: 1.6;
+  --text-label: 13px;
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.12em;
+  --text-label--font-weight: 500;
+
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+
+  --ease-nuit: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Points de rupture du brand book : mobile < 640, tablette 640–1023, desktop ≥ 1024. */
+  --breakpoint-sm: 640px;
+  --breakpoint-lg: 1024px;
+
+  --animate-spin-slow: spin 90s linear infinite;
+  --animate-spin-slower: spin 140s linear infinite reverse;
+}
+
+@layer base {
+  html {
+    background: var(--color-nuit);
+    color: var(--color-ink);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--color-nuit);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+  a {
+    color: var(--color-lotus);
+  }
+  a:hover {
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-uv);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-lotus);
+    color: var(--color-nuit);
+  }
+}
+
+/* Conteneur de 1280 px, marges de 16 à 48 px. Utilitaire pour accepter les variantes (lg:wrap). */
+@utility wrap {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+
+/* Classes partagées, reprises des blocs <style> des artboards. */
+@layer components {
+  .disp {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .lbl {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 24px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      transform 0.25s,
+      box-shadow 0.25s,
+      background 0.25s,
+      border-color 0.25s,
+      color 0.25s;
+  }
+  .btn-uv {
+    background: var(--color-uv);
+    color: var(--color-nuit);
+  }
+  .btn-uv:hover {
+    color: var(--color-nuit);
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 6px rgb(212 255 58 / 0.16);
+  }
+  .btn-lotus {
+    background: var(--color-lotus);
+    color: var(--color-nuit);
+  }
+  .btn-lotus:hover {
+    color: var(--color-nuit);
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 6px rgb(185 139 255 / 0.2);
+  }
+  .btn-ghost {
+    border: 1.5px solid var(--color-border);
+    color: var(--color-ink);
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-lotus);
+    color: var(--color-ink);
+    background: var(--color-lotus-deep);
+  }
+  .lnk {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-lotus);
+    text-decoration: none;
+  }
+  .lnk:hover {
+    color: var(--color-ink);
+  }
+  .lnk .ar {
+    transition: transform 0.25s;
+  }
+  .lnk:hover .ar {
+    transform: translateX(5px);
+  }
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-pill);
+    color: var(--color-ink-muted);
+    transition:
+      color 0.2s,
+      background 0.2s;
+  }
+  .icon-btn:hover {
+    color: var(--color-ink);
+    background: var(--color-nuit-raised);
+  }
+  .nav-link {
+    padding: 14px 0;
+    color: var(--color-ink);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-link:hover,
+  .nav-link[aria-current="page"] {
+    color: var(--color-lotus);
+  }
+  .burger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--color-border);
+    background: transparent;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .burger:hover {
+    border-color: var(--color-lotus);
+  }
+}
+
+/* Menu plein écran : rideau en clip-path, liens en cascade (artboards tablette et mobile). */
+.menu-panel {
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition:
+    clip-path 0.55s var(--ease-nuit),
+    visibility 0.55s;
+}
+.menu-panel[data-open] {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  /* Visible dès l’ouverture, sinon le premier lien ne peut pas recevoir le focus. */
+  transition:
+    clip-path 0.55s var(--ease-nuit),
+    visibility 0s;
+}
+.menu-links > a {
+  color: var(--color-ink);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.4s,
+    transform 0.55s var(--ease-nuit),
+    color 0.2s;
+}
+.menu-panel[data-open] .menu-links > a {
+  opacity: 1;
+  transform: none;
+}
+.menu-links > a:hover,
+.menu-links > a[aria-current="page"] {
+  color: var(--color-lotus);
+}
+.menu-links > a:nth-child(2) { transition-delay: 0.05s; }
+.menu-links > a:nth-child(3) { transition-delay: 0.1s; }
+.menu-links > a:nth-child(4) { transition-delay: 0.15s; }
+.menu-links > a:nth-child(5) { transition-delay: 0.2s; }
+.menu-links > a:nth-child(6) { transition-delay: 0.25s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}

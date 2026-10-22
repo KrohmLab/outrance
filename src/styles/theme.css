@@ -609,3 +609,156 @@
     transition: transform 0.55s var(--ease-nuit);
   }
 }
+
+/* ───────────── Accueil ───────────── */
+
+/* Lotus : --b (0 bouton → 1 ouvert) sur un ancêtre ; formules de lotus(b) de Main.dc.html. */
+.lotus-petal {
+  transform-origin: 0 0;
+  transform: translate(0px, calc((1 - var(--b, 1)) * 60px))
+    rotate(calc(var(--oa) * 1deg * (var(--kf) + (1 - var(--kf)) * var(--b, 1))))
+    translateY(calc(-1px * (var(--d0) + (var(--d1) - var(--d0)) * var(--b, 1))))
+    scale(calc(var(--s0) + (var(--s1) - var(--s0)) * var(--b, 1)));
+}
+.lotus-ring {
+  transform-origin: 0 0;
+  transform: scale(calc((var(--r0) + (var(--r1) - var(--r0)) * var(--b, 1)) / 100));
+  opacity: calc(var(--ro) * var(--b, 1));
+}
+.lotus-core {
+  transform-origin: 0 0;
+  transform: scale(var(--b, 1));
+}
+.lotus-trail,
+.lotus-tip,
+.sw-o,
+.sw-m,
+.sw-i {
+  transform-origin: 0 0;
+}
+
+/* Mouvement de repos (desktop) : balancement de chaque pétale depuis sa base, couronnes qui ondulent,
+   pétales qui traînent derrière le geste de la souris (--vx, --vy). Activé par [data-motion="full"]. */
+[data-motion="full"] .lotus-tip {
+  animation: tip ease-in-out infinite alternate;
+}
+[data-motion="full"] .lotus-trail {
+  rotate: calc((var(--vx, 0) * var(--c) + var(--vy, 0) * var(--s)) * -1 * var(--k));
+  transition-property: rotate;
+  transition-timing-function: cubic-bezier(0.3, 1.65, 0.45, 1);
+}
+[data-motion="full"] .sw-o { animation: swayA 9s ease-in-out infinite; }
+[data-motion="full"] .sw-m { animation: swayB 11s ease-in-out infinite; }
+[data-motion="full"] .sw-i { animation: swayA 7s ease-in-out infinite reverse; }
+@keyframes tip {
+  from { transform: rotate(calc(var(--amp) * -1)) scaleY(0.985); }
+  to { transform: rotate(var(--amp)) scaleY(1.015); }
+}
+@keyframes swayA {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50% { transform: rotate(2.5deg); }
+}
+@keyframes swayB {
+  0%, 100% { transform: rotate(3deg); }
+  50% { transform: rotate(-3deg) scale(1.02); }
+}
+
+/* Lévitation : 3D en desktop, sans inclinaison en tablette, aucune en mobile. --lev l’amortit. */
+[data-motion="full"] .lev-x,
+[data-motion="tablet"] .lev-x { animation: levx 13s ease-in-out infinite alternate; }
+[data-motion="full"] .lev-y,
+[data-motion="tablet"] .lev-y { animation: levy 7.5s ease-in-out infinite alternate; }
+[data-motion="full"] .lev-tilt { transform-style: preserve-3d; animation: levt 17s ease-in-out infinite alternate; }
+.lev-x.d { animation-delay: -5s; }
+.lev-y.d { animation-delay: -3s; }
+.lev-tilt.d { animation-delay: -9s; }
+@keyframes levx {
+  0% { transform: translateX(calc(-16px * var(--lev, 1))); }
+  100% { transform: translateX(calc(16px * var(--lev, 1))); }
+}
+@keyframes levy {
+  0% { transform: translateY(calc(-20px * var(--lev, 1))); }
+  100% { transform: translateY(calc(20px * var(--lev, 1))); }
+}
+@keyframes levt {
+  0% { transform: rotateX(calc(10deg * var(--lev, 1))) rotateY(calc(-12deg * var(--lev, 1))) rotateZ(-2deg); }
+  50% { transform: rotateX(calc(-4deg * var(--lev, 1))) rotateY(calc(6deg * var(--lev, 1))) rotateZ(1deg); }
+  100% { transform: rotateX(calc(-9deg * var(--lev, 1))) rotateY(calc(11deg * var(--lev, 1))) rotateZ(2deg); }
+}
+[data-motion]:not([data-motion="reduced"]) .breathe { animation: breathe 4.5s ease-in-out infinite; transform-origin: 50% 50%; }
+[data-motion]:not([data-motion="reduced"]) .slowspin { animation: spin 200s linear infinite; transform-origin: 50% 50%; }
+[data-motion]:not([data-motion="reduced"]) .nudge { animation: nudge 1.8s ease-in-out infinite; }
+[data-motion]:not([data-motion="reduced"]) .wave { transform-origin: 0 0; animation: wave 9s ease-out infinite; }
+.wave.w2 { animation-delay: -4.5s; }
+@keyframes breathe { 50% { transform: scale(1.04); } }
+@keyframes nudge { 50% { transform: translateY(6px); } }
+@keyframes wave {
+  0% { transform: scale(0.4); opacity: 0; }
+  15% { opacity: 0.3; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Lucioles : montée lente, scintillement. */
+.mote { position: absolute; bottom: -20px; animation: mote-rise linear infinite; }
+.mote i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+  animation-name: twinkle, swayx;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+@keyframes mote-rise { from { transform: translateY(0); } to { transform: translateY(-110vh); } }
+@keyframes twinkle { from { opacity: 0.12; } to { opacity: 0.65; } }
+@keyframes swayx { from { translate: -14px 0; } to { translate: 14px 0; } }
+[data-motion="reduced"] .mote { display: none; }
+
+/* Halo qui suit le curseur (desktop). */
+.cglow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 640px;
+  height: 640px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgb(185 139 255 / 0.1), rgb(185 139 255 / 0) 62%);
+  opacity: 0;
+  transition: opacity 0.8s;
+  will-change: transform;
+}
+
+/* Header de l’accueil : fond et filet qui apparaissent avec le scroll (--hb), jauge (--mark), logo (--slide). */
+.home-header {
+  background: rgb(10 7 18 / calc(var(--hb, 0) * 0.86));
+  border-bottom: 1px solid rgb(46 38 69 / var(--hb, 0));
+  backdrop-filter: blur(calc(var(--hb, 0) * 14px));
+}
+.home-header:has([data-open]) {
+  background: var(--color-nuit);
+}
+.header-gauge {
+  opacity: var(--mark, 1);
+  scale: calc(0.5 + 0.5 * var(--mark, 1));
+  rotate: calc((1 - var(--mark, 1)) * -120deg);
+  transition:
+    opacity 0.3s,
+    scale 0.45s cubic-bezier(0.3, 1.4, 0.5, 1),
+    rotate 0.45s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.home-logo {
+  transform: translateX(calc(var(--slide, 1) * 44px));
+  transition: transform 0.45s var(--ease-nuit);
+}
+@media (min-width: 640px) {
+  .home-logo {
+    transform: translateX(calc(var(--slide, 1) * 54px));
+  }
+}
+.gauge-spin {
+  transform-origin: 0 0;
+  animation: spin 45s linear infinite;
+}

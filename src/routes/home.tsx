@@ -1,7 +1,11 @@
-import { Link } from "react-router";
-import { LotusBloom } from "../components/LotusBloom";
-import { Mandala } from "../components/Mandala";
+import { useRef } from "react";
+import { Hero, type HeroEvent } from "../components/home/Hero";
+import { useMouseEffects } from "../components/home/useMouseEffects";
 import { Newsletter } from "../components/Newsletter";
+import { events } from "../content/load.server";
+import { featuredEvent } from "../lib/dates";
+import { useMotionLevel } from "../lib/useMotionLevel";
+import { useNow } from "../lib/useNow";
 import { site } from "../site";
 import type { Route } from "./+types/home";
 
@@ -10,39 +14,38 @@ export const meta: Route.MetaFunction = () => [
   { name: "description", content: site.metaDescription },
 ];
 
-// Accueil provisoire : l’accueil animé (Main.dc.html) arrive à l’étape 3.
-export default function Home() {
+export function loader() {
+  const list: (HeroEvent & { start?: string | null; end?: string | null; country: string })[] = events.map((e) => ({
+    slug: e.slug,
+    title: e.title,
+    titlePrefix: e.titlePrefix,
+    date: e.date,
+    start: e.start,
+    end: e.end,
+    venue: e.venue,
+    city: e.city,
+    country: e.country,
+    ticketUrl: e.ticketUrl,
+    ticketStatus: e.ticketStatus,
+    lineup: e.lineup,
+  }));
+  return { events: list };
+}
+
+// Accueil animé (Main.dc.html, Accueil-tablette, Accueil-mobile).
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const level = useMotionLevel();
+  const now = useNow();
+  const featured = featuredEvent(loaderData.events, now);
+  useMouseEffects(rootRef, level === "full");
+
   return (
-    <section className="relative overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-[300px] -right-[300px] size-[900px] opacity-35"
-      >
-        <Mandala />
-      </div>
-      <div className="wrap relative grid min-h-[calc(100svh-68px)] grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-center gap-12 py-16 sm:py-24">
-        <div className="flex flex-col gap-6">
-          <span className="lbl text-lotus">{site.tagline}</span>
-          <h1 className="disp text-[clamp(44px,12vw,96px)] leading-[0.92] font-extrabold tracking-[-0.02em]">
-            {site.name}
-          </h1>
-          <p className="m-0 max-w-[560px] text-body-l text-ink-muted">{site.association.intro}</p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
-            <Link className="btn btn-lotus min-h-[52px]" to="/agenda">
-              Voir l’agenda
-            </Link>
-            <Link className="lnk" to="/association">
-              L’association <span className="ar" aria-hidden="true">→</span>
-            </Link>
-          </div>
-        </div>
-        <div className="w-[min(100%,460px)] justify-self-center">
-          <LotusBloom open />
-        </div>
-      </div>
-      <div className="wrap relative pb-16 sm:pb-24">
+    <div ref={rootRef} data-motion={level} className="relative">
+      <Hero event={featured?.event ?? null} upcoming={featured?.upcoming ?? false} level={level} />
+      <div className="wrap relative py-16 sm:py-24">
         <Newsletter id="newsletter" />
       </div>
-    </section>
+    </div>
   );
 }

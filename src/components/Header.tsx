@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
+import { HeaderGauge } from "./home/HeaderGauge";
 import { useTicketingHref } from "../lib/featured";
 import { logoUrl, nav } from "../site";
 import { BurgerIcon, CloseIcon } from "./icons";
@@ -11,21 +12,25 @@ export function Header() {
   const burgerRef = useRef<HTMLButtonElement>(null);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
   const ticketingHref = useTicketingHref();
+  // Accueil : header transparent posé sur le hero, avec la jauge de lecture qui reçoit le lotus.
+  const isHome = useLocation().pathname === "/";
 
   return (
     <>
       <header
         ref={headerRef}
-        className="sticky top-0 z-40 border-b border-line bg-nuit/90 backdrop-blur-[14px]"
+        data-home-header={isHome || undefined}
+        className={`top-0 z-40 ${isHome ? "home-header fixed inset-x-0" : "sticky border-b border-line bg-nuit/90 backdrop-blur-[14px]"}`}
       >
         <div className="flex h-[68px] items-center justify-between gap-4 px-4 sm:h-[76px] sm:px-8 lg:wrap lg:h-auto lg:flex-wrap lg:gap-x-8 lg:gap-y-3 lg:py-4">
-          <Link to="/" className="flex min-h-11 items-center">
+          <Link to="/" className="relative flex min-h-11 items-center">
+            {isHome && <HeaderGauge headerRef={headerRef} />}
             <img
               src={logoUrl}
               alt="Outrance — accueil"
               width={1600}
               height={233}
-              className="block h-5 w-auto sm:h-6 lg:h-[26px]"
+              className={`block h-5 w-auto sm:h-6 lg:h-[26px] ${isHome ? "home-logo" : ""}`}
             />
           </Link>
 

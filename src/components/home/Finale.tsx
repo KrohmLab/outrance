@@ -1,6 +1,6 @@
 import { useEffect, useRef, type CSSProperties } from "react";
 import { useReducedMotion, type MotionLevel } from "../../lib/useMotionLevel";
-import { logoUrl } from "../../site";
+import { logoSrcSet, logoUrl } from "../../site";
 import { Newsletter } from "../Newsletter";
 import { Lotus } from "./Lotus";
 import { Motes, MOTE_COUNT } from "./Motes";
@@ -83,7 +83,7 @@ export function Finale({ level }: { level: MotionLevel }) {
         </div>
       </div>
       <div ref={textRef} className="relative flex w-full flex-col items-center gap-6 px-4 text-center">
-        <img src={logoUrl} alt="Outrance" width={1600} height={233} loading="lazy" className="block h-auto w-[min(300px,78vw)] sm:w-[440px] lg:w-[560px]" />
+        <img src={logoUrl} srcSet={logoSrcSet} sizes="(min-width: 1024px) 560px, (min-width: 640px) 440px, 300px" alt="Outrance" width={1600} height={233} loading="lazy" className="block h-auto w-[min(300px,78vw)] sm:w-[440px] lg:w-[560px]" />
         <p id="home-finale" className="disp m-0 text-[18px] font-semibold tracking-[0.04em] sm:text-[22px]">
           À très vite sur le dancefloor
         </p>

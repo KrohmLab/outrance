@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import type { LineupItem, OutranceEvent } from "../../content/schemas";
 import { formatDate } from "../../lib/dates";
 import { useReducedMotion, type MotionLevel } from "../../lib/useMotionLevel";
-import { logoUrl, site } from "../../site";
+import { logoSrcSet, logoUrl, site } from "../../site";
 import { Lotus } from "./Lotus";
 import { Motes, MOTE_COUNT } from "./Motes";
 import { heroPhases, lerp } from "./motion-math";
@@ -202,7 +202,7 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
           {/* Intro : logo, signature, invitation à scroller. */}
           <div ref={introRef} className="absolute inset-x-0 bottom-[12svh] flex flex-col items-center gap-4 px-4 text-center sm:bottom-[14vh] sm:gap-[18px]">
             <h1 className="m-0">
-              <img src={logoUrl} alt="Outrance" width={1600} height={233} className="block h-auto w-[min(300px,78vw)] sm:w-[440px] lg:w-[560px]" />
+              <img src={logoUrl} srcSet={logoSrcSet} sizes="(min-width: 1024px) 560px, (min-width: 640px) 440px, 300px" alt="Outrance" width={1600} height={233} className="block h-auto w-[min(300px,78vw)] sm:w-[440px] lg:w-[560px]" />
             </h1>
             <span className="lbl text-[11px] tracking-[0.32em] text-ink-muted sm:text-[13px]">
               {site.tagline} — Lyon &amp; Belgium since {site.association.founded.slice(0, 4)}

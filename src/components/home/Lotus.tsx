@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 // par une transformation. L’ouverture vient d’une seule variable CSS --b (0 = bouton, 1 = ouvert)
 // posée sur un ancêtre : chaque pétale calcule sa transformation en CSS (aucun re-rendu React).
 // --vx / --vy (vitesse de la souris) font traîner les pétales derrière le geste (desktop).
+// Le balancement de repos et la traîne vivent sur .lotus-trail ; le <path> ne porte que le tracé du chargement.
 
 export const PETAL = "M0 0C20 -28 24 -74 0 -112C-24 -74 -20 -30 0 0Z";
 
@@ -75,6 +76,11 @@ export function Lotus({ className = "", style }: Props) {
                       "--c": Math.cos(rad).toFixed(3),
                       "--s": Math.sin(rad).toFixed(3),
                       "--k": `${c.k}deg`,
+                      // Balancement de repos (animation « tip », desktop) porté par ce groupe, pour ne pas
+                      // entrer en conflit avec le tracé du chargement posé sur le <path>.
+                      "--amp": `${c.amp}deg`,
+                      animationDuration: `${jitter(seed + 7, 3.2, 5.8).toFixed(2)}s`,
+                      animationDelay: `-${jitter(seed + 3, 0, 6).toFixed(2)}s`,
                       transitionDuration: `${jitter(seed, 0.6, 0.95).toFixed(2)}s`,
                     } as CSSProperties
                   }
@@ -88,13 +94,6 @@ export function Lotus({ className = "", style }: Props) {
                     stroke="var(--color-lotus)"
                     strokeOpacity={c.strokeOpacity}
                     strokeWidth={c.strokeWidth}
-                    style={
-                      {
-                        "--amp": `${c.amp}deg`,
-                        animationDuration: `${jitter(seed + 7, 3.2, 5.8).toFixed(2)}s`,
-                        animationDelay: `-${jitter(seed + 3, 0, 6).toFixed(2)}s`,
-                      } as CSSProperties
-                    }
                   />
                 </g>
               </g>

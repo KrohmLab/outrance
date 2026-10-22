@@ -638,18 +638,19 @@
 }
 
 /* Mouvement de repos (desktop) : balancement de chaque pétale depuis sa base, couronnes qui ondulent,
-   pétales qui traînent derrière le geste de la souris (--vx, --vy). Activé par [data-motion="full"]. */
-[data-motion="full"] .lotus-tip {
+   pétales qui traînent derrière le geste de la souris (--vx, --vy). Desktop à la souris uniquement, dès le premier affichage (requête média, sans attendre le JavaScript). */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+.lotus-trail {
   animation: tip ease-in-out infinite alternate;
-}
-[data-motion="full"] .lotus-trail {
   rotate: calc((var(--vx, 0) * var(--c) + var(--vy, 0) * var(--s)) * -1 * var(--k));
   transition-property: rotate;
   transition-timing-function: cubic-bezier(0.3, 1.65, 0.45, 1);
 }
-[data-motion="full"] .sw-o { animation: swayA 9s ease-in-out infinite; }
-[data-motion="full"] .sw-m { animation: swayB 11s ease-in-out infinite; }
-[data-motion="full"] .sw-i { animation: swayA 7s ease-in-out infinite reverse; }
+.sw-o { animation: swayA 9s ease-in-out infinite; }
+.sw-m { animation: swayB 11s ease-in-out infinite; }
+.sw-i { animation: swayA 7s ease-in-out infinite reverse; }
+.lev-tilt { transform-style: preserve-3d; animation: levt 17s ease-in-out infinite alternate; }
+}
 @keyframes tip {
   from { transform: rotate(calc(var(--amp) * -1)) scaleY(0.985); }
   to { transform: rotate(var(--amp)) scaleY(1.015); }
@@ -664,11 +665,10 @@
 }
 
 /* Lévitation : 3D en desktop, sans inclinaison en tablette, aucune en mobile. --lev l’amortit. */
-[data-motion="full"] .lev-x,
-[data-motion="tablet"] .lev-x { animation: levx 13s ease-in-out infinite alternate; }
-[data-motion="full"] .lev-y,
-[data-motion="tablet"] .lev-y { animation: levy 7.5s ease-in-out infinite alternate; }
-[data-motion="full"] .lev-tilt { transform-style: preserve-3d; animation: levt 17s ease-in-out infinite alternate; }
+@media (min-width: 640px) and (prefers-reduced-motion: no-preference) {
+  .lev-x { animation: levx 13s ease-in-out infinite alternate; }
+  .lev-y { animation: levy 7.5s ease-in-out infinite alternate; }
+}
 .lev-x.d { animation-delay: -5s; }
 .lev-y.d { animation-delay: -3s; }
 .lev-tilt.d { animation-delay: -9s; }
@@ -685,10 +685,10 @@
   50% { transform: rotateX(calc(-4deg * var(--lev, 1))) rotateY(calc(6deg * var(--lev, 1))) rotateZ(1deg); }
   100% { transform: rotateX(calc(-9deg * var(--lev, 1))) rotateY(calc(11deg * var(--lev, 1))) rotateZ(2deg); }
 }
-[data-motion]:not([data-motion="reduced"]) .breathe { animation: breathe 4.5s ease-in-out infinite; transform-origin: 50% 50%; }
-[data-motion]:not([data-motion="reduced"]) .slowspin { animation: spin 200s linear infinite; transform-origin: 50% 50%; }
-[data-motion]:not([data-motion="reduced"]) .nudge { animation: nudge 1.8s ease-in-out infinite; }
-[data-motion]:not([data-motion="reduced"]) .wave { transform-origin: 0 0; animation: wave 9s ease-out infinite; }
+@media (prefers-reduced-motion: no-preference) { .breathe { animation: breathe 4.5s ease-in-out infinite; transform-origin: 50% 50%; } }
+@media (prefers-reduced-motion: no-preference) { .slowspin { animation: spin 200s linear infinite; transform-origin: 50% 50%; } }
+@media (prefers-reduced-motion: no-preference) { .nudge { animation: nudge 1.8s ease-in-out infinite; } }
+@media (prefers-reduced-motion: no-preference) { .wave { transform-origin: 0 0; animation: wave 9s ease-out infinite; } }
 .wave.w2 { animation-delay: -4.5s; }
 @keyframes breathe { 50% { transform: scale(1.04); } }
 @keyframes nudge { 50% { transform: translateY(6px); } }
@@ -715,7 +715,7 @@
 @keyframes mote-rise { from { transform: translateY(0); } to { transform: translateY(-110vh); } }
 @keyframes twinkle { from { opacity: 0.12; } to { opacity: 0.65; } }
 @keyframes swayx { from { translate: -14px 0; } to { translate: 14px 0; } }
-[data-motion="reduced"] .mote { display: none; }
+@media (prefers-reduced-motion: reduce) { .mote { display: none; } }
 
 /* Halo qui suit le curseur (desktop). */
 .cglow {
@@ -763,19 +763,19 @@
   animation: spin 45s linear infinite;
 }
 
-[data-motion]:not([data-motion="reduced"]) .drift-x { animation: driftx 140s linear infinite; }
-[data-motion]:not([data-motion="reduced"]) .drift-b { animation: driftb 70s linear infinite; }
+@media (prefers-reduced-motion: no-preference) { .drift-x { animation: driftx 140s linear infinite; } }
+@media (prefers-reduced-motion: no-preference) { .drift-b { animation: driftb 70s linear infinite; } }
 .drift-b { display: inline-block; }
 .marquee-band:hover .drift-x,
 .marquee-band:focus-within .drift-x { animation-play-state: paused; }
 @keyframes driftx { to { transform: translateX(-50%); } }
 @keyframes driftb { to { transform: translateX(-25%); } }
-[data-motion]:not([data-motion="reduced"]) .kb { animation: kb 16s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: no-preference) { .kb { animation: kb 16s ease-in-out infinite alternate; } }
 @keyframes kb { from { transform: scale(1); } to { transform: scale(1.08) translateX(-14px); } }
 .pulse-dot { animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 50% { opacity: 0.3; } }
-[data-motion]:not([data-motion="reduced"]) .slowspin-rev { transform-origin: 0 0; animation: spin 160s linear infinite reverse; }
-[data-motion]:not([data-motion="reduced"]) .orbiter { transform-origin: 0 0; animation: spin 40s linear infinite; }
+@media (prefers-reduced-motion: no-preference) { .slowspin-rev { transform-origin: 0 0; animation: spin 160s linear infinite reverse; } }
+@media (prefers-reduced-motion: no-preference) { .orbiter { transform-origin: 0 0; animation: spin 40s linear infinite; } }
 
 /* Orbite du roster. */
 .orbit-petal { transform-origin: 0 0; transition: transform 0.9s var(--ease-nuit), opacity 0.5s; }
@@ -785,16 +785,18 @@
 @keyframes orbit-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @keyframes beat { 0% { transform: scale(1.05); } 30% { transform: scale(1); } 100% { transform: scale(1); } }
 @keyframes ripple { 0% { transform: scale(0.55); opacity: 0.6; } 100% { transform: scale(1.3); opacity: 0; } }
-[data-motion]:not([data-motion="reduced"]) .orbit-spin { transform-origin: 0 0; animation: spin 120s linear infinite; }
-[data-motion]:not([data-motion="reduced"]) .orbit-ring { animation: spin 140s linear infinite; transform-origin: 50% 50%; }
-[data-motion]:not([data-motion="reduced"]) .orbit-node { animation: spin 140s linear infinite reverse; transform-origin: 50% 32px; }
+@media (prefers-reduced-motion: no-preference) { .orbit-spin { transform-origin: 0 0; animation: spin 120s linear infinite; } }
+@media (prefers-reduced-motion: no-preference) { .orbit-ring { animation: spin 140s linear infinite; transform-origin: 50% 50%; } }
+@media (prefers-reduced-motion: no-preference) { .orbit-node { animation: spin 140s linear infinite reverse; transform-origin: 50% 32px; } }
 .orbit-wrap:hover .orbit-ring,
 .orbit-wrap:hover .orbit-node,
 .orbit-wrap:focus-within .orbit-ring,
 .orbit-wrap:focus-within .orbit-node { animation-play-state: paused; }
-[data-motion="reduced"] .beat,
-[data-motion="reduced"] .rip { animation: none !important; }
-[data-motion]:not([data-motion="reduced"]) .floaty { animation: floaty 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .beat,
+  .rip { animation: none !important; }
+}
+@media (prefers-reduced-motion: no-preference) { .floaty { animation: floaty 7s ease-in-out infinite; } }
 @keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
 
 /* --b animable (ouverture de la finale hors desktop, par transition). */
@@ -813,9 +815,9 @@
   --b: 1 !important;
   opacity: 1;
 }
-[data-motion="reduced"] .finale-static {
+@media (prefers-reduced-motion: reduce) { .finale-static {
   opacity: 1;
-}
+} }
 
 /* Chargement de l’accueil (≈ 1,6 s) sur le lotus du hero lui-même : tracé des pétales, remplissage,
    cœur, onde, puis le voile nuit se referme en iris. Le header apparaît ensuite. */
@@ -830,17 +832,17 @@
   fill-opacity: 0;
   animation:
     loader-draw 0.5s var(--ease-nuit) forwards,
-    loader-fill-o 0.35s 0.45s ease-out forwards !important;
+    loader-fill-o 0.35s 0.45s ease-out forwards;
 }
 .home-intro .sw-m .lotus-tip {
   animation:
     loader-draw 0.45s 0.15s var(--ease-nuit) forwards,
-    loader-fill-m 0.35s 0.55s ease-out forwards !important;
+    loader-fill-m 0.35s 0.55s ease-out forwards;
 }
 .home-intro .sw-i .lotus-tip {
   animation:
     loader-draw 0.4s 0.3s var(--ease-nuit) forwards,
-    loader-fill-i 0.35s 0.65s ease-out forwards !important;
+    loader-fill-i 0.35s 0.65s ease-out forwards;
 }
 .home-intro .lotus-core {
   animation: loader-core 0.7s 0.75s ease-out forwards;
@@ -878,4 +880,11 @@ html:has(.home-intro) [data-home-header] {
   .home-intro-veil,
   .home-intro-wave { display: none; }
   html:has(.home-intro) [data-home-header] { opacity: 1; animation: none; }
+}
+/* Pendant le chargement, les textes du hero restent cachés puis apparaissent avec l’ouverture de l’iris. */
+@media (prefers-reduced-motion: no-preference) {
+  .home-intro .hero-text {
+    opacity: 0;
+    animation: loader-header 0.5s 1.25s ease-out forwards;
+  }
 }

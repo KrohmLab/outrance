@@ -196,62 +196,65 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
           </div>
         </div>
 
-        {/* Intro : logo, signature, invitation à scroller. */}
-        <div ref={introRef} className="absolute inset-x-0 bottom-[12svh] flex flex-col items-center gap-4 px-4 text-center sm:bottom-[14vh] sm:gap-[18px]">
-          <h1 className="m-0">
-            <img src={logoUrl} alt="Outrance" width={1600} height={233} className="block h-auto w-[min(300px,78vw)] sm:w-[440px] lg:w-[560px]" />
-          </h1>
-          <span className="lbl text-[11px] tracking-[0.32em] text-ink-muted sm:text-[13px]">
-            {site.tagline} — Lyon &amp; Belgium since {site.association.founded.slice(0, 4)}
-          </span>
-          <span className="lbl nudge mt-6 flex flex-col items-center gap-1.5 text-[11px] text-lotus sm:mt-14">
-            Scrolle pour faire éclore
-            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 5v14M6 13l6 6 6-6" />
-            </svg>
-          </span>
-        </div>
-
-        {/* Le prochain événement, sinon le dernier, au cœur du lotus ouvert. */}
-        {event && (
-          <div
-            ref={eventRef}
-            className="hero-event absolute top-1/2 left-1/2 flex w-[min(1000px,calc(100vw-32px))] flex-col items-center gap-4 text-center sm:gap-5"
-            style={{ transform: "translate(-50%, calc(-50% + 48px))", opacity: 0 }}
-          >
-            <span className="lbl text-lotus">{upcoming ? "Prochain événement" : "Dernier événement"}</span>
-            <p className="lbl m-0 text-[12px] sm:text-[15px]">
-              {formatDate(event.date)}
-              {place && <> — {place}</>}
-            </p>
-            <h2 className="disp text-[clamp(40px,10vw,104px)] leading-[0.9] font-extrabold tracking-[-0.02em]">
-              {prefix && (
-                <>
-                  {prefix}
-                  <br />
-                </>
-              )}
-              {title}
-            </h2>
-            {event.lineup.length > 0 && (
-              <p className="m-0 max-w-[760px] text-[15px] text-ink-muted sm:text-[19px]">
-                {b2b.length > 0 && <strong className="text-ink">{b2b.map((l) => l.name).join(" · ")}</strong>}
-                {b2b.length > 0 && others.length > 0 && " · "}
-                {others.map((l) => l.name).join(" · ")}
-              </p>
-            )}
-            <div className="flex flex-wrap justify-center gap-3 pt-2">
-              {canBuy && event.ticketUrl && (
-                <a className="btn btn-uv min-h-[52px]" href={event.ticketUrl} rel="noopener">
-                  Billetterie <span aria-hidden="true">→</span>
-                </a>
-              )}
-              <Link className="btn btn-ghost min-h-[52px]" to={`/evenements/${event.slug}`} prefetch="intent">
-                {upcoming ? "Line-up et infos" : "Voir la fiche"}
-              </Link>
-            </div>
+        {/* Textes au-dessus du lotus (et du voile de chargement, sous lequel ils apparaissent en fondu). */}
+        <div className="hero-text pointer-events-none absolute inset-0 z-30">
+          {/* Intro : logo, signature, invitation à scroller. */}
+          <div ref={introRef} className="absolute inset-x-0 bottom-[12svh] flex flex-col items-center gap-4 px-4 text-center sm:bottom-[14vh] sm:gap-[18px]">
+            <h1 className="m-0">
+              <img src={logoUrl} alt="Outrance" width={1600} height={233} className="block h-auto w-[min(300px,78vw)] sm:w-[440px] lg:w-[560px]" />
+            </h1>
+            <span className="lbl text-[11px] tracking-[0.32em] text-ink-muted sm:text-[13px]">
+              {site.tagline} — Lyon &amp; Belgium since {site.association.founded.slice(0, 4)}
+            </span>
+            <span className="lbl nudge mt-6 flex flex-col items-center gap-1.5 text-[11px] text-lotus sm:mt-14">
+              Scrolle pour faire éclore
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 5v14M6 13l6 6 6-6" />
+              </svg>
+            </span>
           </div>
-        )}
+
+          {/* Le prochain événement, sinon le dernier, au cœur du lotus ouvert. */}
+          {event && (
+            <div
+              ref={eventRef}
+              className="hero-event pointer-events-auto absolute top-1/2 left-1/2 flex w-[min(1000px,calc(100vw-32px))] flex-col items-center gap-4 text-center sm:gap-5"
+              style={{ transform: "translate(-50%, calc(-50% + 48px))", opacity: 0 }}
+            >
+              <span className="lbl text-lotus">{upcoming ? "Prochain événement" : "Dernier événement"}</span>
+              <p className="lbl m-0 text-[12px] sm:text-[15px]">
+                {formatDate(event.date)}
+                {place && <> — {place}</>}
+              </p>
+              <h2 className="disp text-[clamp(40px,10vw,104px)] leading-[0.9] font-extrabold tracking-[-0.02em]">
+                {prefix && (
+                  <>
+                    {prefix}
+                    <br />
+                  </>
+                )}
+                {title}
+              </h2>
+              {event.lineup.length > 0 && (
+                <p className="m-0 max-w-[760px] text-[15px] text-ink-muted sm:text-[19px]">
+                  {b2b.length > 0 && <strong className="text-ink">{b2b.map((l) => l.name).join(" · ")}</strong>}
+                  {b2b.length > 0 && others.length > 0 && " · "}
+                  {others.map((l) => l.name).join(" · ")}
+                </p>
+              )}
+              <div className="flex flex-wrap justify-center gap-3 pt-2">
+                {canBuy && event.ticketUrl && (
+                  <a className="btn btn-uv min-h-[52px]" href={event.ticketUrl} rel="noopener">
+                    Billetterie <span aria-hidden="true">→</span>
+                  </a>
+                )}
+                <Link className="btn btn-ghost min-h-[52px]" to={`/evenements/${event.slug}`} prefetch="intent">
+                  {upcoming ? "Line-up et infos" : "Voir la fiche"}
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

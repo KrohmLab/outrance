@@ -95,6 +95,11 @@ function loadEvents(): OutranceEvent[] {
 
 export const events = loadEvents();
 
+// Chiffre « Événements » de l’association : toujours le nombre d’événements publiés.
+for (const stat of site.stats) {
+  if (stat.label === "Événements") stat.value = events.length;
+}
+
 for (const album of galerie.albums) {
   if (!events.some((e) => e.slug === album.event)) {
     throw new Error(`content/galerie.json : l’album « ${album.title} » pointe vers un événement inconnu (${album.event})`);

@@ -53,8 +53,9 @@
       "label": "Artistes internationaux"
     },
     {
-      "value": 150,
-      "label": "Artistes locaux"
+      "value": null,
+      "label": "Événements",
+      "todo": "calculé au build : nombre d’événements publiés dans content/events"
     },
     {
       "value": null,

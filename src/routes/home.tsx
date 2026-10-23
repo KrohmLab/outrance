@@ -11,7 +11,7 @@ import { Finale } from "../components/home/Finale";
 import { SocialPosts } from "../components/home/SocialPosts";
 import { StatsIris } from "../components/home/StatsIris";
 import { useMouseEffects } from "../components/home/useMouseEffects";
-import { aftermovies, artists, events, site as fullSite } from "../content/load.server";
+import { aftermovies, artists, events, instagram, site as fullSite } from "../content/load.server";
 import { featuredEvent, isUpcoming } from "../lib/dates";
 import { useMotionLevel } from "../lib/useMotionLevel";
 import { useNow } from "../lib/useNow";
@@ -63,6 +63,7 @@ export function loader() {
     stats: fullSite.stats.flatMap((s) => (s.value === null ? [] : [{ value: s.value, label: s.label }])),
     founded: fullSite.association.founded,
     aftermovies,
+    instagram: instagram.slice(0, 6),
   };
 }
 
@@ -85,7 +86,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <RosterOrbit artists={loaderData.roster} level={level} />
       <AftermoviesTrack movies={loaderData.aftermovies} level={level} />
       <BelgiumBand level={level} />
-      <SocialPosts />
+      <SocialPosts posts={loaderData.instagram} />
       <Finale level={level} />
     </div>
   );

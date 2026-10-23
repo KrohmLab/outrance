@@ -187,7 +187,7 @@ export function PhotoViewer({ album, open, index, onIndex, onClose }: Props) {
                 onClick={() => onIndex(i)}
                 className={`h-11 w-16 flex-none cursor-pointer overflow-hidden rounded-sm border-2 bg-nuit-raised p-0 transition-[border-color,transform] duration-200 ${on ? "-translate-y-1 border-lotus" : "border-line hover:border-border"}`}
               >
-                <img src={p.src} alt="" loading="lazy" decoding="async" draggable={false} className="size-full object-cover" />
+                <img src={p.thumb ?? p.src} alt="" loading="lazy" decoding="async" draggable={false} className="size-full object-cover" />
               </button>
             );
           })}

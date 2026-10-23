@@ -70,6 +70,8 @@ export const aftermovieSchema = z.strictObject({
 
 export const photoSchema = z.strictObject({
   src: z.string(),
+  /** Version réduite pour les vignettes (albums Facebook) ; sinon `src`. */
+  thumb: nullable(z.string()),
   alt: z.string(),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
@@ -86,6 +88,28 @@ export const galerieSchema = z.strictObject({
     }),
   ),
   note: z.string().optional(),
+});
+
+/** Généré au build par scripts/sync-meta.mjs (content/generated/), jamais édité à la main. */
+export const instagramPostSchema = z.strictObject({
+  id: z.string(),
+  permalink: url,
+  image: z.string(),
+  caption: z.string(),
+  video: z.boolean(),
+  date: z.string(),
+});
+
+export const facebookAlbumSchema = z.strictObject({
+  event: z.string(),
+  facebookId: z.string(),
+  name: z.string(),
+  photos: z.array(photoSchema),
+});
+
+export const facebookAlbumsOverrideSchema = z.strictObject({
+  note: z.string().optional(),
+  albums: z.record(z.string(), z.string().nullable()),
 });
 
 export const legalSchema = z.strictObject({
@@ -144,6 +168,7 @@ export type LineupItem = z.infer<typeof lineupItemSchema>;
 export type Artist = z.infer<typeof artistSchema>;
 export type Aftermovie = z.infer<typeof aftermovieSchema>;
 export type Galerie = z.infer<typeof galerieSchema>;
+export type InstagramPost = z.infer<typeof instagramPostSchema>;
 export type Album = Galerie["albums"][number];
 export type Legal = z.infer<typeof legalSchema>;
 export type Presse = z.infer<typeof presseSchema>;

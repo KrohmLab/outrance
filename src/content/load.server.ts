@@ -5,6 +5,7 @@ import { parse as parseYaml } from "yaml";
 import type { z } from "zod";
 import aftermoviesJson from "../../content/aftermovies.json";
 import artistsJson from "../../content/artists.json";
+import facebookAlbumsJson from "../../content/facebook-albums.json";
 import galerieJson from "../../content/galerie.json";
 import legalJson from "../../content/legal.json";
 import presseJson from "../../content/presse.json";
@@ -15,7 +16,10 @@ import {
   aftermovieSchema,
   artistSchema,
   eventFrontmatterSchema,
+  facebookAlbumSchema,
+  facebookAlbumsOverrideSchema,
   galerieSchema,
+  instagramPostSchema,
   legalSchema,
   presseSchema,
   siteSchema,
@@ -42,6 +46,14 @@ export const legal = validate(legalSchema, legalJson, "content/legal.json");
 export const presse = validate(presseSchema, presseJson, "content/presse.json");
 export const team = validate(teamSchema, teamJson, "content/team.json");
 export const timeline = validate(timelineSchema, timelineJson, "content/timeline.json");
+const facebookAlbumsOverride = validate(facebookAlbumsOverrideSchema, facebookAlbumsJson, "content/facebook-albums.json");
+
+// Contenus récupérés chez Meta par scripts/sync-meta.mjs ; absents sans jeton (placeholders).
+const generated = import.meta.glob<unknown>("../../content/generated/*.json", { import: "default", eager: true });
+const generatedFile = (name: string) => generated[`../../content/generated/${name}`] ?? [];
+
+export const instagram = validate(instagramPostSchema.array(), generatedFile("instagram.json"), "content/generated/instagram.json");
+const facebookAlbums = validate(facebookAlbumSchema.array(), generatedFile("facebook-albums.json"), "content/generated/facebook-albums.json");
 
 const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)([\s\S]*)$/;
 
@@ -105,6 +117,25 @@ for (const album of galerie.albums) {
     throw new Error(`content/galerie.json : l’album « ${album.title} » pointe vers un événement inconnu (${album.event})`);
   }
 }
+for (const [id, slug] of Object.entries(facebookAlbumsOverride.albums)) {
+  if (slug !== null && !events.some((e) => e.slug === slug)) {
+    throw new Error(`content/facebook-albums.json : l’album ${id} pointe vers un événement inconnu (${slug})`);
+  }
+}
+
+// Albums Facebook : les photos d’un même événement s’ajoutent à son album (créé au besoin) ; les photos
+// déposées à la main dans content/galerie.json passent en premier.
+for (const fb of facebookAlbums) {
+  const event = getEvent(fb.event);
+  if (!event || fb.photos.length === 0) continue;
+  let album = galerie.albums.find((a) => a.event === fb.event);
+  if (!album) {
+    album = { event: event.slug, title: event.title, date: event.date, photographer: null, photos: [] };
+    galerie.albums.push(album);
+  }
+  album.photos.push(...fb.photos.map((p) => ({ ...p, alt: p.alt || `${album.title}, photo de la soirée` })));
+}
+galerie.albums.sort((a, b) => b.date.localeCompare(a.date));
 
 export function getEvent(slug: string): OutranceEvent | undefined {
   return events.find((e) => e.slug === slug);

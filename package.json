@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "react-router build && node scripts/postbuild.mjs && node scripts/og.mjs && node scripts/seo-files.mjs",
+    "build": "node --env-file-if-exists=.env scripts/sync-meta.mjs && react-router build && node scripts/postbuild.mjs && node scripts/og.mjs && node scripts/seo-files.mjs",
     "preview": "npm run build && wrangler dev",
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint ."

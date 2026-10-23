@@ -37,7 +37,7 @@ export function HeroMandala() {
   }, []);
 
   return (
-    <div ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 hidden sm:block">
+    <div ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 hidden sm:block">
       <svg
         viewBox="-300 -300 600 600"
         className="absolute -top-[260px] -right-[380px] block size-[900px] animate-[spin_90s_linear_infinite] opacity-25 lg:hidden"

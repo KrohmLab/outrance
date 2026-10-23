@@ -49,7 +49,7 @@ export default function App() {
         Aller au contenu
       </a>
       <Header />
-      <main id="contenu" tabIndex={-1} className="outline-none">
+      <main id="contenu" tabIndex={-1} className="relative isolate outline-none">
         <Outlet />
       </main>
       <Footer />

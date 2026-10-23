@@ -59,7 +59,7 @@ export function EventHero({
   } as CSSProperties;
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-x-clip">
       <HeroMandala />
       <div className="wrap relative flex flex-col gap-[18px] pt-5 pb-10 sm:gap-8 sm:pt-8 sm:pb-[72px] lg:gap-10 lg:pt-10 lg:pb-20">
         <Breadcrumb title={event.title} />

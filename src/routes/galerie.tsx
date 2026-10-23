@@ -108,7 +108,17 @@ export default function Galerie({ loaderData }: Route.ComponentProps) {
           <h2 id="galerie-albums" className="sr-only">
             Albums photo
           </h2>
-          <AlbumMosaic albums={albums} onOpen={(album) => viewer.open(album)} />
+          {albums.length > 0 ? (
+            <AlbumMosaic albums={albums} onOpen={(album) => viewer.open(album)} />
+          ) : (
+            <p className="m-0 max-w-[560px] text-ink-muted">
+              Les albums photo arrivent bientôt. En attendant, retrouve-les sur{" "}
+              <a href={site.socials.facebook} target="_blank" rel="noopener">
+                notre page Facebook
+              </a>
+              .
+            </p>
+          )}
         </section>
       </TabPanel>
 

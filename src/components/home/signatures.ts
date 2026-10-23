@@ -25,4 +25,4 @@ export const SIGNATURES: Record<string, Signature> = {
 };
 
 /** Ordre du roster sur l’accueil (orbite, rail mobile, bandeau) ; les artistes ajoutés plus tard suivent. */
-export const ORBIT_ORDER = ["klaak", "originz", "rayzorks", "moonwave", "namdak", "soul-edge", "kangapta", "marsupial", "rajax"];
+export const ORBIT_ORDER = ["originz", "rayzorks", "klaak", "moonwave", "namdak", "soul-edge", "kangapta", "marsupial", "rajax"];

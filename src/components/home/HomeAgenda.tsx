@@ -19,7 +19,7 @@ const place = (e: HeroEvent) => [e.venue, e.city].filter(Boolean).join(" — ");
 
 export function HomeAgenda({ featured, upcoming, past }: { featured: HeroEvent | null; upcoming: boolean; past: HeroEvent[] }) {
   return (
-    <section aria-labelledby="home-agenda" className="wrap pt-16 pb-16 sm:pt-[112px] sm:pb-24">
+    <section aria-labelledby="home-agenda" className="wrap pt-12 pb-12 sm:pt-[112px] sm:pb-24">
       <div className="flex flex-wrap items-end justify-between gap-6 pb-6 sm:pb-9">
         <Reveal className="flex flex-col gap-3">
           <span className="lbl text-lotus">Événements</span>

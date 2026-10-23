@@ -17,7 +17,12 @@ export function HeaderGauge({ headerRef }: { headerRef: React.RefObject<HTMLElem
     const p = scrollYProgress.get();
     ringRef.current?.setAttribute("stroke-dashoffset", (RING * (1 - p)).toFixed(1));
     if (rotRef.current) rotRef.current.style.transform = `rotate(${(y * 0.12).toFixed(1)}deg)`;
-    headerRef.current?.style.setProperty("--hb", Math.min(1, y / 240).toFixed(3));
+    const header = headerRef.current;
+    if (header) {
+      header.style.setProperty("--hb", Math.min(1, y / 240).toFixed(3));
+      if (y > 8) header.dataset.scrolled = "";
+      else delete header.dataset.scrolled;
+    }
   };
   useMotionValueEvent(scrollY, "change", update);
   useLayoutEffect(update);

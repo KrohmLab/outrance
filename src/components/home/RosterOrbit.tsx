@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import type { MotionLevel } from "../../lib/useMotionLevel";
 import { Reveal } from "../Reveal";
 import { PETAL } from "./Lotus";
+import { RosterRail } from "./RosterRail";
 import { clamp01, easeOut, lerp } from "./motion-math";
 import { usePageScroll } from "./usePageScroll";
 import { NEUTRAL, ORBIT_ORDER, SIGNATURES } from "./signatures";
@@ -97,8 +98,9 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
   );
   const toggle = (slug: string) => setPicked((p) => (p === slug ? null : slug));
 
-  const info = (
-    <div key={current?.slug ?? "neutral"} className="orbit-info flex min-h-[200px] flex-col gap-2.5 border-y border-line py-6" aria-live="polite">
+  // En mobile, la barre de progression du rail sert de séparateur haut : seul le filet du bas reste.
+  const info = (mobile: boolean) => (
+    <div key={current?.slug ?? "neutral"} className={`orbit-info flex min-h-[200px] flex-col gap-2.5 border-line py-6 ${mobile ? "border-b pt-3" : "border-y"}`} aria-live="polite">
       {current ? (
         <>
           <span className="lbl text-[11px] text-lotus">{meta(current)}</span>
@@ -146,14 +148,14 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
   );
 
   return (
-    <section ref={sectionRef} aria-labelledby="home-roster" className="relative overflow-hidden py-16 sm:py-24 lg:flex lg:min-h-[100vh] lg:items-center">
+    <section ref={sectionRef} aria-labelledby="home-roster" className="relative overflow-hidden py-12 sm:py-24 lg:flex lg:min-h-[100vh] lg:items-center">
       <div className="wrap flex flex-col items-center gap-10 lg:flex-row lg:gap-14">
         <Reveal className="flex w-full min-w-0 flex-1 flex-col gap-5 lg:gap-[22px]">
           <span className="lbl text-lotus">Artistes</span>
           <h2 id="home-roster" className="disp text-[36px] leading-none font-bold tracking-[-0.01em] sm:text-display-l">
             Le roster
           </h2>
-          <div className="max-sm:hidden">{info}</div>
+          <div className="max-sm:hidden">{info(false)}</div>
           <div className="max-sm:hidden">{cta}</div>
         </Reveal>
 
@@ -217,7 +219,7 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
             <Flower slug={current?.slug ?? null} size={300} />
             {portrait(110)}
           </div>
-          <div role="group" aria-label="Choisir un artiste" className="-mx-4 flex snap-x snap-mandatory gap-2 overflow-x-auto px-4 py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <RosterRail label="Choisir un artiste">
             {ordered.map((a) => {
               const on = a.slug === current?.slug;
               return (
@@ -238,8 +240,8 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
                 </button>
               );
             })}
-          </div>
-          {info}
+          </RosterRail>
+          {info(true)}
           {cta}
         </div>
       </div>

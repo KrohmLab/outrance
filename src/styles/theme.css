@@ -69,6 +69,11 @@
 }
 
 @layer base {
+  /* Transformations des éléments SVG calculées dans le repère du viewBox, explicitement :
+     WebKit (Safari, Brave et tout navigateur iOS) ne l’applique pas toujours par défaut. */
+  svg * {
+    transform-box: view-box;
+  }
   html {
     background: var(--color-nuit);
     color: var(--color-ink);
@@ -429,29 +434,33 @@
   }
 }
 
-/* Menu plein écran : rideau en clip-path, liens en cascade (artboards tablette et mobile). */
+/* Menu plein écran : ouverture en iris depuis le bouton burger (en haut à droite), liens en cascade. */
 .menu-panel {
-  clip-path: inset(0 0 100% 0);
+  --iris-at: calc(100% - 40px) -38px;
+  clip-path: circle(0% at var(--iris-at));
   visibility: hidden;
   transition:
-    clip-path 0.55s var(--ease-nuit),
-    visibility 0.55s;
+    clip-path 0.6s var(--ease-nuit),
+    visibility 0.6s;
+}
+@media (min-width: 640px) {
+  .menu-panel { --iris-at: calc(100% - 56px) -38px; }
 }
 .menu-panel[data-open] {
-  clip-path: inset(0 0 0 0);
+  clip-path: circle(150% at var(--iris-at));
   visibility: visible;
   /* Visible dès l’ouverture, sinon le premier lien ne peut pas recevoir le focus. */
   transition:
-    clip-path 0.55s var(--ease-nuit),
+    clip-path 0.8s var(--ease-nuit),
     visibility 0s;
 }
 .menu-links > a {
   color: var(--color-ink);
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(24px);
   transition:
-    opacity 0.4s,
-    transform 0.55s var(--ease-nuit),
+    opacity 0.45s,
+    transform 0.6s var(--ease-nuit),
     color 0.2s;
 }
 .menu-panel[data-open] .menu-links > a {
@@ -462,11 +471,151 @@
 .menu-links > a[aria-current="page"] {
   color: var(--color-lotus);
 }
-.menu-links > a:nth-child(2) { transition-delay: 0.05s; }
-.menu-links > a:nth-child(3) { transition-delay: 0.1s; }
-.menu-links > a:nth-child(4) { transition-delay: 0.15s; }
-.menu-links > a:nth-child(5) { transition-delay: 0.2s; }
-.menu-links > a:nth-child(6) { transition-delay: 0.25s; }
+.menu-panel[data-open] .menu-links > a:nth-child(1) { transition-delay: 0.12s; }
+.menu-panel[data-open] .menu-links > a:nth-child(2) { transition-delay: 0.18s; }
+.menu-panel[data-open] .menu-links > a:nth-child(3) { transition-delay: 0.24s; }
+.menu-panel[data-open] .menu-links > a:nth-child(4) { transition-delay: 0.3s; }
+.menu-panel[data-open] .menu-links > a:nth-child(5) { transition-delay: 0.36s; }
+.menu-panel[data-open] .menu-links > a:nth-child(6) { transition-delay: 0.42s; }
+.menu-aside {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.45s,
+    transform 0.6s var(--ease-nuit);
+}
+.menu-panel[data-open] .menu-aside {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.35s;
+}
+
+/* Lien : le petit lotus (caché hors grand écran) et le texte. */
+.menu-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.menu-link-lotus {
+  display: none;
+}
+.menu-link-text {
+  display: inline-block;
+}
+
+/* Grand écran à la souris : grand lotus de fond, et par lien survolé un petit lotus qui éclot
+   pendant que le texte glisse ; les autres liens s’estompent. */
+.menu-big-lotus {
+  --b: 0;
+  opacity: 0;
+  rotate: -50deg;
+  transition:
+    --b 1.2s var(--ease-nuit),
+    opacity 0.7s,
+    rotate 1.6s var(--ease-nuit);
+}
+.menu-panel[data-open] .menu-big-lotus {
+  --b: 1;
+  opacity: 0.55;
+  rotate: 0deg;
+  transition-delay: 0.15s;
+}
+@media (min-width: 1024px) and (hover: hover) {
+  .menu-link-lotus {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1.1em;
+    height: 1.1em;
+    --b: 0;
+    opacity: 0;
+    translate: 0 -50%;
+    scale: 0.4;
+    rotate: -120deg;
+    pointer-events: none;
+    transition:
+      --b 0.7s var(--ease-nuit),
+      opacity 0.3s,
+      scale 0.6s var(--ease-nuit),
+      rotate 0.9s var(--ease-nuit);
+  }
+  /* À cette taille, le trait du lotus (pensé pour 600 unités) doit être épaissi pour se lire. */
+  .menu-link-lotus .lotus-tip {
+    stroke-width: 9;
+  }
+  .menu-link-lotus .lotus-core {
+    r: 22px;
+  }
+  .menu-link-text {
+    transition:
+      transform 0.55s var(--ease-nuit),
+      color 0.25s;
+  }
+  .menu-link:hover .menu-link-lotus,
+  .menu-link:focus-visible .menu-link-lotus {
+    --b: 1;
+    opacity: 1;
+    scale: 1;
+    rotate: 0deg;
+  }
+  .menu-link:hover .menu-link-text,
+  .menu-link:focus-visible .menu-link-text {
+    transform: translateX(1.3em);
+  }
+  .menu-links:has(.menu-link:hover) .menu-link:not(:hover) .menu-link-text {
+    color: var(--color-ink-muted);
+  }
+  /* D’un lien à l’autre, le grand lotus (toujours grand ouvert) tourne d’un cran avec un léger
+     rebond, et son cœur émet deux ondes, comme les cercles du hero. Deux keyframes identiques
+     alternées (liens pairs / impairs) pour que les animations repartent à chaque changement. */
+  .menu-panel:has(.menu-link:hover) .menu-big-lotus {
+    opacity: 0.8;
+    transition:
+      opacity 0.5s,
+      rotate 1.1s cubic-bezier(0.34, 1.4, 0.5, 1);
+  }
+  .menu-panel:has(.menu-links > a:nth-child(1):hover) .menu-big-lotus { rotate: 20deg; }
+  .menu-panel:has(.menu-links > a:nth-child(2):hover) .menu-big-lotus { rotate: 50deg; }
+  .menu-panel:has(.menu-links > a:nth-child(3):hover) .menu-big-lotus { rotate: 80deg; }
+  .menu-panel:has(.menu-links > a:nth-child(4):hover) .menu-big-lotus { rotate: 110deg; }
+  .menu-panel:has(.menu-links > a:nth-child(5):hover) .menu-big-lotus { rotate: 140deg; }
+  .menu-panel:has(.menu-links > a:nth-child(6):hover) .menu-big-lotus { rotate: 170deg; }
+  .menu-panel:has(.menu-links > a:nth-child(odd):hover) .menu-big-lotus .lotus-core { animation: menu-core-a 0.9s var(--ease-nuit); }
+  .menu-panel:has(.menu-links > a:nth-child(even):hover) .menu-big-lotus .lotus-core { animation: menu-core-b 0.9s var(--ease-nuit); }
+  .menu-panel:has(.menu-links > a:nth-child(odd):hover) .menu-ripple { animation: menu-ripple-a 1.4s calc(var(--i) * 0.18s) var(--ease-nuit) both; }
+  .menu-panel:has(.menu-links > a:nth-child(even):hover) .menu-ripple { animation: menu-ripple-b 1.4s calc(var(--i) * 0.18s) var(--ease-nuit) both; }
+}
+.menu-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  aspect-ratio: 1;
+  margin: -35% 0 0 -35%;
+  border: 1px solid var(--color-lotus);
+  border-radius: 50%;
+  opacity: 0;
+  scale: 0.05;
+  pointer-events: none;
+}
+@keyframes menu-ripple-a {
+  0% { opacity: 0.7; scale: 0.05; }
+  100% { opacity: 0; scale: 1; }
+}
+@keyframes menu-ripple-b {
+  0% { opacity: 0.7; scale: 0.05; }
+  100% { opacity: 0; scale: 1; }
+}
+@keyframes menu-core-a {
+  0%, 100% { scale: 1; }
+  30% { scale: 1.9; }
+}
+@keyframes menu-core-b {
+  0%, 100% { scale: 1; }
+  30% { scale: 1.9; }
+}
+
 
 /* Apparition : fondu + 24px, 600 ms, cascade de 80 ms (brand book). */
 @keyframes rise {
@@ -739,9 +888,16 @@
 
 /* Header de l’accueil : fond et filet qui apparaissent avec le scroll (--hb), jauge (--mark), logo (--slide). */
 .home-header {
-  background: rgb(10 7 18 / calc(var(--hb, 0) * 0.86));
+  background: rgb(10 7 18 / calc(var(--hb, 0) * 0.92));
   border-bottom: 1px solid rgb(46 38 69 / var(--hb, 0));
-  backdrop-filter: blur(calc(var(--hb, 0) * 14px));
+}
+/* Flou d’arrière-plan constant (jamais animé : recalculer le rayon à chaque image saccade sur iOS),
+   activé une fois la page défilée, et seulement en desktop. */
+@media (min-width: 1024px) {
+  .home-header[data-scrolled] {
+    background: rgb(10 7 18 / calc(var(--hb, 0) * 0.86));
+    backdrop-filter: blur(14px);
+  }
 }
 .home-header:has([data-open]) {
   background: var(--color-nuit);
@@ -874,8 +1030,8 @@ html:has(.home-intro) [data-home-header] {
   to { transform: none; opacity: 1; }
 }
 @keyframes loader-iris {
-  from { clip-path: circle(150% at 50% 50%); }
-  to { clip-path: circle(0% at 50% 50%); visibility: hidden; }
+  from { clip-path: circle(150% at 50% 50svh); }
+  to { clip-path: circle(0% at 50% 50svh); visibility: hidden; }
 }
 @keyframes loader-header { to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
@@ -891,5 +1047,25 @@ html:has(.home-intro) [data-home-header] {
   .home-intro .hero-text {
     opacity: 0;
     animation: loader-header 0.5s 1.25s ease-out forwards;
+  }
+}
+
+/* Header de l’accueil en mobile : quand la jauge pousse le logo, BILLETTERIE devient un bouton icône
+   (le libellé reste lu par les lecteurs d’écran). */
+@media (max-width: 639px) {
+  [data-home-header][data-compact] .billet-btn {
+    width: 44px;
+    padding: 0;
+  }
+  [data-home-header][data-compact] .billet-icon {
+    display: block;
+  }
+  [data-home-header][data-compact] .billet-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }

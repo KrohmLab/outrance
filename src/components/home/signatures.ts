@@ -24,5 +24,5 @@ export const SIGNATURES: Record<string, Signature> = {
   klaak: { n: [16, 16, 8], d: [160, 116, 84], s: [[0.5, 1.48], [0.5, 1.2], [0.5, 0.8]], twist: 22.5, bpm: 185, line: "≈ 185 BPM · 32 lames, fleur éclatée" },
 };
 
-/** Ordre de l’orbite dans la maquette ; les artistes ajoutés plus tard suivent. */
-export const ORBIT_ORDER = ["originz", "rayzorks", "moonwave", "namdak", "klaak", "soul-edge", "kangapta", "marsupial", "rajax"];
+/** Ordre du roster sur l’accueil (orbite, rail mobile, bandeau) ; les artistes ajoutés plus tard suivent. */
+export const ORBIT_ORDER = ["klaak", "originz", "rayzorks", "moonwave", "namdak", "soul-edge", "kangapta", "marsupial", "rajax"];

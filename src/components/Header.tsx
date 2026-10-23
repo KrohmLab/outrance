@@ -1,9 +1,9 @@
 import { useCallback, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import { HeaderGauge } from "./home/HeaderGauge";
 import { useTicketingHref } from "../lib/featured";
-import { logoUrl, nav } from "../site";
-import { BurgerIcon, CloseIcon } from "./icons";
+import { logoUrl } from "../site";
+import { BurgerIcon, CloseIcon, TicketTiltIcon } from "./icons";
 import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
@@ -22,7 +22,7 @@ export function Header() {
         data-home-header={isHome || undefined}
         className={`top-0 z-40 ${isHome ? "home-header fixed inset-x-0" : "sticky border-b border-line bg-nuit/90 backdrop-blur-[14px]"}`}
       >
-        <div className="flex h-[68px] items-center justify-between gap-4 px-4 sm:h-[76px] sm:px-8 lg:wrap lg:h-auto lg:flex-wrap lg:gap-x-8 lg:gap-y-3 lg:py-4">
+        <div className="flex h-[68px] items-center justify-between gap-4 px-4 sm:h-[76px] sm:px-8 lg:wrap">
           <Link to="/" className="relative flex min-h-11 items-center">
             {isHome && <HeaderGauge headerRef={headerRef} />}
             <img
@@ -34,29 +34,18 @@ export function Header() {
             />
           </Link>
 
-          <nav aria-label="Navigation principale" className="hidden flex-wrap items-center gap-x-7 lg:flex">
-            {nav.map((item) =>
-              item.external ? (
-                <a key={item.href} href={item.href} className="nav-link">
-                  {item.label} <span aria-hidden="true">↗</span>
-                </a>
-              ) : (
-                <NavLink key={item.href} to={item.href} className="nav-link" prefetch="intent">
-                  {item.label}
-                </NavLink>
-              ),
-            )}
-          </nav>
 
           <div className="flex items-center gap-2.5">
             {/* Le brand book garde BILLETTERIE visible en mobile et en tablette. */}
-            <Link className="btn btn-ghost min-h-11 border-lotus! px-4 sm:px-6" to={ticketingHref} prefetch="intent">
-              Billetterie
+            <Link className="billet-btn btn btn-ghost min-h-11 border-lotus! px-4 sm:px-6" to={ticketingHref} prefetch="intent">
+              {/* Accueil mobile : une fois le lotus posé dans la jauge, le bouton se réduit à son icône. */}
+              <TicketTiltIcon className="billet-icon hidden" size={22} />
+              <span className="billet-label">Billetterie</span>
             </Link>
             <button
               ref={burgerRef}
               type="button"
-              className="burger lg:hidden"
+              className="burger"
               aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
               aria-expanded={menuOpen}
               aria-controls="menu-principal"

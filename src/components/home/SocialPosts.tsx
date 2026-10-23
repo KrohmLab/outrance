@@ -7,7 +7,7 @@ import { SocialLinks } from "../SocialLinks";
 export function SocialPosts() {
   const handle = `@${new URL(site.socials.instagram).pathname.replace(/\//g, "")}`;
   return (
-    <section aria-labelledby="home-socials" className="wrap flex flex-col gap-8 py-16 sm:py-24">
+    <section aria-labelledby="home-socials" className="wrap flex flex-col gap-8 py-12 sm:py-24">
       <Reveal className="flex flex-wrap items-end justify-between gap-6">
         <div className="flex flex-col gap-2.5">
           <span className="lbl text-lotus">Sur les réseaux</span>

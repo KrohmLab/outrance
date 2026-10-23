@@ -1,4 +1,4 @@
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useRef, type CSSProperties, type RefObject } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import { useModal } from "../lib/useModal";
 import { fullTitle } from "../lib/calendar";
@@ -58,6 +58,9 @@ export function MobileMenu({ open, onClose, headerRef, returnFocusRef }: Props) 
         <div className="slowspin size-full">
           <Lotus />
         </div>
+        {/* Ondes émises par le cœur du lotus à chaque changement de lien survolé. */}
+        <span className="menu-ripple" style={{ "--i": 0 } as CSSProperties} />
+        <span className="menu-ripple" style={{ "--i": 1 } as CSSProperties} />
       </div>
 
       <div className="relative grid gap-2 py-8 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] sm:gap-10 sm:px-8 sm:py-12 lg:wrap lg:min-h-[calc(100svh-76px)] lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:items-center lg:gap-16 lg:py-16">

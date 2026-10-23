@@ -158,3 +158,13 @@ export const AlertIcon = (p: IconProps) => (
     <path d="M12 7.5v5.5M12 16.5v.01" />
   </Icon>
 );
+
+/** Ticket incliné (encoches latérales et ligne de découpe) : bouton billetterie compact du header. */
+export const TicketTiltIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <g transform="rotate(-20 12 12)">
+      <path d="M3 7h18v3.2a1.8 1.8 0 0 0 0 3.6V17H3v-3.2a1.8 1.8 0 0 0 0-3.6z" />
+      <path d="M15.5 7.8v1.6M15.5 11.2v1.6M15.5 14.6v1.6" />
+    </g>
+  </Icon>
+);

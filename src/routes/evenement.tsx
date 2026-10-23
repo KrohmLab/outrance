@@ -83,7 +83,7 @@ export default function Evenement({ loaderData }: Route.ComponentProps) {
 
       <Lineup lineup={event.lineup} roster={roster} decoration={event.decoration} />
       <NewsletterCta />
-      {hasBar && event.ticketUrl && <StickyTicketBar date={event.date} price={event.price} ticketUrl={event.ticketUrl} />}
+      {hasBar && event.ticketUrl && <StickyTicketBar title={fullTitle(event)} date={event.date} price={event.price} ticketUrl={event.ticketUrl} />}
     </div>
   );
 }

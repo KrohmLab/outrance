@@ -769,6 +769,24 @@
   }
 }
 
+/* Barre de billetterie : tablette et desktop, elle n’apparaît qu’une fois le bouton du hero hors écran. */
+@media (min-width: 640px) {
+  .ticket-bar {
+    transform: translateY(100%);
+    visibility: hidden;
+    transition:
+      transform 0.45s var(--ease-nuit),
+      visibility 0.45s;
+  }
+  .ticket-bar[data-shown] {
+    transform: none;
+    visibility: visible;
+    transition:
+      transform 0.45s var(--ease-nuit),
+      visibility 0s;
+  }
+}
+
 /* ───────────── Accueil ───────────── */
 
 /* Lotus : --b (0 bouton → 1 ouvert) sur un ancêtre ; formules de lotus(b) de Main.dc.html. */

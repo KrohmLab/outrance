@@ -22,15 +22,7 @@ type Props = {
   canNavigate: boolean;
 };
 
-export function ArtistPanel({
-  artist,
-  open,
-  onClose,
-  onPrev,
-  onNext,
-  onBook,
-  canNavigate,
-}: Props) {
+export function ArtistPanel({ artist, open, onClose, onPrev, onNext, onBook, canNavigate }: Props) {
   const hydrated = useHydrated();
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -42,23 +34,11 @@ export function ArtistPanel({
   }, [artist?.slug]);
 
   if (!hydrated) return null;
-  const links = artist
-    ? (Object.keys(LINK_LABELS) as (keyof typeof LINK_LABELS)[]).filter(
-        (k) => artist.links[k],
-      )
-    : [];
+  const links = artist ? (Object.keys(LINK_LABELS) as (keyof typeof LINK_LABELS)[]).filter((k) => artist.links[k]) : [];
 
   return createPortal(
-    <div
-      className="artist-overlay fixed inset-0 z-[60]"
-      data-open={open || undefined}
-      inert={!open}
-    >
-      <div
-        aria-hidden="true"
-        className="artist-backdrop absolute inset-0 bg-nuit/72 sm:backdrop-blur-[6px]"
-        onClick={onClose}
-      />
+    <div className="artist-overlay fixed inset-0 z-[60]" data-open={open || undefined} inert={!open}>
+      <div aria-hidden="true" className="artist-backdrop absolute inset-0 bg-nuit/72 sm:backdrop-blur-[6px]" onClick={onClose} />
       <div
         ref={panelRef}
         role="dialog"
@@ -70,36 +50,18 @@ export function ArtistPanel({
           <>
             {/* Fermer reste visible quand on fait défiler la fiche. */}
             <div className="sticky top-0 z-10 flex h-0 flex-none justify-end">
-              <button
-                ref={closeRef}
-                type="button"
-                className="round-btn round-btn-close mt-4 mr-4"
-                aria-label="Fermer la fiche"
-                onClick={onClose}
-              >
+              <button ref={closeRef} type="button" className="round-btn round-btn-close mt-4 mr-4" aria-label="Fermer la fiche" onClick={onClose}>
                 <CloseIcon />
               </button>
             </div>
             <div className="relative flex flex-none items-center justify-center overflow-hidden bg-[#1d1430] max-sm:h-[150px] sm:h-[320px]">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 560 320"
-                preserveAspectRatio="xMidYMid slice"
-                className="absolute inset-0 size-full"
-              >
+              <svg aria-hidden="true" viewBox="0 0 560 320" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 size-full">
                 <g fill="none" stroke="var(--color-line)">
                   {[80, 150, 220, 290].map((r) => (
                     <circle key={r} cx="280" cy="160" r={r} />
                   ))}
                 </g>
-                <circle
-                  cx="280"
-                  cy="160"
-                  r="115"
-                  fill="none"
-                  stroke="var(--color-lotus)"
-                  strokeWidth="1.5"
-                />
+                <circle cx="280" cy="160" r="115" fill="none" stroke="var(--color-lotus)" strokeWidth="1.5" />
               </svg>
               <span
                 aria-hidden="true"
@@ -107,40 +69,27 @@ export function ArtistPanel({
               >
                 {artist.name.charAt(0)}
               </span>
-              <span className="lbl absolute bottom-4 left-5 hidden text-[10px] text-ink-muted sm:block">
-                [Portrait duotone — 16:9]
-              </span>
+              <span className="lbl absolute bottom-4 left-5 hidden text-[10px] text-ink-muted sm:block">[Portrait duotone — 16:9]</span>
             </div>
 
             <div className="artist-content flex flex-col gap-6 px-5 pt-6 pb-8 sm:px-8 sm:pt-8 sm:pb-10">
               <div className="flex flex-col gap-3">
                 <span className="lbl text-[11px] text-lotus">
-                  {artist.format} <span aria-hidden="true">◉</span>{" "}
-                  {genresLabel(artist)}
+                  {artist.format} <span aria-hidden="true">◉</span> {genresLabel(artist)}
                 </span>
-                <h2
-                  id="fiche-artiste-nom"
-                  className="disp text-[36px] leading-none font-extrabold tracking-[-0.01em] sm:text-[48px]"
-                >
+                <h2 id="fiche-artiste-nom" className="disp text-[36px] leading-none font-extrabold tracking-[-0.01em] sm:text-[48px]">
                   {artist.name}
                 </h2>
               </div>
 
               <p className="m-0 text-ink-muted sm:text-[17px]">
-                {artist.bio ??
-                  "Biographie à venir. [À compléter par l’artiste : parcours, labels, dates marquantes.]"}
+                {artist.bio ?? "Biographie à venir. [À compléter par l’artiste : parcours, labels, dates marquantes.]"}
               </p>
 
               {links.length > 0 && (
                 <div className="flex flex-wrap gap-3">
                   {links.map((k) => (
-                    <a
-                      key={k}
-                      className="btn btn-ghost"
-                      href={artist.links[k]}
-                      target="_blank"
-                      rel="noopener"
-                    >
+                    <a key={k} className="btn btn-ghost" href={artist.links[k]} target="_blank" rel="noopener">
                       {LINK_LABELS[k]} <span aria-hidden="true">↗</span>
                     </a>
                   ))}
@@ -149,9 +98,7 @@ export function ArtistPanel({
 
               {artist.events.length > 0 && (
                 <div className="flex flex-col">
-                  <h3 className="lbl m-0 pb-2 text-[11px] text-ink-muted">
-                    Avec Outrance
-                  </h3>
+                  <h3 className="lbl m-0 pb-2 text-[11px] text-ink-muted">Avec Outrance</h3>
                   <ul className="m-0 list-none p-0">
                     {artist.events.map((e) => (
                       <li key={e.slug} className="border-t border-line">
@@ -160,9 +107,7 @@ export function ArtistPanel({
                           className="group flex min-h-11 items-center justify-between gap-4 py-3 text-ink no-underline hover:text-lotus"
                         >
                           <span className="flex flex-col gap-1 transition-transform duration-300 group-hover:translate-x-2">
-                            <span className="lbl text-[11px] text-lotus">
-                              {formatDate(e.date)}
-                            </span>
+                            <span className="lbl text-[11px] text-lotus">{formatDate(e.date)}</span>
                             <span className="font-semibold">{e.title}</span>
                           </span>
                           <span aria-hidden="true">→</span>
@@ -174,29 +119,15 @@ export function ArtistPanel({
               )}
 
               <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6">
-                <button
-                  type="button"
-                  className="btn btn-lotus min-h-[52px]"
-                  onClick={() => onBook(artist)}
-                >
+                <button type="button" className="btn btn-lotus min-h-[52px]" onClick={() => onBook(artist)}>
                   Booker {artist.name}
                 </button>
                 {canNavigate && (
                   <div className="flex gap-2">
-                    <button
-                      type="button"
-                      className="round-btn"
-                      aria-label="Artiste précédent"
-                      onClick={onPrev}
-                    >
+                    <button type="button" className="round-btn" aria-label="Artiste précédent" onClick={onPrev}>
                       <ChevronLeftIcon />
                     </button>
-                    <button
-                      type="button"
-                      className="round-btn"
-                      aria-label="Artiste suivant"
-                      onClick={onNext}
-                    >
+                    <button type="button" className="round-btn" aria-label="Artiste suivant" onClick={onNext}>
                       <ChevronRightIcon />
                     </button>
                   </div>

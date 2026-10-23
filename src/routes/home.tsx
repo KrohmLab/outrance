@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Hero, type HeroEvent } from "../components/home/Hero";
 import { useHomeIntro } from "../components/home/useHomeIntro";
+import { ORBIT_ORDER } from "../components/home/signatures";
 import { Motes, MOTE_COUNT } from "../components/home/Motes";
 import { HomeAgenda } from "../components/home/HomeAgenda";
 import { RosterMarquee } from "../components/home/RosterMarquee";
@@ -34,6 +35,11 @@ export const meta: Route.MetaFunction = () => [
   },
 ];
 
+const rank = (slug: string) => {
+  const i = ORBIT_ORDER.indexOf(slug);
+  return i < 0 ? ORBIT_ORDER.length : i;
+};
+
 export function loader() {
   const list: (HeroEvent & { start?: string | null; end?: string | null; country: string })[] = events.map((e) => ({
     slug: e.slug,
@@ -51,7 +57,9 @@ export function loader() {
   }));
   return {
     events: list,
-    roster: artists.map((a) => ({ slug: a.slug, name: a.name, format: a.format, genres: a.genres, bio: a.bio })),
+    roster: artists
+      .map((a) => ({ slug: a.slug, name: a.name, format: a.format, genres: a.genres, bio: a.bio }))
+      .sort((a, b) => rank(a.slug) - rank(b.slug)),
     stats: fullSite.stats.flatMap((s) => (s.value === null ? [] : [{ value: s.value, label: s.label }])),
     founded: fullSite.association.founded,
     aftermovies,

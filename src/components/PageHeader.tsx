@@ -13,9 +13,10 @@ type Props = {
 export function PageHeader({ label, title, intro, children }: Props) {
   return (
     // Rognée sur les côtés seulement : la rosace descend entière derrière la suite de la page
-    // (-z-10 dans le contexte de <main>, sous le contenu et sous les fonds des cartes).
+    // (-z-10 dans le contexte de <main>, sous le contenu et sous les fonds des cartes). Mobile : plus
+    // petite et plus discrète, pour que le grand titre reste parfaitement lisible.
     <section className="relative overflow-x-clip">
-      <div aria-hidden="true" className="pointer-events-none absolute -top-[300px] -right-[300px] -z-10 hidden size-[900px] opacity-35 sm:block">
+      <div aria-hidden="true" className="pointer-events-none absolute -top-[150px] -right-[220px] -z-10 size-[480px] opacity-25 sm:-top-[300px] sm:-right-[300px] sm:size-[900px] sm:opacity-35">
         <Mandala />
       </div>
       <div className="wrap relative flex flex-col gap-8 pt-12 pb-5 sm:pt-[88px] sm:pb-12">

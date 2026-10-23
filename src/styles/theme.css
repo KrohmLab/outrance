@@ -886,8 +886,8 @@ html:has(.home-intro) [data-home-header] {
   to { transform: none; opacity: 1; }
 }
 @keyframes loader-iris {
-  from { clip-path: circle(150% at 50% 50%); }
-  to { clip-path: circle(0% at 50% 50%); visibility: hidden; }
+  from { clip-path: circle(150% at 50% 50svh); }
+  to { clip-path: circle(0% at 50% 50svh); visibility: hidden; }
 }
 @keyframes loader-header { to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {

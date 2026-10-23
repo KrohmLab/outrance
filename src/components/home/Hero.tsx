@@ -53,11 +53,10 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
     if (!gauge || !lotus) return;
     const g = gauge.getBoundingClientRect();
     const size = lotus.offsetWidth || 1;
-    // Centre de la scène figée (collée en haut pendant l’envol), et non de la fenêtre : sur iPhone la
-    // scène fait la hauteur maximale de l’écran (lvh), plus haute que la fenêtre quand la barre est affichée.
-    const stage = lotus.parentElement;
-    const cx = (stage?.offsetWidth ?? window.innerWidth) / 2;
-    const cy = (stage?.offsetHeight ?? window.innerHeight) / 2;
+    // Centre du lotus dans la scène figée (collée en haut pendant l’envol) : sa position de repos,
+    // ancrée sur la zone toujours visible de l’écran (50svh), et non le centre de la fenêtre.
+    const cx = lotus.offsetLeft;
+    const cy = lotus.offsetTop;
     flyTarget.current = {
       dx: g.left + g.width / 2 - cx,
       dy: g.top + g.height / 2 - cy,
@@ -145,8 +144,9 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
 
   return (
     <section ref={sectionRef} aria-label="Accueil" className="relative h-[195svh] lg:h-[267vh]">
-      {/* Hauteur maximale de l’écran (lvh) : quand la barre d’adresse se replie sur mobile, la scène couvre
-          tout l’écran au lieu de laisser voir son bord bas. */}
+      {/* Fond à la hauteur maximale de l’écran (lvh) : quand la barre d’adresse se replie sur mobile, la scène
+          couvre tout l’écran. Le contenu (lotus, cercles, textes) est positionné, lui, dans la zone toujours
+          visible (svh) : il reste centré et ne passe pas sous les barres d’outils du navigateur. */}
       <div className="sticky top-0 h-[100lvh] overflow-hidden">
         {level === "full" && (
           <div aria-hidden="true" ref={glowRef} className="pointer-events-none absolute inset-0">
@@ -156,7 +156,7 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
 
         {/* Halo, ondes et cercles concentriques. */}
         {/* Au-dessus du voile de chargement : ses cercles naissent du bouton au premier battement. */}
-        <div aria-hidden="true" ref={haloRef} className="pointer-events-none absolute top-1/2 left-1/2 z-[15]" style={{ transform: "translate(-50%, -50%) scale(.5)" }}>
+        <div aria-hidden="true" ref={haloRef} className="pointer-events-none absolute top-[50svh] left-1/2 z-[15]" style={{ transform: "translate(-50%, -50%) scale(.5)" }}>
           <div className="par" style={{ transform: "translate(calc(var(--mx, 0) * -62px * var(--damp, 1)), calc(var(--my, 0) * -47px * var(--damp, 1)))" }}>
             <svg viewBox="-300 -300 600 600" className="block size-[700px] overflow-visible sm:size-[1100px] lg:size-[1400px]">
               <circle className="wave" r="200" fill="none" stroke="var(--color-lotus)" strokeWidth="1" />
@@ -182,7 +182,7 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
         <div
           ref={lotusRef}
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 left-1/2 z-20 size-[340px] sm:size-[600px] lg:size-[760px]"
+          className="pointer-events-none absolute top-[50svh] left-1/2 z-20 size-[340px] sm:size-[600px] lg:size-[760px]"
           style={{ transform: "translate(-50%, -50%)", "--b": 0 } as CSSProperties}
         >
           <div
@@ -207,7 +207,7 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
         </div>
 
         {/* Textes au-dessus du lotus (et du voile de chargement, sous lequel ils apparaissent en fondu). */}
-        <div className="hero-text pointer-events-none absolute inset-0 z-30">
+        <div className="hero-text pointer-events-none absolute inset-x-0 top-0 z-30 h-[100svh]">
           {/* Intro : logo, signature, invitation à scroller. */}
           <div ref={introRef} className="absolute inset-x-0 bottom-[12svh] flex flex-col items-center gap-4 px-4 text-center sm:bottom-[14vh] sm:gap-[18px]">
             <h1 className="m-0">

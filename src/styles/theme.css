@@ -515,7 +515,7 @@
     rotate 1.6s var(--ease-nuit);
 }
 .menu-panel[data-open] .menu-big-lotus {
-  --b: 0.7;
+  --b: 1;
   opacity: 0.55;
   rotate: 0deg;
   transition-delay: 0.15s;
@@ -566,11 +566,32 @@
   .menu-links:has(.menu-link:hover) .menu-link:not(:hover) .menu-link-text {
     color: var(--color-ink-muted);
   }
+  /* Le grand lotus pivote d’un cran par lien survolé et « respire » (se referme un peu puis
+     se rouvre) à chaque changement de lien : deux keyframes identiques alternées (liens pairs /
+     impairs) pour que l’animation reparte d’un lien au suivant. */
   .menu-panel:has(.menu-link:hover) .menu-big-lotus {
-    --b: 1;
     opacity: 0.8;
-    rotate: 25deg;
+    transition:
+      --b 1.2s var(--ease-nuit),
+      opacity 0.5s,
+      rotate 0.9s var(--ease-nuit);
   }
+  .menu-panel:has(.menu-links > a:nth-child(1):hover) .menu-big-lotus { rotate: 15deg; }
+  .menu-panel:has(.menu-links > a:nth-child(2):hover) .menu-big-lotus { rotate: 45deg; }
+  .menu-panel:has(.menu-links > a:nth-child(3):hover) .menu-big-lotus { rotate: 75deg; }
+  .menu-panel:has(.menu-links > a:nth-child(4):hover) .menu-big-lotus { rotate: 105deg; }
+  .menu-panel:has(.menu-links > a:nth-child(5):hover) .menu-big-lotus { rotate: 135deg; }
+  .menu-panel:has(.menu-links > a:nth-child(6):hover) .menu-big-lotus { rotate: 165deg; }
+  .menu-panel:has(.menu-links > a:nth-child(odd):hover) .menu-big-lotus { animation: menu-breath-a 0.9s var(--ease-nuit); }
+  .menu-panel:has(.menu-links > a:nth-child(even):hover) .menu-big-lotus { animation: menu-breath-b 0.9s var(--ease-nuit); }
+}
+@keyframes menu-breath-a {
+  0%, 100% { --b: 1; scale: 1; }
+  35% { --b: 0.62; scale: 0.94; }
+}
+@keyframes menu-breath-b {
+  0%, 100% { --b: 1; scale: 1; }
+  35% { --b: 0.62; scale: 0.94; }
 }
 
 /* Apparition : fondu + 24px, 600 ms, cascade de 80 ms (brand book). */

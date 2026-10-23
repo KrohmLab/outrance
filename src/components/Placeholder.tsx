@@ -23,9 +23,12 @@ export function Placeholder({ motif = "landscape", label, children, className = 
   const m = MOTIFS[motif];
   // « relative » seulement si l’appelant ne positionne pas lui-même le visuel : sinon il l’emporterait
   // sur un « absolute inset-0 » passé en className, et le visuel n’aurait que la hauteur de son libellé.
+  // De même pour l’alignement : « items-end » par défaut, sauf si l’appelant en donne un (bouton de
+  // lecture centré des aftermovies, par exemple).
   const position = /(^|\s)(absolute|fixed|sticky)(\s|$)/.test(className) ? "" : "relative ";
+  const align = /(^|\s)items-/.test(className) ? "" : "items-end ";
   return (
-    <div className={`${position}flex items-end overflow-hidden bg-placeholder p-3.5 ${className}`}>
+    <div className={`${position}flex ${align}overflow-hidden bg-placeholder p-3.5 ${className}`}>
       <svg
         aria-hidden="true"
         viewBox={m.viewBox}

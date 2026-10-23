@@ -95,7 +95,7 @@ export function ArtistCard({ artist, onOpen, ref }: Props) {
         </span>
       </span>
 
-      <span className="flex w-full items-end justify-between gap-3 px-3.5 pt-3 pb-3.5 sm:px-[18px] sm:pt-4 sm:pb-[18px] lg:px-[22px] lg:pt-5 lg:pb-[22px]">
+      <span className="flex w-full items-start justify-between gap-3 px-3.5 pt-3 pb-3.5 sm:px-[18px] sm:pt-4 sm:pb-[18px] lg:px-[22px] lg:pt-5 lg:pb-[22px]">
         <span className="flex min-w-0 flex-col gap-1 sm:gap-2">
           <span className="disp text-[15px] leading-[1.15] font-semibold break-words sm:text-[18px] lg:text-[22px]">
             <span className="sr-only">Voir la fiche {ofName(artist.name)} ({artist.format}) : </span>

@@ -14,6 +14,24 @@ export function youtubeId(url: string | null): string | null {
   return m?.[1] ?? null;
 }
 
+/** Visuel 16:9 de l’aftermovie : sa vignette (servie par le site) ou le Placeholder, contenu centré par-dessus. */
+function VideoVisual({ movie, className = "", zoom = false, children }: { movie: Aftermovie | null; className?: string; zoom?: boolean; children: React.ReactNode }) {
+  if (!movie?.thumbnail) {
+    return (
+      <Placeholder zoom={zoom} className={`items-center justify-center ${className}`}>
+        {children}
+      </Placeholder>
+    );
+  }
+  return (
+    <div className={`relative flex items-center justify-center overflow-hidden bg-placeholder ${className}`}>
+      <img src={movie.thumbnail} alt="" loading="lazy" decoding="async" className={`absolute inset-0 size-full object-cover ${zoom ? "zoom" : ""}`} />
+      <span aria-hidden="true" className="absolute inset-0 bg-nuit/35" />
+      {children}
+    </div>
+  );
+}
+
 /** Texte de la carte, suivi du crédit quand il est connu. */
 export function aftermovieText(a: Aftermovie) {
   return a.credit ? `${a.text} Par ${a.credit}.` : a.text;
@@ -22,11 +40,11 @@ export function aftermovieText(a: Aftermovie) {
 export function AftermovieCard({ movie, onOpen, className = "" }: { movie: Aftermovie; onOpen: () => void; className?: string }) {
   return (
     <button type="button" aria-haspopup="dialog" onClick={onOpen} className={`card group cursor-pointer border-0 p-0 font-[inherit] ${className}`}>
-      <Placeholder label="[Vignette vidéo]" zoom className="aspect-video w-full items-center justify-center">
-        <span className="relative flex size-16 items-center justify-center rounded-pill border-[1.5px] border-lotus text-lotus transition-transform duration-300 group-hover:scale-110">
+      <VideoVisual movie={movie} zoom className="aspect-video w-full">
+        <span className="relative flex size-16 items-center justify-center rounded-pill border-[1.5px] border-lotus bg-nuit/60 text-lotus transition-transform duration-300 group-hover:scale-110">
           <PlayIcon />
         </span>
-      </Placeholder>
+      </VideoVisual>
       <span className="flex flex-col gap-2 p-5 sm:p-6">
         <span className="disp text-[18px] leading-[1.15] font-semibold sm:text-[20px]">{movie.title}</span>
         <span className="text-[15px] text-ink-muted">{aftermovieText(movie)}</span>
@@ -66,7 +84,7 @@ export function VideoPlayer({ movie, open, onClose }: { movie: Aftermovie | null
             allowFullScreen
           />
         ) : (
-          <Placeholder label={id ? "[Lecteur YouTube intégré, sans cookie]" : "[Vidéo à venir]"} className="absolute inset-0 items-center justify-center">
+          <VideoVisual movie={movie} className="absolute inset-0">
             {id ? (
               <button
                 type="button"
@@ -79,7 +97,7 @@ export function VideoPlayer({ movie, open, onClose }: { movie: Aftermovie | null
             ) : (
               <span className="lbl relative px-4 text-center text-[11px] text-ink-muted">[Vidéo à venir]</span>
             )}
-          </Placeholder>
+          </VideoVisual>
         )}
       </div>
       <div className="flex flex-col gap-2 px-4 pb-6 sm:p-0">

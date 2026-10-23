@@ -6,6 +6,7 @@ import { SiteBackdrop } from "./components/SiteBackdrop";
 import { ToastProvider } from "./components/Toast";
 import { events } from "./content/load.server";
 import { DEPLOY_SKEW_SCRIPT, useDeploySkewGuard } from "./lib/deploySkew";
+import { useScrollTopOnNavigate } from "./lib/useScrollTopOnNavigate";
 import { toSummary } from "./lib/featured";
 import { buildTime } from "./lib/useNow";
 import "./styles/theme.css";
@@ -45,6 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   useDeploySkewGuard();
+  useScrollTopOnNavigate();
   return (
     <ToastProvider>
       <a

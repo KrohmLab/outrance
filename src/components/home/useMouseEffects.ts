@@ -1,8 +1,8 @@
 import { useEffect, type RefObject } from "react";
 
-// Effets souris (desktop) de Main.dc.html : halo qui suit le curseur sans retard, parallaxe (--mx, --my)
-// et vitesse du geste (--vx, --vy) qui fait traîner les pétales. Une écriture par image, sur les seuls
-// éléments concernés (.cglow, .par), jamais de re-rendu.
+// Effets souris (desktop) de Main.dc.html : parallaxe (--mx, --my) et vitesse du geste (--vx, --vy)
+// qui fait traîner les pétales. Le halo qui suit le curseur est commun au site (SiteBackdrop).
+// Une écriture par image, sur les seuls éléments concernés (.par), jamais de re-rendu.
 export function useMouseEffects(rootRef: RefObject<HTMLElement | null>, enabled: boolean) {
   useEffect(() => {
     const root = rootRef.current;
@@ -18,14 +18,7 @@ export function useMouseEffects(rootRef: RefObject<HTMLElement | null>, enabled:
     const frame = () => {
       raf = 0;
       const now = performance.now();
-      const glows = root.querySelectorAll<HTMLElement>(".cglow");
       const pars = root.querySelectorAll<HTMLElement>(".par");
-      glows.forEach((g) => {
-        const box = g.parentElement?.getBoundingClientRect();
-        if (!box) return;
-        g.style.transform = `translate3d(${(px - box.left - 320).toFixed(1)}px, ${(py - box.top - 320).toFixed(1)}px, 0)`;
-        g.style.opacity = "1";
-      });
       let vx = 0;
       let vy = 0;
       if (lt) {

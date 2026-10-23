@@ -54,7 +54,7 @@ export function HomeAgenda({ featured, upcoming, past }: { featured: HeroEvent |
                   <span className="lbl text-[11px] text-ink-muted">Dernier événement</span>
                 </span>
               )}
-              <span className="flex items-baseline gap-4">
+              <span className="flex items-center gap-4">
                 <span className={`disp text-[52px] leading-none font-extrabold sm:text-[64px] ${upcoming ? "text-lotus" : "text-ink-muted"}`}>
                   {dateBadge(featured.date).day}
                 </span>

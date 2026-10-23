@@ -49,13 +49,13 @@
       "label": "Lieux"
     },
     {
-      "value": 120,
-      "label": "Artistes internationaux"
-    },
-    {
       "value": null,
       "label": "Événements",
       "todo": "calculé au build : nombre d’événements publiés dans content/events"
+    },
+    {
+      "value": 120,
+      "label": "Artistes internationaux"
     },
     {
       "value": null,
@@ -69,7 +69,7 @@
     "provider": null
   },
   "footer": {
-    "credit": "Fait avec ♡ par Kévin",
+    "credit": "Fait avec ♡ par Krohm Lab (Kévin)",
     "creditUrl": "https://www.facebook.com/kevoutrance/"
   },
   "legacyRedirects": {

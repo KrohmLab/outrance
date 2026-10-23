@@ -3,7 +3,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, type CSSProperties } f
 import { Link } from "react-router";
 import type { LineupItem, OutranceEvent } from "../../content/schemas";
 import { formatDate } from "../../lib/dates";
-import { useReducedMotion, type MotionLevel } from "../../lib/useMotionLevel";
+import { useReducedMotion } from "../../lib/useMotionLevel";
 import { logoSrcSet, logoUrl, site } from "../../site";
 import { Lotus } from "./Lotus";
 import { heroPhases, lerp } from "./motion-math";
@@ -22,7 +22,6 @@ export type HeroEvent = Pick<
 type Props = {
   event: HeroEvent | null;
   upcoming: boolean;
-  level: MotionLevel;
   /** Premier chargement de la page : voile nuit sous le lotus, qui se dessine puis s’ouvre en iris. */
   intro?: boolean;
 };
@@ -33,11 +32,10 @@ function splitTitle(e: HeroEvent): [string | null, string] {
   return m ? [m[1] ?? null, m[2] ?? e.title] : [null, e.title];
 }
 
-export function Hero({ event, upcoming, level, intro = false }: Props) {
+export function Hero({ event, upcoming, intro = false }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const lotusRef = useRef<HTMLDivElement>(null);
   const haloRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
   const eventRef = useRef<HTMLDivElement>(null);
   const flyTarget = useRef({ dx: 0, dy: 0, scale: 0.053 });
@@ -84,7 +82,6 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
         halo.style.opacity = (1 - p.fly).toFixed(2);
         halo.style.setProperty("--damp", (1 - p.ev * 0.75).toFixed(3));
       }
-      if (glowRef.current) glowRef.current.style.opacity = (reduced ? 0 : 1 - p.fly).toFixed(2);
       const intro = introRef.current;
       if (intro) {
         intro.style.opacity = p.intro.toFixed(3);
@@ -138,8 +135,6 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
 
   const [prefix, title] = event ? splitTitle(event) : [null, ""];
   const place = event ? [event.venue, event.city].filter(Boolean).join(", ") : "";
-  const b2b = event?.lineup.filter((l) => l.format === "B2B") ?? [];
-  const others = event?.lineup.filter((l) => l.format !== "B2B") ?? [];
   const canBuy = upcoming && event?.ticketStatus !== "soldOut";
 
   return (
@@ -148,12 +143,6 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
           couvre tout l’écran. Le contenu (lotus, cercles, textes) est positionné, lui, dans la zone toujours
           visible (svh) : il reste centré et ne passe pas sous les barres d’outils du navigateur. */}
       <div className="sticky top-0 h-[100lvh] overflow-hidden">
-        {level === "full" && (
-          <div aria-hidden="true" ref={glowRef} className="pointer-events-none absolute inset-0">
-            <div className="cglow" />
-          </div>
-        )}
-
         {/* Halo, ondes et cercles concentriques. */}
         {/* Au-dessus du voile de chargement : ses cercles naissent du bouton au premier battement. */}
         <div aria-hidden="true" ref={haloRef} className="pointer-events-none absolute top-[50svh] left-1/2 z-[15]" style={{ transform: "translate(-50%, -50%) scale(.5)" }}>
@@ -246,11 +235,7 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
                 {title}
               </h2>
               {event.lineup.length > 0 && (
-                <p className="m-0 max-w-[760px] text-[15px] text-ink-muted sm:text-[19px]">
-                  {b2b.length > 0 && <strong className="text-ink">{b2b.map((l) => l.name).join(" · ")}</strong>}
-                  {b2b.length > 0 && others.length > 0 && " · "}
-                  {others.map((l) => l.name).join(" · ")}
-                </p>
+                <p className="m-0 max-w-[760px] text-[15px] font-bold text-ink sm:text-[19px]">{event.lineup.map((l) => l.name).join(" · ")}</p>
               )}
               <div className="flex flex-wrap justify-center gap-3 pt-2">
                 {canBuy && event.ticketUrl && (
@@ -259,7 +244,7 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
                   </a>
                 )}
                 <Link className="btn btn-ghost min-h-[52px]" to={`/evenements/${event.slug}`} prefetch="intent">
-                  {upcoming ? "Line-up et infos" : "Voir la fiche"}
+                  {upcoming ? "Line-up et infos" : "Plus d’infos"}
                 </Link>
               </div>
             </div>

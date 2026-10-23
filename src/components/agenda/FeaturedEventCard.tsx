@@ -44,11 +44,11 @@ export function EventVisual({ event, className = "", zoom = false }: { event: Ag
 function Lineup({ lineup }: { lineup: AgendaEvent["lineup"] }) {
   if (lineup.length === 0) return null;
   return (
-    <p className="m-0 text-[15px] text-ink-muted sm:text-base">
+    <p className="m-0 text-[15px] font-bold text-ink sm:text-base">
       {lineup.map((a, i) => (
         <Fragment key={a.name}>
           {i > 0 && " · "}
-          {a.format === "B2B" ? <strong className="font-semibold sm:font-bold sm:text-ink">{a.name}</strong> : a.name}
+          {a.name}
         </Fragment>
       ))}
     </p>

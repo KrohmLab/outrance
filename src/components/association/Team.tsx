@@ -2,7 +2,7 @@ import type { TeamMember } from "../../content/schemas";
 import { Reveal } from "../Reveal";
 import { SectionHeading } from "./SectionHeading";
 
-// Équipe (#equipe, cible de la redirection /contact) : cartes initiale + prénom + rôle complet + e-mail,
+// Équipe (#equipe, cible de la redirection /contact) : cartes photo (sinon initiale) + prénom + rôle complet + e-mail,
 // puis les adresses contact@ et booking@. Liens d’au moins 44 px de haut.
 type Props = { team: TeamMember[]; emails: { contact: string; booking: string } };
 
@@ -28,9 +28,9 @@ export function Team({ team, emails }: Props) {
               <div className="flex w-full items-center gap-3.5 rounded-md bg-nuit-raised p-3.5 sm:p-4 lg:gap-4 lg:p-5 lg:transition-colors lg:duration-300 lg:hover:bg-lotus-deep">
               <span
                 aria-hidden="true"
-                className="disp flex size-12 flex-none items-center justify-center rounded-pill bg-lotus-deep text-[17px] font-extrabold text-lotus sm:size-[52px] sm:text-[18px] lg:size-14 lg:text-[20px]"
+                className="disp flex size-14 flex-none items-center justify-center overflow-hidden rounded-pill bg-lotus-deep text-[18px] font-extrabold text-lotus sm:size-16 sm:text-[20px] lg:text-[22px]"
               >
-                {m.name.charAt(0)}
+                {m.photo ? <img src={m.photo} alt="" width={64} height={64} loading="lazy" decoding="async" className="size-full object-cover" /> : m.name.charAt(0)}
               </span>
               <div className="flex min-w-0 flex-col gap-px sm:gap-0.5">
                 <h3 className="disp text-[14px] leading-[1.15] font-semibold sm:text-[15px] lg:text-[17px]">{m.name}</h3>

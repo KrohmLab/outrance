@@ -2,41 +2,61 @@
   {
     "name": "Raphael",
     "role": "Co-Président / Fondateur",
-    "email": "raphael@outrance.org"
+    "email": "raphael@outrance.org",
+    "photo": "/images/equipe/raphael.jpg"
   },
   {
     "name": "Kevin",
     "role": "Co-Président / Fondateur",
-    "email": "kevin@outrance.org"
+    "email": "kevin@outrance.org",
+    "photo": "/images/equipe/kevin.jpg"
   },
   {
     "name": "Stan",
     "role": "Directeur Outrance Belgique",
-    "email": "stan@outrance.org"
+    "email": "stan@outrance.org",
+    "photo": "/images/equipe/stan.jpg"
   },
   {
     "name": "William",
     "role": "Programmation & roster artistes",
-    "email": "william@outrance.org"
+    "email": "william@outrance.org",
+    "photo": "/images/equipe/william.jpg"
+  },
+  {
+    "name": "Florian",
+    "role": "Programmation",
+    "email": "florian@outrance.org",
+    "photo": "/images/equipe/florian.jpg"
   },
   {
     "name": "Nicolas",
     "role": "Logistique & coordination",
-    "email": "nico@outrance.org"
+    "email": "nico@outrance.org",
+    "photo": "/images/equipe/nicolas.jpg"
   },
   {
     "name": "Charlotte",
-    "role": "Communication & responsable bénévoles",
-    "email": "charlotte@outrance.org"
+    "role": "Communication",
+    "email": "charlotte@outrance.org",
+    "photo": "/images/equipe/charlotte.jpg"
+  },
+  {
+    "name": "Olympe",
+    "role": "Responsable bénévoles",
+    "email": "olympe@outrance.org",
+    "photo": "/images/equipe/olympe.jpg"
   },
   {
     "name": "Charly",
     "role": "Sécurité & logistique",
-    "email": "charly@outrance.org"
+    "email": "charly@outrance.org",
+    "photo": "/images/equipe/charly.jpg"
   },
   {
     "name": "Arnaud",
     "role": "Membre du CA",
-    "email": "arno@outrance.org"
+    "email": "arno@outrance.org",
+    "photo": "/images/equipe/arnaud.jpg"
   }
 ]

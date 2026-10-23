@@ -111,7 +111,6 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
           <span className="lbl text-[11px] text-lotus">{meta(current)}</span>
           <span className="disp text-[36px] leading-[0.95] font-extrabold sm:text-[56px] sm:leading-[0.92]">{current.name}</span>
           <p className="m-0 text-ink-muted">{current.bio ?? "Biographie à venir. [À compléter]"}</p>
-          {SIGNATURES[current.slug] && <span className="lbl text-[11px] text-ink-muted">{SIGNATURES[current.slug]?.line}</span>}
         </>
       ) : (
         <>
@@ -128,8 +127,13 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
 
   const cta = (
     <div className="flex flex-wrap items-center gap-6">
-      <Link className="btn btn-lotus min-h-12 max-sm:w-full" to={current ? `/artistes?artiste=${current.slug}` : "/artistes"} prefetch="intent">
-        {current ? `Voir la fiche de ${current.name}` : "Découvrir le roster"}
+      <Link
+        className="btn btn-lotus min-h-12 max-sm:w-full"
+        to={current ? `/artistes?artiste=${current.slug}` : "/artistes"}
+        aria-label={current ? `Plus d’infos sur ${current.name}` : undefined}
+        prefetch="intent"
+      >
+        {current ? "Plus d’infos" : "Découvrir le roster"}
       </Link>
       <Link className="lnk max-sm:hidden" to="/artistes#booking">
         Booking <span className="ar" aria-hidden="true">→</span>

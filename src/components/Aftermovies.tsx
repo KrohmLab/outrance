@@ -24,7 +24,8 @@ function VideoVisual({ movie, className = "", zoom = false, children }: { movie:
     );
   }
   return (
-    <div className={`relative flex items-center justify-center overflow-hidden bg-placeholder ${className}`}>
+    // « relative » seulement si l’appelant ne positionne pas lui-même le visuel (lecteur : absolute inset-0).
+    <div className={`${/(^|\s)absolute(\s|$)/.test(className) ? "" : "relative "}flex items-center justify-center overflow-hidden bg-placeholder ${className}`}>
       <img src={movie.thumbnail} alt="" loading="lazy" decoding="async" className={`absolute inset-0 size-full object-cover ${zoom ? "zoom" : ""}`} />
       <span aria-hidden="true" className="absolute inset-0 bg-nuit/35" />
       {children}

@@ -35,7 +35,13 @@ export function HomeAgenda({ featured, upcoming, past }: { featured: HeroEvent |
       {featured && (
         <Reveal delay={80}>
           <Link to={`/evenements/${featured.slug}`} className="card group sm:flex-row" prefetch="intent">
-            <Placeholder label="[Visuel de l’événement]" zoom className="aspect-[1920/1005] w-full flex-none sm:aspect-auto sm:min-h-[260px] sm:w-[46%] lg:h-[300px] lg:w-[560px]" />
+            {featured.cover ? (
+              <span className="relative block aspect-[1920/1005] w-full flex-none overflow-hidden bg-placeholder sm:aspect-auto sm:min-h-[260px] sm:w-[46%] lg:h-[300px] lg:w-[560px]">
+                <img src={featured.cover} alt="" loading="lazy" decoding="async" className="zoom absolute inset-0 size-full object-cover" />
+              </span>
+            ) : (
+              <Placeholder label="[Visuel de l’événement]" zoom className="aspect-[1920/1005] w-full flex-none sm:aspect-auto sm:min-h-[260px] sm:w-[46%] lg:h-[300px] lg:w-[560px]" />
+            )}
             <span className="flex flex-col gap-3.5 p-5 sm:p-8">
               {upcoming ? (
                 <span className="lbl flex items-center gap-2.5 text-lotus">

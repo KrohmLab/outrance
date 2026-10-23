@@ -16,7 +16,7 @@ import { heroPhases, lerp } from "./motion-math";
 
 export type HeroEvent = Pick<
   OutranceEvent,
-  "slug" | "title" | "titlePrefix" | "date" | "venue" | "city" | "ticketUrl" | "ticketStatus"
+  "slug" | "title" | "titlePrefix" | "date" | "venue" | "city" | "ticketUrl" | "ticketStatus" | "cover"
 > & { lineup: LineupItem[] };
 
 type Props = {

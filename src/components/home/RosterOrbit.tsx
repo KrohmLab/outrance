@@ -13,7 +13,12 @@ import { NEUTRAL, ORBIT_ORDER, SIGNATURES } from "./signatures";
 // suffit ; au toucher, on touche pour ouvrir et on retouche pour fermer. En mobile, l’orbite devient
 // un rail d’artistes sous la fleur.
 
-export type OrbitArtist = { slug: string; name: string; format: string; genres: string[]; bio?: string | null };
+export type OrbitArtist = { slug: string; name: string; format: string; genres: string[]; bio?: string | null; photo?: string | null };
+
+/** Pastille d’artiste : sa photo si elle existe, sinon l’initiale. */
+function Avatar({ artist }: { artist: OrbitArtist }) {
+  return artist.photo ? <img src={artist.photo} alt="" loading="lazy" decoding="async" className="size-full rounded-pill object-cover" /> : <>{artist.name.charAt(0)}</>;
+}
 
 const MAX: [number, number, number] = [16, 16, 8];
 const CROWNS = [
@@ -139,10 +144,16 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
       style={{ width: size, height: size, transform: `translate(-50%, -50%) scale(${current ? 1 : 0.3})`, opacity: current ? 1 : 0 }}
     >
       <div className="relative flex size-full items-center justify-center overflow-hidden rounded-pill border-2 border-lotus bg-[#1d1430] shadow-[0_0_0_8px_rgb(185_139_255/.14)]">
-        <span className="disp text-[54px] leading-none font-extrabold text-transparent [-webkit-text-stroke:1.5px_var(--color-lotus)] sm:text-[76px]">
-          {current?.name.charAt(0) ?? "O"}
-        </span>
-        <span className="lbl absolute inset-x-0 bottom-3 text-center text-[9px] text-ink-muted sm:bottom-[18px]">[Photo]</span>
+        {current?.photo ? (
+          <img src={current.photo} alt="" decoding="async" className="absolute inset-0 size-full object-cover" />
+        ) : (
+          <>
+            <span className="disp text-[54px] leading-none font-extrabold text-transparent [-webkit-text-stroke:1.5px_var(--color-lotus)] sm:text-[76px]">
+              {current?.name.charAt(0) ?? "O"}
+            </span>
+            <span className="lbl absolute inset-x-0 bottom-3 text-center text-[9px] text-ink-muted sm:bottom-[18px]">[Photo]</span>
+          </>
+        )}
       </div>
     </div>
   );
@@ -190,7 +201,7 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
                     className="orbit-node flex cursor-pointer flex-col items-center gap-2 border-0 bg-transparent p-0 text-ink"
                   >
                     <span
-                      className="disp flex size-16 items-center justify-center rounded-pill bg-[#1d1430] text-[26px] font-extrabold"
+                      className="disp flex size-16 items-center justify-center overflow-hidden rounded-pill bg-[#1d1430] text-[26px] font-extrabold"
                       style={{
                         border: `2px solid ${on ? "var(--color-lotus)" : "var(--color-line)"}`,
                         color: on ? "var(--color-ink)" : "var(--color-lotus)",
@@ -200,7 +211,7 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
                         transition: "background .3s, color .3s, border-color .3s, box-shadow .3s, opacity .3s, transform .55s cubic-bezier(.3,1.35,.5,1)",
                       }}
                     >
-                      {a.name.charAt(0)}
+                      <Avatar artist={a} />
                     </span>
                     <span className="lbl text-[10px] whitespace-nowrap" style={{ color: on ? "var(--color-lotus)" : "var(--color-ink-muted)", transform: `translateY(${on ? 18 : 0}px)`, transition: "color .3s, transform .4s" }}>
                       {a.name}
@@ -231,10 +242,10 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
                   className="flex w-[72px] flex-none snap-start cursor-pointer flex-col items-center gap-2 border-0 bg-transparent py-1.5 text-ink"
                 >
                   <span
-                    className="disp flex size-14 items-center justify-center rounded-pill bg-[#1d1430] text-[22px] font-extrabold transition-colors"
+                    className="disp flex size-14 items-center justify-center overflow-hidden rounded-pill bg-[#1d1430] text-[22px] font-extrabold transition-colors"
                     style={{ border: `2px solid ${on ? "var(--color-lotus)" : "var(--color-line)"}`, color: on ? "var(--color-ink)" : "var(--color-lotus)" }}
                   >
-                    {a.name.charAt(0)}
+                    <Avatar artist={a} />
                   </span>
                   <span className={`lbl text-[10px] ${on ? "text-lotus" : "text-ink-muted"}`}>{a.name}</span>
                 </button>

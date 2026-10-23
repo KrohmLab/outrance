@@ -21,8 +21,11 @@ type Props = {
 
 export function Placeholder({ motif = "landscape", label, children, className = "", zoom = false }: Props) {
   const m = MOTIFS[motif];
+  // « relative » seulement si l’appelant ne positionne pas lui-même le visuel : sinon il l’emporterait
+  // sur un « absolute inset-0 » passé en className, et le visuel n’aurait que la hauteur de son libellé.
+  const position = /(^|\s)(absolute|fixed|sticky)(\s|$)/.test(className) ? "" : "relative ";
   return (
-    <div className={`relative flex items-end overflow-hidden bg-placeholder p-3.5 ${className}`}>
+    <div className={`${position}flex items-end overflow-hidden bg-placeholder p-3.5 ${className}`}>
       <svg
         aria-hidden="true"
         viewBox={m.viewBox}

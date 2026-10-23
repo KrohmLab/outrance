@@ -769,7 +769,7 @@
   }
 }
 
-/* Barre de billetterie : tablette et desktop, elle n’apparaît qu’une fois le bouton du hero hors écran. */
+/* Barre de billetterie : tablette et desktop, elle n’apparaît qu’une fois la page défilée. */
 @media (min-width: 640px) {
   .ticket-bar {
     transform: translateY(100%);

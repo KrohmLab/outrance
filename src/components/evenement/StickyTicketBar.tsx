@@ -3,8 +3,8 @@ import { shortDate } from "./event-data";
 
 // Barre de billetterie collante en bas de l’écran (date, tarif, bouton Billetterie).
 // Mobile (< 640px) : toujours visible, seul élément uv de l’écran (le hero masque le sien).
-// Tablette et desktop : elle remonte quand le bouton Billetterie du hero sort de l’écran et
-// redescend quand il revient, pour ne jamais montrer deux boutons uv à la fois.
+// Tablette et desktop : cachée en haut de page, elle remonte dès qu’on commence à faire défiler
+// et redescend quand on revient tout en haut.
 type Props = { title: string; date: string; price?: string | null; ticketUrl: string };
 
 export function StickyTicketBar({ title, date, price, ticketUrl }: Props) {
@@ -12,12 +12,11 @@ export function StickyTicketBar({ title, date, price, ticketUrl }: Props) {
 
   useEffect(() => {
     const bar = ref.current;
-    const heroCta = document.getElementById("billetterie");
-    if (!bar || !heroCta || !("IntersectionObserver" in window)) return;
-    // Visible tant que le bouton du hero n’est pas à l’écran (y compris une fois dépassé).
-    const io = new IntersectionObserver(([entry]) => bar.toggleAttribute("data-shown", !entry?.isIntersecting));
-    io.observe(heroCta);
-    return () => io.disconnect();
+    if (!bar) return;
+    const update = () => bar.toggleAttribute("data-shown", window.scrollY > 24);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
   }, []);
 
   return (

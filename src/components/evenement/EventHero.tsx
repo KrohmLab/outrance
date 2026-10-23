@@ -7,7 +7,7 @@ import { CalendarMenu, ShareMenu } from "../EventMenus";
 import { Placeholder } from "../Placeholder";
 import { StatusTag, type EventStatus } from "../Tag";
 import { HeroMandala } from "./HeroMandala";
-import { longestWord, ticketProvider } from "./event-data";
+import { longestWordEm, ticketProvider } from "./event-data";
 
 type Props = {
   event: OutranceEvent;
@@ -25,7 +25,11 @@ function Breadcrumb({ title }: { title: string }) {
     <nav aria-label="Fil d’Ariane" className="relative">
       <ol className="lbl m-0 flex list-none flex-wrap items-center gap-x-2 p-0 text-[10px] text-ink-muted sm:text-[11px] lg:text-[12px]">
         <li>
-          <Link to="/agenda" prefetch="intent" className="inline-flex min-h-11 items-center text-ink-muted no-underline hover:text-ink">
+          <Link
+            to="/agenda"
+            prefetch="intent"
+            className="inline-flex min-h-11 items-center text-ink-muted no-underline hover:text-ink"
+          >
             Agenda
           </Link>
         </li>
@@ -36,13 +40,23 @@ function Breadcrumb({ title }: { title: string }) {
   );
 }
 
-export function EventHero({ event, status, upcoming, canBuy, hasBar, hasPhotos }: Props) {
+export function EventHero({
+  event,
+  status,
+  upcoming,
+  canBuy,
+  hasBar,
+  hasPhotos,
+}: Props) {
   const hours = formatHours(event.start, event.end);
   const where = place(event);
   const provider = event.ticketUrl ? ticketProvider(event.ticketUrl) : null;
   // Le h1 ne déborde jamais : sa taille est plafonnée par la largeur de sa colonne (unités cqw)
-  // selon la longueur du plus long mot (≈ 0,88 em par capitale en Unbounded 800).
-  const fit = { "--h1-fit": `calc(100cqw / ${(longestWord(event.title) * 0.88).toFixed(2)})` } as CSSProperties;
+  // selon la largeur réelle de son plus long mot (chasse de chaque capitale, 4 % de marge) : un mot
+  // n’est jamais coupé en deux.
+  const fit = {
+    "--h1-fit": `calc(100cqw / ${(longestWordEm(event.title) * 1.04).toFixed(3)})`,
+  } as CSSProperties;
 
   return (
     <section className="relative overflow-hidden">
@@ -81,7 +95,11 @@ export function EventHero({ event, status, upcoming, canBuy, hasBar, hasPhotos }
               )}
               {event.title}
             </h1>
-            {where && <p className="lbl reveal reveal-d1 m-0 text-[11px] text-ink sm:text-[12px] lg:text-[13px]">{where}</p>}
+            {where && (
+              <p className="lbl reveal reveal-d1 m-0 text-[11px] text-ink sm:text-[12px] lg:text-[13px]">
+                {where}
+              </p>
+            )}
             {event.tagline && (
               <p className="reveal reveal-d2 m-0 max-w-[560px] text-[16px] text-ink-muted sm:text-[17px] lg:text-[19px]">
                 {event.tagline}
@@ -99,20 +117,32 @@ export function EventHero({ event, status, upcoming, canBuy, hasBar, hasPhotos }
                 href={event.ticketUrl}
                 rel="noopener"
               >
-                {provider ? `Billetterie ${provider}` : "Billetterie"} <span aria-hidden="true">↗</span>
+                {provider ? `Billetterie ${provider}` : "Billetterie"}{" "}
+                <span aria-hidden="true">↗</span>
               </a>
             )}
             {upcoming && <CalendarMenu event={event} label="Mon agenda" />}
             <ShareMenu title={fullTitle(event)} slug={event.slug} />
             {!upcoming && hasPhotos && (
-              <Link className="lnk" to={`/galerie?album=${event.slug}`} prefetch="intent">
-                Voir les photos <span className="ar" aria-hidden="true">→</span>
+              <Link
+                className="lnk"
+                to={`/galerie?album=${event.slug}`}
+                prefetch="intent"
+              >
+                Voir les photos{" "}
+                <span className="ar" aria-hidden="true">
+                  →
+                </span>
               </Link>
             )}
             {upcoming && event.facebookUrl && (
               <p className="lbl reveal reveal-d3 m-0 basis-full text-[12px] text-ink-muted">
                 Événement Facebook{" "}
-                <a className="inline-flex min-h-11 items-center" href={event.facebookUrl} rel="noopener">
+                <a
+                  className="inline-flex min-h-11 items-center"
+                  href={event.facebookUrl}
+                  rel="noopener"
+                >
                   <span aria-hidden="true">→</span>&nbsp;Je participe
                 </a>
               </p>

@@ -59,3 +59,16 @@ Un album est rattaché automatiquement quand son nom contient le titre de l’é
 ```
 
 Un slug rattache l’album à cet événement ; `null` le masque.
+
+## Retirer une photo sur demande (droit à l’image)
+
+Quand quelqu’un demande le retrait d’une photo où il apparaît :
+
+1. Ouvre la photo dans la galerie, puis ouvre l’image seule (clic droit → « Ouvrir l’image dans un nouvel onglet »). Son adresse se termine par `/meta/facebook/{album}/{photo}.jpg`.
+2. Ajoute le nombre `{photo}` à `hiddenPhotos` dans `content/facebook-albums.json` :
+
+   ```json
+   { "albums": {}, "hiddenPhotos": ["10153456789012345"] }
+   ```
+
+3. Commit sur `main` : la photo disparaît du site au déploiement suivant. Elle reste sur Facebook ; à retirer aussi là-bas si la demande le vise.

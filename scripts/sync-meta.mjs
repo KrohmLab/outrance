@@ -160,7 +160,10 @@ function pickSizes(images) {
 
 async function syncAlbums(pageId) {
   const overridesFile = new URL("content/facebook-albums.json", ROOT);
-  const overrides = existsSync(overridesFile) ? JSON.parse(await readFile(overridesFile, "utf8")).albums ?? {} : {};
+  const manual = existsSync(overridesFile) ? JSON.parse(await readFile(overridesFile, "utf8")) : {};
+  const overrides = manual.albums ?? {};
+  // Photos retirées sur demande (droit à l’image) : jamais téléchargées ni publiées.
+  const hidden = new Set(manual.hiddenPhotos ?? []);
   const events = await readEvents();
   const albums = await graphAll(`${pageId}/albums`, { fields: "id,name,created_time,count,type", limit: 100 });
 
@@ -173,7 +176,7 @@ async function syncAlbums(pageId) {
       ignored.push(`${album.id} « ${album.name} »`);
       continue;
     }
-    const photos = await graphAll(`${album.id}/photos`, { fields: "id,images,name", limit: 100 });
+    const photos = (await graphAll(`${album.id}/photos`, { fields: "id,images,name", limit: 100 })).filter((p) => !hidden.has(p.id));
     const items = await pool(
       photos.map((p) => async () => {
         const { full, thumb } = pickSizes(p.images ?? []);

@@ -110,6 +110,8 @@ export const facebookAlbumSchema = z.strictObject({
 export const facebookAlbumsOverrideSchema = z.strictObject({
   note: z.string().optional(),
   albums: z.record(z.string(), z.string().nullable()),
+  /** Photos retirées sur demande (droit à l’image), par identifiant Facebook. */
+  hiddenPhotos: z.array(z.string().regex(/^\d+$/, "identifiant Facebook : chiffres uniquement")).optional(),
 });
 
 export const legalSchema = z.strictObject({
@@ -119,6 +121,8 @@ export const legalSchema = z.strictObject({
   siren: z.string(),
   publicationDirector: z.string().nullable(),
   host: z.string(),
+  /** Conception, développement et maintenance du site. */
+  webmaster: z.string(),
   newsletterProvider: z.string().nullable(),
   todo: z.string().optional(),
 });

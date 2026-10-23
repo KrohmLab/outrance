@@ -1,4 +1,5 @@
 {
-  "note": "Rattachement manuel des albums Facebook aux événements, prioritaire sur le rattachement automatique (titre de l’événement dans le nom de l’album). Clé : identifiant de l’album (affiché dans les logs du build) ; valeur : slug de l’événement, ou null pour masquer l’album.",
-  "albums": {}
+  "note": "Rattachement manuel des albums Facebook aux événements, prioritaire sur le rattachement automatique (titre de l’événement dans le nom de l’album). Clé : identifiant de l’album (affiché dans les logs du build) ; valeur : slug de l’événement, ou null pour masquer l’album. hiddenPhotos : photos retirées sur demande (droit à l’image), par identifiant Facebook — c’est le nom du fichier de la photo sur le site, /meta/facebook/{album}/{photo}.jpg. Voir docs/meta.md.",
+  "albums": {},
+  "hiddenPhotos": []
 }

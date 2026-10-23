@@ -1,4 +1,4 @@
-import { useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Link } from "react-router";
 import type { MotionLevel } from "../../lib/useMotionLevel";
 import { Reveal } from "../Reveal";
@@ -82,6 +82,18 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
   // Survol (souris) et sélection (toucher, clavier, clic) : la sélection persiste, le survol la précède.
   const [picked, setPicked] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
+  // Quitter un artiste ne ramène au repos qu’après un court délai : en glissant d’un artiste à son voisin,
+  // la fleur et le texte passent directement de l’un à l’autre, sans clignoter par l’état neutre.
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const enter = (slug: string) => {
+    clearTimeout(leaveTimer.current);
+    setHovered(slug);
+  };
+  const leave = () => {
+    clearTimeout(leaveTimer.current);
+    leaveTimer.current = setTimeout(() => setHovered(null), 350);
+  };
+  useEffect(() => () => clearTimeout(leaveTimer.current), []);
   const current = ordered.find((a) => a.slug === (hovered ?? picked)) ?? null;
   const mouse = level === "full";
   const sectionRef = useRef<HTMLElement>(null);
@@ -104,13 +116,19 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
   const toggle = (slug: string) => setPicked((p) => (p === slug ? null : slug));
 
   // En mobile, la barre de progression du rail sert de séparateur haut : seul le filet du bas reste.
+  // Hauteur fixe et bio limitée à quelques lignes (la bio complète est sur la fiche) : passer d’un artiste
+  // à l’autre ne change pas la hauteur de la section, la fleur et la page ne sautent pas.
   const info = (mobile: boolean) => (
-    <div key={current?.slug ?? "neutral"} className={`orbit-info flex min-h-[200px] flex-col gap-2.5 border-line py-6 ${mobile ? "border-b pt-3" : "border-y"}`} aria-live="polite">
+    <div
+      key={current?.slug ?? "neutral"}
+      className={`orbit-info flex h-[268px] flex-col gap-2.5 overflow-hidden border-line py-6 sm:h-[296px] ${mobile ? "border-b pt-3" : "border-y"}`}
+      aria-live="polite"
+    >
       {current ? (
         <>
           <span className="lbl text-[11px] text-lotus">{meta(current)}</span>
           <span className="disp text-[36px] leading-[0.95] font-extrabold sm:text-[56px] sm:leading-[0.92]">{current.name}</span>
-          <p className="m-0 text-ink-muted">{current.bio ?? "Biographie à venir. [À compléter]"}</p>
+          <p className="m-0 line-clamp-6 text-ink-muted sm:line-clamp-5">{current.bio ?? "Biographie à venir. [À compléter]"}</p>
         </>
       ) : (
         <>
@@ -200,8 +218,8 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
                     aria-pressed={picked === a.slug}
                     aria-label={`${a.name} — ${meta(a)}`}
                     onClick={() => toggle(a.slug)}
-                    onMouseEnter={mouse ? () => setHovered(a.slug) : undefined}
-                    onMouseLeave={mouse ? () => setHovered(null) : undefined}
+                    onMouseEnter={mouse ? () => enter(a.slug) : undefined}
+                    onMouseLeave={mouse ? leave : undefined}
                     className="orbit-node flex cursor-pointer flex-col items-center gap-2 border-0 bg-transparent p-0 text-ink"
                   >
                     <span

@@ -1,0 +1,23 @@
+# Relance chaque matin le build de production (Workers Builds) pour récupérer les nouvelles publications
+# Instagram et les nouveaux albums Facebook. Le secret CF_DEPLOY_HOOK contient l’URL du deploy hook
+# Cloudflare de la branche main (voir docs/meta.md). Aussi lançable à la main depuis l’onglet Actions.
+name: Rafraîchir Instagram et Facebook
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Déclencher le build Cloudflare
+        env:
+          HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "Secret CF_DEPLOY_HOOK absent : rien à faire."; exit 0; fi
+          curl --fail --silent --show-error -X POST "$HOOK" > /dev/null
+          echo "Build de production demandé."

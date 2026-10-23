@@ -3,19 +3,17 @@ import type { TimelineStep } from "../../content/schemas";
 import { SectionHeading } from "./SectionHeading";
 
 // Timeline « Les grandes étapes » (brand book, Mouvement §7) : la ligne se trace au fil du scroll
-// et chaque date s’allume quand elle est atteinte.
-// - Desktop (souris) : ligne liée au scroll. Une variable CSS --tl-p (0 → 1) est posée sur le seul
-//   remplissage, au plus une fois par image, et seulement quand la section est à l’écran. Chaque
-//   pastille a son IntersectionObserver : l’étape s’allume quand elle croise la ligne des 55 % du viewport,
-//   là où se trouve aussi le bout du tracé.
-// - Tactile (tablette, mobile) : révélée une seule fois à l’entrée dans le viewport, par transition CSS
-//   (ligne en 1,2 s, étapes allumées quand la ligne les atteint).
-// - Mouvement réduit ou sans JavaScript : état final (ligne tracée, étapes allumées).
-// Aucun setState : l’état vit dans data-on (li) et --tl-p (remplissage). L’état éteint reste lisible
-// (date et titre en ink-muted, contraste ≈ 8:1 sur nuit), seule l’opacité de la pastille pleine varie.
+// et chaque date s’allume quand elle est atteinte, sur tous les écrans (le brand book prévoyait une
+// révélation unique sur tactile ; liée au scroll partout à la demande de l’équipe, octobre 2026).
+// Une variable CSS --tl-p (0 → 1) est posée sur le seul remplissage, et data-on sur chaque étape,
+// au plus une fois par image et seulement quand la section est à l’écran. Une étape s’allume quand sa
+// pastille passe la ligne des 55 % du viewport, là où se trouve aussi le bout du tracé (et s’éteint
+// si l’on remonte).
+// Mouvement réduit ou sans JavaScript : état final (ligne tracée, étapes allumées).
+// Aucun setState. L’état éteint reste lisible (date et titre en ink-muted, contraste ≈ 8:1 sur nuit),
+// seule l’opacité de la pastille pleine varie.
 
 const LINE = 0.55; // position du bout du tracé, en fraction de la hauteur du viewport
-const REVEAL_MS = 1200;
 
 type Props = { steps: TimelineStep[]; intro?: string };
 
@@ -33,11 +31,6 @@ export function Timeline({ steps, intro }: Props) {
 
     const items = Array.from(list.children) as HTMLElement[];
     const dots = items.map((li) => li.querySelector<HTMLElement>("[data-dot]"));
-    const setOn = (li: HTMLElement, on: boolean) => {
-      const v = on ? "1" : "0";
-      if (li.dataset.on !== v) li.dataset.on = v;
-    };
-    const setProgress = (p: number) => fill.style.setProperty("--tl-p", p.toFixed(4));
 
     // Pose l’état initial sans transition, pour ne pas animer ce qui est déjà à l’écran à l’hydratation.
     rail.dataset.tlInit = "";
@@ -45,108 +38,55 @@ export function Timeline({ steps, intro }: Props) {
       initFrame = requestAnimationFrame(() => delete rail.dataset.tlInit);
     });
 
-    const cleanups: (() => void)[] = [
-      () => cancelAnimationFrame(initFrame),
-      () => {
-        delete rail.dataset.tlInit;
-        fill.style.removeProperty("--tl-p");
-        fill.style.removeProperty("transition");
-        for (const li of items) {
-          delete li.dataset.on;
-          li.style.removeProperty("--tl-d");
-        }
-      },
-    ];
-    const cleanup = () => cleanups.forEach((fn) => fn());
-
-    const scrollLinked = window.matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)").matches;
-
-    if (scrollLinked) {
-      let frame = 0;
-      let last = -1;
-      const update = () => {
-        frame = 0;
-        const r = rail.getBoundingClientRect();
-        const p = r.height > 0 ? Math.min(1, Math.max(0, (window.innerHeight * LINE - r.top) / r.height)) : 1;
-        if (Math.abs(p - last) > 0.0005) {
-          last = p;
-          setProgress(p);
-        }
-      };
-      const schedule = () => {
-        if (!frame) frame = requestAnimationFrame(update);
-      };
-
-      update();
-      items.forEach((li, i) => setOn(li, (dots[i]?.getBoundingClientRect().top ?? 0) < window.innerHeight * LINE));
-
-      const stepsIo = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            const li = (e.target as HTMLElement).closest("li");
-            if (!li) continue;
-            // Allumée si la pastille a franchi la ligne des 55 % (dans la zone, ou déjà sortie par le haut).
-            const above = e.rootBounds
-              ? e.boundingClientRect.bottom <= e.rootBounds.top
-              : e.boundingClientRect.top < window.innerHeight * LINE;
-            setOn(li, e.isIntersecting || above);
-          }
-        },
-        { rootMargin: `0px 0px -${Math.round((1 - LINE) * 100)}% 0px` },
-      );
-      dots.forEach((d) => d && stepsIo.observe(d));
-
-      // Écoute du scroll seulement quand la timeline est à l’écran.
-      let listening = false;
-      const listen = (on: boolean) => {
-        if (on === listening) return;
-        listening = on;
-        if (on) {
-          window.addEventListener("scroll", schedule, { passive: true });
-          window.addEventListener("resize", schedule);
-        } else {
-          window.removeEventListener("scroll", schedule);
-          window.removeEventListener("resize", schedule);
-        }
-      };
-      const sectionIo = new IntersectionObserver(([e]) => {
-        listen(Boolean(e?.isIntersecting));
-        schedule(); // dernière mise à jour en entrant ou en sortant (0 ou 1)
+    let frame = 0;
+    let last = -1;
+    const update = () => {
+      frame = 0;
+      const line = window.innerHeight * LINE;
+      const r = rail.getBoundingClientRect();
+      const p = r.height > 0 ? Math.min(1, Math.max(0, (line - r.top) / r.height)) : 1;
+      if (Math.abs(p - last) > 0.0005) {
+        last = p;
+        fill.style.setProperty("--tl-p", p.toFixed(4));
+      }
+      items.forEach((li, i) => {
+        const v = (dots[i]?.getBoundingClientRect().top ?? 0) < line ? "1" : "0";
+        if (li.dataset.on !== v) li.dataset.on = v;
       });
-      sectionIo.observe(rail);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
 
-      cleanups.push(() => {
-        stepsIo.disconnect();
-        sectionIo.disconnect();
-        listen(false);
-        cancelAnimationFrame(frame);
-      });
-      return cleanup;
-    }
-
-    // Tactile : révélation unique.
-    const height = rail.offsetHeight || 1;
-    items.forEach((li) => {
-      const f = Math.min(1, li.offsetTop / height);
-      // La courbe nuit est rapide au départ : la ligne atteint f vers 0,6 × f² de la durée.
-      li.style.setProperty("--tl-d", `${Math.round(REVEAL_MS * 0.6 * f * f)}ms`);
-      setOn(li, false);
+    // Écoute du scroll seulement quand la timeline est à l’écran.
+    let listening = false;
+    const listen = (on: boolean) => {
+      if (on === listening) return;
+      listening = on;
+      if (on) {
+        window.addEventListener("scroll", schedule, { passive: true });
+        window.addEventListener("resize", schedule);
+      } else {
+        window.removeEventListener("scroll", schedule);
+        window.removeEventListener("resize", schedule);
+      }
+    };
+    const sectionIo = new IntersectionObserver(([e]) => {
+      listen(Boolean(e?.isIntersecting));
+      schedule(); // dernière mise à jour en entrant ou en sortant (0 ou 1)
     });
-    setProgress(0);
-    fill.style.transition = `transform ${REVEAL_MS}ms var(--ease-nuit)`;
+    sectionIo.observe(rail);
 
-    const revealIo = new IntersectionObserver(
-      ([e]) => {
-        if (!e?.isIntersecting) return;
-        revealIo.disconnect();
-        setProgress(1);
-        items.forEach((li) => setOn(li, true));
-      },
-      { rootMargin: "0px 0px -15% 0px" },
-    );
-    revealIo.observe(rail);
-    cleanups.push(() => revealIo.disconnect());
-    return cleanup;
+    return () => {
+      sectionIo.disconnect();
+      listen(false);
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(initFrame);
+      delete rail.dataset.tlInit;
+      fill.style.removeProperty("--tl-p");
+      for (const li of items) delete li.dataset.on;
+    };
   }, []);
 
   return (
@@ -179,16 +119,16 @@ export function Timeline({ steps, intro }: Props) {
                 className="absolute top-0.5 -left-[33px] size-4 rounded-pill border-2 border-lotus bg-nuit sm:top-[3px] sm:-left-[37px]"
               >
                 {/* Halo et pastille pleine : opacité et échelle seulement. */}
-                <span className="absolute -inset-2 rounded-pill bg-lotus/18 transition-[opacity,scale] delay-(--tl-d) duration-500 ease-nuit group-data-[on=0]:scale-50 group-data-[on=0]:opacity-0" />
-                <span className="absolute inset-0 rounded-pill bg-lotus transition-[scale] delay-(--tl-d) duration-400 ease-nuit group-data-[on=0]:scale-0" />
+                <span className="absolute -inset-2 rounded-pill bg-lotus/18 transition-[opacity,scale] duration-500 ease-nuit group-data-[on=0]:scale-50 group-data-[on=0]:opacity-0" />
+                <span className="absolute inset-0 rounded-pill bg-lotus transition-[scale] duration-400 ease-nuit group-data-[on=0]:scale-0" />
               </span>
               <time
                 dateTime={s.date}
-                className="lbl text-[11px] text-lotus transition-colors delay-(--tl-d) duration-400 group-data-[on=0]:text-ink-muted sm:text-[12px] lg:text-[13px]"
+                className="lbl text-[11px] text-lotus transition-colors duration-400 group-data-[on=0]:text-ink-muted sm:text-[12px] lg:text-[13px]"
               >
                 {s.label}
               </time>
-              <h3 className="disp text-[16px] leading-[1.15] font-semibold transition-[color,translate] delay-(--tl-d) duration-400 ease-nuit group-data-[on=0]:translate-x-2 group-data-[on=0]:text-ink-muted sm:text-[18px] lg:text-[19px]">
+              <h3 className="disp text-[16px] leading-[1.15] font-semibold transition-[color,translate] duration-400 ease-nuit group-data-[on=0]:translate-x-2 group-data-[on=0]:text-ink-muted sm:text-[18px] lg:text-[19px]">
                 {s.title}
               </h3>
               <p className="m-0 text-[15px] text-ink-muted sm:text-body">{s.text}</p>

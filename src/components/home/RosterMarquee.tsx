@@ -4,6 +4,8 @@ import { usePageScroll } from "./usePageScroll";
 
 // Bandeau d’artistes : avance avec le scroll en desktop (0,4 px par pixel) et dérive lentement ;
 // un nom sur deux en contour lotus. La dérive s’arrête au survol et au focus (brand book).
+// En mobile, il remonte sous l’événement du hero pendant la fin de l’envol (-26svh) : sinon la moitié
+// basse de l’écran reste vide jusqu’à la fin de la section.
 export function RosterMarquee({ names, level }: { names: string[]; level: MotionLevel }) {
   const ref = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -17,7 +19,7 @@ export function RosterMarquee({ names, level }: { names: string[]; level: Motion
   const loop = [...names, ...names, ...names, ...names];
 
   return (
-    <section ref={ref} aria-label="Artistes du roster" className="marquee-band relative flex h-20 items-center overflow-hidden border-y border-line sm:h-[120px]">
+    <section ref={ref} aria-label="Artistes du roster" className="marquee-band relative z-10 -mt-[26svh] flex h-20 items-center overflow-hidden border-y border-line sm:mt-0 sm:h-[120px]">
       <ul className="sr-only">
         {names.map((n) => (
           <li key={n}>{n}</li>

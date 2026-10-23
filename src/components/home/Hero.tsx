@@ -53,9 +53,14 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
     if (!gauge || !lotus) return;
     const g = gauge.getBoundingClientRect();
     const size = lotus.offsetWidth || 1;
+    // Centre de la scène figée (collée en haut pendant l’envol), et non de la fenêtre : sur iPhone la
+    // scène fait la hauteur maximale de l’écran (lvh), plus haute que la fenêtre quand la barre est affichée.
+    const stage = lotus.parentElement;
+    const cx = (stage?.offsetWidth ?? window.innerWidth) / 2;
+    const cy = (stage?.offsetHeight ?? window.innerHeight) / 2;
     flyTarget.current = {
-      dx: g.left + g.width / 2 - window.innerWidth / 2,
-      dy: g.top + g.height / 2 - window.innerHeight / 2,
+      dx: g.left + g.width / 2 - cx,
+      dy: g.top + g.height / 2 - cy,
       scale: g.width / size,
     };
   }, []);
@@ -140,7 +145,9 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
 
   return (
     <section ref={sectionRef} aria-label="Accueil" className="relative h-[195svh] lg:h-[267vh]">
-      <div className="sticky top-0 h-[100svh] overflow-hidden">
+      {/* Hauteur maximale de l’écran (lvh) : quand la barre d’adresse se replie sur mobile, la scène couvre
+          tout l’écran au lieu de laisser voir son bord bas. */}
+      <div className="sticky top-0 h-[100lvh] overflow-hidden">
         {level === "full" && (
           <div aria-hidden="true" ref={glowRef} className="pointer-events-none absolute inset-0">
             <div className="cglow" />

@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router";
 import { useModal } from "../lib/useModal";
 import { fullTitle } from "../lib/calendar";
 import { formatDate } from "../lib/dates";
-import { useFeaturedEvent, useTicketingHref } from "../lib/featured";
+import { useFeaturedEvent } from "../lib/featured";
 import { menuNav, site } from "../site";
 import { Lotus } from "./home/Lotus";
 import { Mandala } from "./Mandala";
@@ -26,7 +26,6 @@ export function MobileMenu({ open, onClose, headerRef, returnFocusRef }: Props) 
   const panelRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   const featured = useFeaturedEvent();
-  const ticketingHref = useTicketingHref();
 
   // Toute navigation referme le menu.
   useEffect(() => {
@@ -105,7 +104,7 @@ export function MobileMenu({ open, onClose, headerRef, returnFocusRef }: Props) 
               </span>
             </div>
           )}
-          <Link className="btn btn-uv min-h-[52px]" to={ticketingHref}>
+          <Link className="btn btn-uv min-h-[52px]" to="/agenda">
             Billetterie <span aria-hidden="true">→</span>
           </Link>
           <span className="lbl hidden pt-6 text-[11px] text-ink-muted sm:block">Nous suivre</span>

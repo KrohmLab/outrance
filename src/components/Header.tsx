@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { HeaderGauge } from "./home/HeaderGauge";
-import { useTicketingHref } from "../lib/featured";
 import { logoUrl } from "../site";
 import { BurgerIcon, CloseIcon, TicketTiltIcon } from "./icons";
 import { MobileMenu } from "./MobileMenu";
@@ -11,7 +10,6 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
-  const ticketingHref = useTicketingHref();
   // Accueil : header transparent posé sur le hero, avec la jauge de lecture qui reçoit le lotus.
   const isHome = useLocation().pathname === "/";
 
@@ -36,8 +34,9 @@ export function Header() {
 
 
           <div className="flex items-center gap-2.5">
-            {/* Le brand book garde BILLETTERIE visible en mobile et en tablette. */}
-            <Link className="billet-btn btn btn-ghost min-h-11 border-lotus! px-4 sm:px-6" to={ticketingHref} prefetch="intent">
+            {/* Le brand book garde BILLETTERIE visible en mobile et en tablette. Il mène à l’agenda,
+                qui remplace l’ancienne page Billetterie (toutes les dates à venir et leur billetterie). */}
+            <Link className="billet-btn btn btn-ghost min-h-11 border-lotus! px-4 sm:px-6" to="/agenda" prefetch="intent">
               {/* Accueil mobile : une fois le lotus posé dans la jauge, le bouton se réduit à son icône. */}
               <TicketTiltIcon className="billet-icon hidden" size={22} />
               <span className="billet-label">Billetterie</span>

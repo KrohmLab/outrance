@@ -118,9 +118,9 @@ export function EventHero({ event, status, upcoming, canBuy, hasBar, hasPhotos }
             {upcoming && <CalendarMenu event={event} label="Mon agenda" />}
             <ShareMenu title={fullTitle(event)} slug={event.slug} />
             {!upcoming && hasPhotos && (
-              <Link className="lnk" to={`/galerie?album=${event.slug}`} prefetch="intent">
-                Voir les photos <span className="ar" aria-hidden="true">→</span>
-              </Link>
+              <a className="lnk" href="#photos">
+                Voir les photos <span className="ar" aria-hidden="true">↓</span>
+              </a>
             )}
             {upcoming && event.facebookUrl && (
               <p className="lbl reveal reveal-d3 m-0 basis-full text-[12px] text-ink-muted">

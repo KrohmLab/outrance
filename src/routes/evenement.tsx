@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { data } from "react-router";
 import { EventHero } from "../components/evenement/EventHero";
+import { EventPhotos, type EventAlbum } from "../components/evenement/EventPhotos";
 import { eventJsonLd, eventStatus, metaDescription } from "../components/evenement/event-data";
 import { InfoPanel } from "../components/evenement/InfoPanel";
 import { Lineup } from "../components/evenement/Lineup";
@@ -19,12 +20,16 @@ export async function loader({ params }: Route.LoaderArgs) {
   const event = getEvent(params.slug);
   if (!event) throw data(null, { status: 404 });
   const roster = artists.filter((a) => event.rosterSlugs.includes(a.slug)).map(({ slug, name }) => ({ slug, name }));
-  const hasPhotos = galerie.albums.some((a) => a.event === event.slug && a.photos.length > 0);
+  // Album de la soirée : son résumé et les 8 premières photos, le reste se charge à l’ouverture de la visionneuse.
+  const found = galerie.albums.find((a) => a.event === event.slug);
+  const album: EventAlbum | null = found
+    ? { summary: { event: found.event, title: found.title, date: found.date, photographer: found.photographer, cover: null, count: found.photos.length }, preview: found.photos.slice(0, 8) }
+    : null;
   const url = `${site.url}/evenements/${event.slug}`;
   return {
     event,
     roster,
-    hasPhotos,
+    album,
     description: metaDescription(event),
     jsonLd: eventJsonLd(event, url, { name: site.name, url: site.url }),
   };
@@ -47,7 +52,7 @@ export const meta: Route.MetaFunction = ({ loaderData }) => {
 };
 
 export default function Evenement({ loaderData }: Route.ComponentProps) {
-  const { event, roster, hasPhotos } = loaderData;
+  const { event, roster, album } = loaderData;
   const now = useNow();
   const upcoming = isUpcoming(event, now);
   const status = eventStatus(event, upcoming);
@@ -58,7 +63,7 @@ export default function Evenement({ loaderData }: Route.ComponentProps) {
 
   return (
     <div style={style}>
-      <EventHero event={event} status={status} upcoming={upcoming} canBuy={canBuy} hasBar={hasBar} hasPhotos={hasPhotos} />
+      <EventHero event={event} status={status} upcoming={upcoming} canBuy={canBuy} hasBar={hasBar} hasPhotos={album !== null} />
 
       <section className="border-t border-line">
         <div className="wrap flex flex-col gap-10 py-12 sm:py-[72px] lg:flex-row lg:flex-wrap lg:items-start lg:gap-14 lg:py-20">
@@ -82,6 +87,7 @@ export default function Evenement({ loaderData }: Route.ComponentProps) {
       </section>
 
       <Lineup lineup={event.lineup} roster={roster} decoration={event.decoration} />
+      {album && <EventPhotos album={album} />}
       <NewsletterCta />
       {hasBar && event.ticketUrl && <StickyTicketBar title={fullTitle(event)} date={event.date} price={event.price} ticketUrl={event.ticketUrl} />}
     </div>

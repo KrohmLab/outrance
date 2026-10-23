@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { Link } from "react-router";
 import type { Album, AlbumSummary, Photo } from "../../content/schemas";
 import { formatDate } from "../../lib/dates";
 import { ChevronLeftIcon, ChevronRightIcon } from "../icons";
@@ -14,6 +15,8 @@ type Props = {
   index: number;
   onIndex: (index: number) => void;
   onClose: () => void;
+  /** Lien vers la fiche de la soirée (galerie) ; inutile quand la visionneuse est ouverte depuis la fiche. */
+  eventLink?: boolean;
 };
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -21,7 +24,7 @@ const NO_PHOTOS: never[] = [];
 const SWIPE_DISTANCE = 50;
 const SWIPE_SPEED = 0.5; // px/ms
 
-export function PhotoViewer({ album, open, index, onIndex, onClose }: Props) {
+export function PhotoViewer({ album, open, index, onIndex, onClose, eventLink = false }: Props) {
   const photos = album?.photos ?? NO_PHOTOS;
   const total = photos.length;
   const current = total > 0 ? Math.min(index, total - 1) : 0;
@@ -120,6 +123,11 @@ export function PhotoViewer({ album, open, index, onIndex, onClose }: Props) {
               )}
             </span>
             <span className="disp text-[14px] leading-[1.15] font-semibold sm:text-[18px]">{album.title}</span>
+            {eventLink && (
+              <Link className="lnk w-fit text-[12px] sm:text-[13px]" to={`/evenements/${album.event}`} prefetch="intent">
+                Voir la soirée <span className="ar" aria-hidden="true">→</span>
+              </Link>
+            )}
           </>
         )
       }

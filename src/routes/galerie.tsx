@@ -137,7 +137,7 @@ export default function Galerie({ loaderData }: Route.ComponentProps) {
         </section>
       </TabPanel>
 
-      <PhotoViewer {...viewer.props} onClose={closeViewer} />
+      <PhotoViewer {...viewer.props} onClose={closeViewer} eventLink />
       <VideoPlayer {...player.props} />
     </>
   );

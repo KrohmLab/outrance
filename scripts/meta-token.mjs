@@ -27,10 +27,16 @@ const { access_token: longToken } = await graph("oauth/access_token", {
 });
 
 // 2. Pages gérées, avec leur jeton et le compte Instagram relié.
-const { data: pages = [] } = await graph("me/accounts", {
-  fields: "id,name,access_token,instagram_business_account{username}",
-  access_token: longToken,
-});
+const pageFields = "id,name,access_token,instagram_business_account{username}";
+let { data: pages = [] } = await graph("me/accounts", { fields: pageFields, access_token: longToken });
+
+// Page gérée via un Business Manager : me/accounts revient vide, mais les pages cochées
+// à la connexion figurent dans les permissions détaillées du jeton. On les interroge une à une.
+if (pages.length === 0) {
+  const { data: user } = await graph("debug_token", { input_token: longToken, access_token: `${appId}|${secret}` });
+  const ids = user.granular_scopes?.find((s) => s.scope === "pages_show_list")?.target_ids ?? [];
+  pages = await Promise.all(ids.map((id) => graph(id, { fields: pageFields, access_token: longToken })));
+}
 if (pages.length === 0) throw new Error("Aucune page : vérifie la permission pages_show_list et la page cochée à la connexion.");
 
 for (const page of pages) {

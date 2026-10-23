@@ -138,6 +138,13 @@ for (const fb of facebookAlbums) {
 // Un album sans photo n’est jamais affiché (ni dans la galerie, ni en lien depuis la fiche événement).
 galerie.albums = galerie.albums.filter((a) => a.photos.length > 0).sort((a, b) => b.date.localeCompare(a.date));
 
+// Une soirée sans affiche ni couverture prend la première photo de son album comme visuel
+// (une affiche ou une couverture existante n’est jamais remplacée).
+for (const album of galerie.albums) {
+  const event = getEvent(album.event);
+  if (event && !event.poster && !event.cover) event.cover = album.photos[0]?.src ?? null;
+}
+
 export function getEvent(slug: string): OutranceEvent | undefined {
   return events.find((e) => e.slug === slug);
 }

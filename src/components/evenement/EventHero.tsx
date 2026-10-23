@@ -7,7 +7,7 @@ import { CalendarMenu, ShareMenu } from "../EventMenus";
 import { Placeholder } from "../Placeholder";
 import { StatusTag, type EventStatus } from "../Tag";
 import { HeroMandala } from "./HeroMandala";
-import { longestWord, ticketProvider } from "./event-data";
+import { longestWordEm, ticketProvider } from "./event-data";
 
 type Props = {
   event: OutranceEvent;
@@ -41,11 +41,12 @@ export function EventHero({ event, status, upcoming, canBuy, hasBar, hasPhotos }
   const where = place(event);
   const provider = event.ticketUrl ? ticketProvider(event.ticketUrl) : null;
   // Le h1 ne déborde jamais : sa taille est plafonnée par la largeur de sa colonne (unités cqw)
-  // selon la longueur du plus long mot (≈ 0,88 em par capitale en Unbounded 800).
-  const fit = { "--h1-fit": `calc(100cqw / ${(longestWord(event.title) * 0.88).toFixed(2)})` } as CSSProperties;
+  // selon la largeur réelle de son plus long mot (chasse de chaque capitale, 4 % de marge) : un mot
+  // n’est jamais coupé en deux.
+  const fit = { "--h1-fit": `calc(100cqw / ${(longestWordEm(event.title) * 1.04).toFixed(3)})` } as CSSProperties;
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-x-clip">
       <HeroMandala />
       <div className="wrap relative flex flex-col gap-[18px] pt-5 pb-10 sm:gap-8 sm:pt-8 sm:pb-[72px] lg:gap-10 lg:pt-10 lg:pb-20">
         <Breadcrumb title={event.title} />

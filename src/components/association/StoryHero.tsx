@@ -6,15 +6,15 @@ type Props = { founded: string; story: string[] };
 export function StoryHero({ founded, story }: Props) {
   const [first, second] = story;
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-x-clip">
       {/* Mobile : 520 px, 8 pétales, trait 1. */}
-      <div aria-hidden="true" className="pointer-events-none absolute -top-[100px] -right-[230px] size-[520px] opacity-45 sm:hidden">
+      <div aria-hidden="true" className="pointer-events-none absolute -top-[100px] -right-[230px] -z-10 size-[520px] opacity-45 sm:hidden">
         <PageMandala petals={8} strokeWidth={1} />
       </div>
       {/* Tablette : 700 px ; desktop : 820 px. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-[160px] -right-[300px] hidden size-[700px] opacity-50 sm:block lg:-top-[120px] lg:-right-[200px] lg:size-[820px]"
+        className="pointer-events-none absolute -top-[160px] -right-[300px] -z-10 hidden size-[700px] opacity-50 sm:block lg:-top-[170px] lg:-right-[200px] lg:size-[820px]"
       >
         <PageMandala petals={9} />
       </div>

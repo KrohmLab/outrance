@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router";
 import { formatDate } from "../../lib/dates";
@@ -8,7 +8,8 @@ import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "../icons";
 import { genresLabel, LINK_LABELS, ofName, type RosterArtist } from "./types";
 
 // Fiche artiste en dialogue : panneau latéral de 560 px à partir de 640 px (glisse depuis la droite
-// en 550 ms, contenu décalé de 150 ms), panneau qui remonte du bas en dessous (82 % de l’écran).
+// en 550 ms, contenu décalé de 150 ms), panneau qui remonte du bas en dessous : hauteur plafonnée à la
+// zone visible de l’écran (barres du navigateur comprises), contenu défilable, bouton Fermer collant.
 // Rendu hors de #contenu (portail) pour échapper au inert de la page.
 type Props = {
   artist: RosterArtist | null;
@@ -27,6 +28,11 @@ export function ArtistPanel({ artist, open, onClose, onPrev, onNext, onBook, can
   const closeRef = useRef<HTMLButtonElement>(null);
   useModal({ open, onClose, containers: [panelRef], initialFocus: closeRef });
 
+  // Précédent / suivant : la nouvelle fiche se lit depuis son début.
+  useEffect(() => {
+    panelRef.current?.scrollTo({ top: 0 });
+  }, [artist?.slug]);
+
   if (!hydrated) return null;
   const links = artist ? (Object.keys(LINK_LABELS) as (keyof typeof LINK_LABELS)[]).filter((k) => artist.links[k]) : [];
 
@@ -38,10 +44,16 @@ export function ArtistPanel({ artist, open, onClose, onPrev, onNext, onBook, can
         role="dialog"
         aria-modal="true"
         aria-labelledby="fiche-artiste-nom"
-        className="artist-panel absolute inset-x-0 bottom-0 flex max-h-[82vh] flex-col overflow-y-auto rounded-t-[24px] border-t border-line bg-nuit-raised sm:inset-y-0 sm:right-0 sm:left-auto sm:max-h-none sm:w-[min(560px,100%)] sm:rounded-none sm:border-t-0 sm:border-l"
+        className="artist-panel absolute inset-x-0 bottom-0 flex flex-col overflow-y-auto overscroll-contain rounded-t-[24px] border-t border-line bg-nuit-raised sm:inset-y-0 sm:right-0 sm:left-auto sm:max-h-none sm:w-[min(560px,100%)] sm:rounded-none sm:border-t-0 sm:border-l"
       >
         {artist && (
           <>
+            {/* Fermer reste visible quand on fait défiler la fiche. */}
+            <div className="sticky top-0 z-10 flex h-0 flex-none justify-end">
+              <button ref={closeRef} type="button" className="round-btn round-btn-close mt-4 mr-4" aria-label="Fermer la fiche" onClick={onClose}>
+                <CloseIcon />
+              </button>
+            </div>
             <div className="relative flex flex-none items-center justify-center overflow-hidden bg-[#1d1430] max-sm:h-[150px] sm:h-[320px]">
               <svg aria-hidden="true" viewBox="0 0 560 320" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 size-full">
                 <g fill="none" stroke="var(--color-line)">
@@ -58,9 +70,6 @@ export function ArtistPanel({ artist, open, onClose, onPrev, onNext, onBook, can
                 {artist.name.charAt(0)}
               </span>
               <span className="lbl absolute bottom-4 left-5 hidden text-[10px] text-ink-muted sm:block">[Portrait duotone — 16:9]</span>
-              <button ref={closeRef} type="button" className="round-btn round-btn-close absolute top-4 right-4" aria-label="Fermer la fiche" onClick={onClose}>
-                <CloseIcon />
-              </button>
             </div>
 
             <div className="artist-content flex flex-col gap-6 px-5 pt-6 pb-8 sm:px-8 sm:pt-8 sm:pb-10">

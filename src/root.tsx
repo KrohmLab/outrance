@@ -4,6 +4,7 @@ import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { ToastProvider } from "./components/Toast";
 import { events } from "./content/load.server";
+import { DEPLOY_SKEW_SCRIPT, useDeploySkewGuard } from "./lib/deploySkew";
 import { toSummary } from "./lib/featured";
 import { buildTime } from "./lib/useNow";
 import "./styles/theme.css";
@@ -23,6 +24,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0a0712" />
+        {/* Avant tout le reste : rejoint le lien cliqué si un ancien onglet a rechargé la page à sa place. */}
+        <script dangerouslySetInnerHTML={{ __html: DEPLOY_SKEW_SCRIPT }} />
         {/* Sans JavaScript, les éléments à apparition restent visibles. */}
         <noscript>
           <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
@@ -40,6 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  useDeploySkewGuard();
   return (
     <ToastProvider>
       <a
@@ -49,7 +53,7 @@ export default function App() {
         Aller au contenu
       </a>
       <Header />
-      <main id="contenu" tabIndex={-1} className="outline-none">
+      <main id="contenu" tabIndex={-1} className="relative isolate outline-none">
         <Outlet />
       </main>
       <Footer />

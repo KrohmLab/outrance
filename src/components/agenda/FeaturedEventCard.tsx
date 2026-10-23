@@ -61,7 +61,7 @@ export function FeaturedEventCard({ event }: { event: AgendaEvent }) {
   const where = place(event);
   return (
     <article className="card grid hover:transform-none lg:grid-cols-2">
-      <Link to={href} tabIndex={-1} aria-hidden="true" className="relative block aspect-[1920/1005] lg:min-h-full">
+      <Link to={href} tabIndex={-1} aria-hidden="true" className="relative block aspect-[1920/1005] lg:aspect-auto lg:min-h-full">
         <EventVisual event={event} className="absolute inset-0" />
       </Link>
       <div className="flex flex-col gap-3.5 p-5 sm:gap-[18px] sm:p-9">

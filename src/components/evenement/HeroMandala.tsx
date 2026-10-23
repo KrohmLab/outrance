@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 // Mandala du hero de la fiche (Evenement.dc.html et Evenement-tablette.dc.html) : géométrie propre
 // à la fiche, différente du Mandala partagé. Desktop : 5 cercles, 12 ellipses, 120 s ;
-// tablette : 4 cercles, 8 ellipses, 90 s ; mobile : aucun. Rotation suspendue hors écran,
+// tablette : 4 cercles, 8 ellipses, 90 s ; mobile : la géométrie tablette, plus petite et plus discrète. Rotation suspendue hors écran,
 // neutralisée en mouvement réduit par theme.css.
 
 const DESKTOP = { radii: [60, 120, 180, 240, 290], petals: 12 };
@@ -37,10 +37,10 @@ export function HeroMandala() {
   }, []);
 
   return (
-    <div ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 hidden sm:block">
+    <div ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
       <svg
         viewBox="-300 -300 600 600"
-        className="absolute -top-[260px] -right-[380px] block size-[900px] animate-[spin_90s_linear_infinite] opacity-25 lg:hidden"
+        className="absolute -top-[160px] -right-[240px] block size-[520px] animate-[spin_90s_linear_infinite] opacity-20 sm:-top-[260px] sm:-right-[380px] sm:size-[900px] sm:opacity-25 lg:hidden"
       >
         <Rings {...TABLET} />
       </svg>

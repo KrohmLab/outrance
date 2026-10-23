@@ -21,9 +21,18 @@ export function ticketProvider(url: string): string | null {
   }
 }
 
-/** Nombre de caractères du plus long mot du titre (pour que le h1 ne déborde jamais de sa colonne). */
-export function longestWord(title: string): number {
-  return Math.max(4, ...title.split(/\s+/).map((w) => w.length));
+// Chasse des capitales d’Unbounded 800, en em (mesurée dans le navigateur) ; 0,95 pour tout autre signe.
+const GLYPH_EM: Record<string, number> = {
+  A: 0.977, B: 0.895, C: 0.942, D: 0.936, E: 0.803, F: 0.781, G: 0.97, H: 0.947, I: 0.362, J: 0.815, K: 0.882, L: 0.772, M: 1.255,
+  N: 0.983, O: 0.97, P: 0.825, Q: 0.971, R: 0.863, S: 0.857, T: 0.829, U: 0.884, V: 0.951, W: 1.375, X: 0.896, Y: 0.94, Z: 0.819,
+  "0": 0.935, "1": 0.536, "2": 0.85, "3": 0.85, "4": 0.88, "5": 0.817, "6": 0.867, "7": 0.769, "8": 0.905, "9": 0.867,
+  Œ: 1.33, Æ: 1.262, "&": 0.961, "'": 0.291, "’": 0.31, "-": 0.377, ".": 0.314, ":": 0.339, "!": 0.338, "?": 0.722, "/": 0.472,
+};
+
+/** Largeur (en em) du plus long mot du titre en capitales, pour que le h1 ne coupe ni ne déborde jamais. */
+export function longestWordEm(title: string): number {
+  const width = (word: string) => [...word.toUpperCase().normalize("NFD").replace(/\p{M}/gu, "")].reduce((sum, ch) => sum + (GLYPH_EM[ch] ?? 0.95), 0);
+  return Math.max(3.6, ...title.split(/\s+/).map(width));
 }
 
 /** « VEN. 19/12 » (barre collante mobile). */

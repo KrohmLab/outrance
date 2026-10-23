@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import type { Aftermovie } from "../../content/schemas";
 import type { MotionLevel } from "../../lib/useMotionLevel";
 import { AftermovieCard, VideoPlayer, useVideoPlayer } from "../Aftermovies";
@@ -13,7 +13,28 @@ export function AftermoviesTrack({ movies, level }: { movies: Aftermovie[]; leve
   const fillRef = useRef<HTMLHeadingElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const player = useVideoPlayer();
+  const stickyRef = useRef<HTMLDivElement>(null);
   const pinned = level === "full";
+
+  // Figée, la section centre son contenu dans un écran entier : le vide au-dessus du titre
+  // s’ajoutait à la marge du roster. On remonte la section d’autant (moins une marge de 40 px) ;
+  // le haut du bloc figé, vide, laisse passer les clics vers le roster qu’il chevauche.
+  useLayoutEffect(() => {
+    const el = ref.current;
+    const sticky = stickyRef.current;
+    if (!el || !sticky) return;
+    if (!pinned) {
+      el.style.marginTop = "";
+      return;
+    }
+    const fit = () => {
+      const empty = (sticky.firstElementChild as HTMLElement | null)?.offsetTop ?? 0;
+      el.style.marginTop = `${-Math.max(0, empty - 40)}px`;
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, [pinned]);
 
   usePageScroll(
     ref,
@@ -32,7 +53,10 @@ export function AftermoviesTrack({ movies, level }: { movies: Aftermovie[]; leve
 
   return (
     <section ref={ref} aria-labelledby="home-aftermovies" className={`relative ${pinned ? "h-[255vh]" : ""}`}>
-      <div className={`flex flex-col justify-center gap-6 py-12 sm:gap-10 sm:py-24 ${pinned ? "sticky top-0 h-[100vh] overflow-hidden py-0!" : ""}`}>
+      <div
+        ref={stickyRef}
+        className={`flex flex-col justify-center gap-6 py-12 sm:gap-10 sm:py-24 ${pinned ? "pointer-events-none sticky top-0 h-[100vh] overflow-hidden py-0! *:pointer-events-auto" : ""}`}
+      >
         <div className="wrap relative">
           <span className="lbl text-lotus">Galerie</span>
           <div className="relative">

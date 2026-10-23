@@ -21,10 +21,4 @@ export function useFeaturedEvent() {
   return featuredEvent(data?.events ?? [], now);
 }
 
-/** Cible du bouton BILLETTERIE du layout : la fiche du prochain événement, sinon l’agenda. */
-export function useTicketingHref() {
-  const featured = useFeaturedEvent();
-  return featured?.upcoming ? `/evenements/${featured.event.slug}` : "/agenda";
-}
-
 export { isUpcoming };

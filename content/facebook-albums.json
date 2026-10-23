@@ -1,5 +1,21 @@
 {
   "note": "Rattachement manuel des albums Facebook aux événements, prioritaire sur le rattachement automatique (titre de l’événement dans le nom de l’album). Clé : identifiant de l’album (affiché dans les logs du build) ; valeur : slug de l’événement, ou null pour masquer l’album. hiddenPhotos : photos retirées sur demande (droit à l’image), par identifiant Facebook — c’est le nom du fichier de la photo sur le site, /meta/facebook/{album}/{photo}.jpg. Voir docs/meta.md.",
-  "albums": {},
+  "albums": {
+    "1432935582206576": "lab-nexen-teaser-party",
+    "1407654361401365": "lab-ignis-2026",
+    "1391017159731752": "lab-tempus-2026",
+    "863217212511752": "symbiosis-2023",
+    "622457683254374": "outrance-belgium-5",
+    "621301506703325": "outrance-belgium-5",
+    "2481208025446037": "belgium-use-in-2019",
+    "2478361965730643": "belgium-use-in-2019",
+    "2478353092398197": "belgium-use-in-2019",
+    "2435314253368748": "outrance-belgium-2",
+    "2354820721418102": "outrance-belgium-1",
+    "1667219200178261": "outrance-kao-bliss-2015",
+    "1634735563426625": "freedom-festival-promo-party-2015",
+    "1588702111363304": "outrance-1",
+    "1588702068029975": "outrance-3"
+  },
   "hiddenPhotos": []
 }

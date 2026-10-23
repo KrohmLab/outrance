@@ -54,11 +54,12 @@ export function loader() {
     ticketUrl: e.ticketUrl,
     ticketStatus: e.ticketStatus,
     lineup: e.lineup,
+    cover: e.cover,
   }));
   return {
     events: list,
     roster: artists
-      .map((a) => ({ slug: a.slug, name: a.name, format: a.format, genres: a.genres, bio: a.bio }))
+      .map((a) => ({ slug: a.slug, name: a.name, format: a.format, genres: a.genres, bio: a.bio, photo: a.photo }))
       .sort((a, b) => rank(a.slug) - rank(b.slug)),
     stats: fullSite.stats.flatMap((s) => (s.value === null ? [] : [{ value: s.value, label: s.label }])),
     founded: fullSite.association.founded,

@@ -54,23 +54,31 @@ export function ArtistPanel({ artist, open, onClose, onPrev, onNext, onBook, can
                 <CloseIcon />
               </button>
             </div>
-            <div className="relative flex flex-none items-center justify-center overflow-hidden bg-[#1d1430] max-sm:h-[150px] sm:h-[320px]">
-              <svg aria-hidden="true" viewBox="0 0 560 320" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 size-full">
-                <g fill="none" stroke="var(--color-line)">
-                  {[80, 150, 220, 290].map((r) => (
-                    <circle key={r} cx="280" cy="160" r={r} />
-                  ))}
-                </g>
-                <circle cx="280" cy="160" r="115" fill="none" stroke="var(--color-lotus)" strokeWidth="1.5" />
-              </svg>
-              <span
-                aria-hidden="true"
-                className="artist-initial disp relative text-[110px] leading-none font-extrabold text-transparent [-webkit-text-stroke:1.5px_var(--color-lotus)] sm:text-[220px]"
-              >
-                {artist.name.charAt(0)}
-              </span>
-              <span className="lbl absolute bottom-4 left-5 hidden text-[10px] text-ink-muted sm:block">[Portrait duotone — 16:9]</span>
-            </div>
+            {artist.photo ? (
+              // Portrait de l’artiste ; cadré sur le haut de l’image pour garder le visage.
+              <div className="relative flex-none overflow-hidden bg-[#1d1430] max-sm:h-[240px] sm:h-[360px]">
+                <img src={artist.photo} alt={`Portrait de ${artist.name}`} decoding="async" className="absolute inset-0 size-full object-cover object-[50%_20%]" />
+                <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-nuit-raised to-transparent" />
+              </div>
+            ) : (
+              <div className="relative flex flex-none items-center justify-center overflow-hidden bg-[#1d1430] max-sm:h-[150px] sm:h-[320px]">
+                <svg aria-hidden="true" viewBox="0 0 560 320" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 size-full">
+                  <g fill="none" stroke="var(--color-line)">
+                    {[80, 150, 220, 290].map((r) => (
+                      <circle key={r} cx="280" cy="160" r={r} />
+                    ))}
+                  </g>
+                  <circle cx="280" cy="160" r="115" fill="none" stroke="var(--color-lotus)" strokeWidth="1.5" />
+                </svg>
+                <span
+                  aria-hidden="true"
+                  className="artist-initial disp relative text-[110px] leading-none font-extrabold text-transparent [-webkit-text-stroke:1.5px_var(--color-lotus)] sm:text-[220px]"
+                >
+                  {artist.name.charAt(0)}
+                </span>
+                <span className="lbl absolute bottom-4 left-5 hidden text-[10px] text-ink-muted sm:block">[Portrait duotone — 16:9]</span>
+              </div>
+            )}
 
             <div className="artist-content flex flex-col gap-6 px-5 pt-6 pb-8 sm:px-8 sm:pt-8 sm:pb-10">
               <div className="flex flex-col gap-3">

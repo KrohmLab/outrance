@@ -52,11 +52,23 @@ export function EventHero({ event, status, upcoming, canBuy, hasBar, hasPhotos }
         <Breadcrumb title={event.title} />
 
         <div className="grid grid-cols-1 gap-[18px] sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] sm:items-center sm:gap-x-9 sm:gap-y-8 lg:grid-cols-2 lg:grid-rows-[1fr_auto_auto_1fr] lg:gap-x-14 lg:gap-y-0">
-          <Placeholder
-            motif="poster"
-            label="[Affiche de l’événement — format 4:5]"
-            className="reveal aspect-[4/5] w-full rounded-md border border-line sm:col-start-1 sm:row-start-1 lg:row-span-4 lg:max-w-[512px]"
-          />
+          {/* L’affiche (4:5) si elle existe, sinon la couverture de l’événement (1920×1005), sinon le Placeholder. */}
+          {event.poster || event.cover ? (
+            <img
+              src={(event.poster ?? event.cover) as string}
+              alt={`Visuel de ${event.title}`}
+              decoding="async"
+              className={`reveal w-full rounded-md border border-line object-cover sm:col-start-1 sm:row-start-1 lg:row-span-4 ${
+                event.poster ? "aspect-[4/5] lg:max-w-[512px]" : "aspect-[1920/1005] lg:self-center"
+              }`}
+            />
+          ) : (
+            <Placeholder
+              motif="poster"
+              label="[Affiche de l’événement — format 4:5]"
+              className="reveal aspect-[4/5] w-full rounded-md border border-line sm:col-start-1 sm:row-start-1 lg:row-span-4 lg:max-w-[512px]"
+            />
+          )}
 
           <div className="@container flex min-w-0 flex-col gap-[18px] sm:col-start-2 sm:row-start-1 lg:row-start-2 lg:gap-6">
             <div className="reveal">

@@ -64,6 +64,8 @@ export const aftermovieSchema = z.strictObject({
   text: z.string(),
   credit: z.string().nullable(),
   youtubeUrl: url.nullable(),
+  /** Vignette servie par le site (public/), pour ne rien charger depuis YouTube avant le clic. */
+  thumbnail: nullable(z.string()),
 });
 
 export const photoSchema = z.strictObject({

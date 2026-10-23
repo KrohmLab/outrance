@@ -135,7 +135,8 @@ for (const fb of facebookAlbums) {
   }
   album.photos.push(...fb.photos.map((p) => ({ ...p, alt: p.alt || `${album.title}, photo de la soirée` })));
 }
-galerie.albums.sort((a, b) => b.date.localeCompare(a.date));
+// Un album sans photo n’est jamais affiché (ni dans la galerie, ni en lien depuis la fiche événement).
+galerie.albums = galerie.albums.filter((a) => a.photos.length > 0).sort((a, b) => b.date.localeCompare(a.date));
 
 export function getEvent(slug: string): OutranceEvent | undefined {
   return events.find((e) => e.slug === slug);

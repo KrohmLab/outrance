@@ -5,7 +5,7 @@ import { Placeholder } from "../Placeholder";
 import { gridValue, LAYOUTS, mosaic } from "./mosaic";
 
 // Mosaïque d’albums (Galerie.dc.html) : 4 colonnes en desktop, 3 en tablette, 2 en mobile.
-// Un album sans photo s’affiche avec le Placeholder et « Photos à venir », sans être cliquable.
+// Les albums sans photo sont écartés au chargement ; le Placeholder ne sert que de garde-fou.
 
 type Props = { albums: AlbumSummary[]; onOpen: (album: AlbumSummary) => void };
 

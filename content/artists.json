@@ -8,8 +8,12 @@
       "Psychedelic",
       "Psytechno"
     ],
-    "photo": null,
-    "links": {}
+    "bio": "Matthias aka Kangapta est originaire de Lyon et commence le DJing en 2014. Il se produit très vite dans les soirées de son entourage, comme Outrance, Les Alchimistes ou La Tartine Sonore, puis voyage à Grenoble, Marseille, Avignon ou Clermont-Ferrand. Il joue sur la scène du Hadra Trance Festival 2017 et partage l’affiche avec des artistes internationaux comme Chris Rich, Ajja, Laughing Buddha ou Tristan. Kangapta sait s’adapter à son public et à son heure, entre Fullon et Psyché, dans des mix dynamiques alliant sonorités aiguisées et rythme groovy. Depuis 2016, il mixe aussi de la techno minimale aux ambiances sombres et psychédéliques, inspirée des scènes alternatives de festivals comme le MoDem ou Lost Theory, et de la Psytechno depuis quelques années.",
+    "photo": "/images/artistes/kangapta.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/kangapta",
+      "facebook": "https://www.facebook.com/KangaptaOutrance"
+    }
   },
   {
     "slug": "klaak",
@@ -18,9 +22,12 @@
     "genres": [
       "Hitech"
     ],
-    "bio": "Co-fondateur de l’association, Klaak a joué son tout premier set chez Outrance en closing de la Psychedelic Christmas 2025, après deux ans de travail intensif.",
-    "photo": null,
-    "links": {}
+    "bio": "Plongé dans l’univers de la psytrance depuis plus de 12 ans, Klaak est le fruit d’une révélation : la Hitech. Un style à la fois explosif, euphorisant et chargé d’énergie positive, qui lui a donné l’envie de passer de l’orga à la scène. Co-fondateur du collectif Outrance, acteur incontournable de la psytrance à Lyon, il a œuvré pendant des années à faire vibrer les dancefloors tout en écumant les festivals à travers la France et l’Europe, où il s’imprègne de l’essence des plus grandes scènes psytrance pour nourrir son univers musical. Aujourd’hui, c’est derrière les platines qu’il souhaite insuffler son énergie, distillant une hitech groovy, happy et survitaminée.",
+    "photo": "/images/artistes/klaak.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/klaak",
+      "instagram": "https://www.instagram.com/kevin.klaak/"
+    }
   },
   {
     "slug": "marsupial",
@@ -29,8 +36,12 @@
     "genres": [
       "Progressive"
     ],
-    "photo": null,
-    "links": {}
+    "bio": "Membre d’Outrance depuis un bon moment, Mars Upial s’est démarqué par des productions de progressive mélodiques et dancefloor. En 2021, il propose une idée atypique qui a su impressionner : associer ses sons à un violon en live. Il s’est notamment produit en première partie d’Infected Mushroom et tourne désormais des clips à l’étranger, à retrouver sur YouTube. Un projet à ne pas louper !",
+    "photo": "/images/artistes/marsupial.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/mars-upial",
+      "facebook": "https://www.facebook.com/marsupialart"
+    }
   },
   {
     "slug": "moonwave",
@@ -40,8 +51,12 @@
       "Fullon",
       "Psygroovy"
     ],
-    "photo": null,
-    "links": {}
+    "bio": "Charly aka MoonWave est membre du CA d’Outrance depuis plusieurs années et DJ au sein du crew depuis 2017, formé par Rajax et Originz. Il mixe principalement du Full-On et, plus récemment, de la Psy Groovy, après quelques années de Psyprog. Il a joué dans la région mais aussi en Asie (Thaïlande, Chine, Malaisie, Cambodge, Indonésie), en Allemagne, en Belgique et en Suisse. Pour ses sets, il s’inspire de labels comme BMSS Records, Nano Records, Digital Om, BlackLite Records ou Transubtil. Enjoy and follow the wave !",
+    "photo": "/images/artistes/moonwave.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/moonwave-outrance",
+      "facebook": "https://www.facebook.com/monnwave"
+    }
   },
   {
     "slug": "namdak",
@@ -50,8 +65,11 @@
     "genres": [
       "Psygroovy"
     ],
-    "photo": null,
-    "links": {}
+    "photo": "/images/artistes/namdak.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/namdak",
+      "facebook": "https://www.facebook.com/namdak.ovnirec"
+    }
   },
   {
     "slug": "originz",
@@ -62,9 +80,12 @@
       "Forest",
       "Psytech"
     ],
-    "bio": "Originz aka Raphaël Atlan est un activiste de la psytrance à Lyon et en France depuis 2014. Co-fondateur de l’association Outrance et programmateur pour Hadra, il prend goût au mix en côtoyant les ténors internationaux du milieu.",
-    "photo": null,
-    "links": {}
+    "bio": "Originz aka Raphaël Atlan est un activiste de la psytrance à Lyon et en France depuis 2014. Co-fondateur de l’association Outrance et programmateur pour Hadra, il prend goût au mix en côtoyant les ténors internationaux du milieu. Depuis 2015, il écume les scènes en France et à l’étranger (Thaïlande, Mexique, Chine, Malaisie, Cambodge, Israël, Italie, Indonésie, Croatie…) et des festivals renommés (MoDem, Hadra, Own Spirit, Wao, Son Libre…). Son style oscille entre des beats psytrance énergiques et une atmosphère groovy forest, aussi profonde que légère. Il rejoint Sangoma Records comme label DJ en 2019 et sort sa première VA, « Eagles Rising », en 2020 sur le label.",
+    "photo": "/images/artistes/originz.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/originz_sangoma",
+      "facebook": "https://www.facebook.com/originz.outrance/"
+    }
   },
   {
     "slug": "rajax",
@@ -74,8 +95,12 @@
       "Psytrance",
       "Forest"
     ],
-    "photo": null,
-    "links": {}
+    "bio": "Guidé par la musique depuis son enfance, William aka Rajax découvre les musiques électroniques en 2010 et participe à son premier festival trance en 2013. Très vite, il enchaîne les soirées psytrance en France et y rencontre différents acteurs du mouvement. L’envie de jouer les sons qui le font vibrer le pousse à apprendre le DJing : il débute dans des bars et clubs de Lyon et des alentours, puis joue aux côtés d’artistes internationaux comme Space Tribe, Protonica, Azax Syndrom, Sonic Species, Royal Flush ou Oddwave. Inspiré par des labels comme Iono Music, Digital Om ou Tesseract Studio, il propose des sets progressifs qui font voyager le public dans un univers psychédélique bien défini.",
+    "photo": "/images/artistes/rajax.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/rajax-outrance",
+      "facebook": "https://www.facebook.com/Rajax-1672419826335836/"
+    }
   },
   {
     "slug": "rayzorks",
@@ -85,8 +110,12 @@
       "Forest",
       "Darkpsy"
     ],
-    "photo": null,
-    "links": {}
+    "bio": "Rayzorks est le projet psytrance de Florian Janier, basé à Lyon, lancé en 2017. Désormais orienté vers une psytrance beaucoup plus dark, il cherche, par le choix minutieux de ses tracks, à créer des sets très lumineux et électriques tout en gardant une atmosphère plus ténébreuse. Il est influencé par des labels comme Resina, Tartara, Deviant Force, Catar, Sonic Loom ou Enygma. Fin 2018, il rejoint l’écurie Anomic Elements, puis le vaisseau Level Up mi-2024. En parallèle, il se lance doucement dans la production et sort au compte-goutte quelques tracks, en téléchargement libre sur son SoundCloud.",
+    "photo": "/images/artistes/rayzorks.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/rayzorks",
+      "facebook": "https://www.facebook.com/Rayzorks"
+    }
   },
   {
     "slug": "soul-edge",
@@ -96,7 +125,11 @@
       "Psyprog",
       "Fullon"
     ],
-    "photo": null,
-    "links": {}
+    "bio": "Membre d’Outrance depuis 2014, Soul Edge est un DJ psyprog et fullon. Il découvre la psytrance en 1998 lors d’une soirée en Suisse et à la Techno Parade. Attiré par les sons psychédéliques, il commence à mixer en 2009 et intègre le label italien Mental Drop Records en 2012. Chez Outrance, il joue sur différents événements comme Reperkusound, Hadracadabra, au Ninkasi Kao et au Petit Salon à Lyon, et partage la scène avec des artistes de renom comme Ace Ventura, Liquid Soul, Electric Universe, Avalon ou Boom Shankar.",
+    "photo": "/images/artistes/soul-edge.jpg",
+    "links": {
+      "soundcloud": "https://soundcloud.com/antaress",
+      "facebook": "https://www.facebook.com/SOUL.EDGE.mental.drop/"
+    }
   }
 ]

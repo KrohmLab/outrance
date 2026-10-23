@@ -107,7 +107,7 @@ export const presseSchema = z.strictObject({
   venues: z.array(z.string()),
 });
 
-export const teamSchema = z.array(z.strictObject({ name: z.string(), role: z.string(), email: z.email() }));
+export const teamSchema = z.array(z.strictObject({ name: z.string(), role: z.string(), email: z.email(), photo: nullable(z.string()) }));
 
 export const timelineSchema = z.array(
   z.strictObject({ date: isoDate, label: z.string(), title: z.string(), text: z.string() }),

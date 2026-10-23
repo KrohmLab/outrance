@@ -2,6 +2,7 @@ import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration }
 import type { Route } from "./+types/root";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { SiteBackdrop } from "./components/SiteBackdrop";
 import { ToastProvider } from "./components/Toast";
 import { events } from "./content/load.server";
 import { DEPLOY_SKEW_SCRIPT, useDeploySkewGuard } from "./lib/deploySkew";
@@ -52,6 +53,7 @@ export default function App() {
       >
         Aller au contenu
       </a>
+      <SiteBackdrop />
       <Header />
       <main id="contenu" tabIndex={-1} className="relative isolate outline-none">
         <Outlet />

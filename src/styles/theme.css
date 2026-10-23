@@ -83,6 +83,9 @@
   body {
     margin: 0;
     background: var(--color-nuit);
+    /* Contexte d’empilement propre : le ciel commun (SiteBackdrop, z-index négatif) se peint au-dessus
+       du fond du body au lieu de passer dessous. */
+    isolation: isolate;
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.6;

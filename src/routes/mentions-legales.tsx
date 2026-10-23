@@ -16,6 +16,7 @@ export function loader() {
       siren: legal.siren,
       publicationDirector: legal.publicationDirector,
       host: legal.host,
+      webmaster: legal.webmaster,
       newsletterProvider: legal.newsletterProvider,
     },
     contactEmail: site.emails.contact,
@@ -37,6 +38,7 @@ const TOC: TocItem[] = [
   { id: "hebergement", label: "Hébergement" },
   { id: "propriete", label: "Propriété intellectuelle" },
   { id: "donnees", label: "Données personnelles" },
+  { id: "photos", label: "Photos et droit à l’image" },
   { id: "cookies", label: "Cookies" },
   { id: "credits", label: "Crédits" },
 ];
@@ -76,6 +78,11 @@ export default function MentionsLegales({ loaderData }: Route.ComponentProps) {
             <p>
               Site hébergé par <BoldLead text={legal.host} split={/, (?=\d)/} />.
             </p>
+            <p>
+              Pour t’afficher les pages, les serveurs de Cloudflare traitent techniquement ton adresse IP, comme tout
+              hébergeur. Cloudflare est une société américaine : ce transfert est encadré par le Data Privacy Framework
+              entre l’Union européenne et les États-Unis.
+            </p>
           </LegalSection>
 
           <LegalSection id="propriete" title="Propriété intellectuelle">
@@ -87,7 +94,8 @@ export default function MentionsLegales({ loaderData }: Route.ComponentProps) {
 
           <LegalSection id="donnees" title="Données personnelles">
             <p>
-              Ce site ne collecte lui-même aucune donnée personnelle. Pour un booking ou toute autre demande, nos adresses
+              Ce site ne collecte lui-même aucune donnée personnelle : pas de compte, pas de formulaire enregistré, pas de
+              mesure d’audience nominative. Pour un booking ou toute autre demande, nos adresses
               e-mail ouvrent ta propre messagerie : ton message nous parvient comme n’importe quel e-mail, et ce que tu nous y
               transmets sert seulement à te répondre. Ces informations ne sont jamais revendues.
             </p>
@@ -103,10 +111,27 @@ export default function MentionsLegales({ loaderData }: Route.ComponentProps) {
             </p>
           </LegalSection>
 
+          <LegalSection id="photos" title="Photos et droit à l’image">
+            <p>
+              Les photos de la galerie ont été prises pendant nos soirées et publiées sur la page Facebook d’Outrance ; le
+              site en affiche une copie. Elles montrent l’ambiance de nos événements, jamais pour un usage commercial.
+            </p>
+            <p>
+              <strong>Tu apparais sur une photo et tu veux qu’elle soit retirée ?</strong> Écris à {mail} avec le lien de la
+              photo (ou le nom de la soirée et une description) : nous la retirons du site dans les meilleurs délais, sans
+              avoir à te justifier. Précise-le si tu souhaites aussi qu’elle soit retirée de Facebook.
+            </p>
+          </LegalSection>
+
           <LegalSection id="cookies" title="Cookies">
             <p>
               <strong>Ce site n’utilise aucun cookie</strong> : c’est pourquoi aucune bannière ne te demande ton consentement.
               Si une mesure d’audience est ajoutée, elle sera anonyme et ne déposera rien sur ton appareil.
+            </p>
+            <p>
+              Le site garde seulement, le temps de ta visite, ta position de lecture dans les pages (stockage de session du
+              navigateur, effacé à la fermeture de l’onglet) : c’est nécessaire au fonctionnement et ne sert à rien d’autre.
+              Les images Instagram et Facebook sont copiées sur nos serveurs : les afficher ne transmet rien à Meta.
             </p>
             <p>
               Les vidéos YouTube ne se chargent qu’au moment où tu cliques sur Lecture, en mode de confidentialité renforcée
@@ -117,8 +142,9 @@ export default function MentionsLegales({ loaderData }: Route.ComponentProps) {
 
           <LegalSection id="credits" title="Crédits">
             <p>
-              Conception et développement : équipe Outrance.
+              Conception, développement et maintenance du site : <strong>{legal.webmaster}</strong>.
               {photographers.length > 0 && <> Photos : {photographers.join(", ")}.</>}
+              {" "}Photos des soirées : les photographes d’Outrance, dont les signatures figurent sur les images.
               {aftermovieCredits.length > 0 && <> Aftermovies : {aftermovieCredits.join(", ")}.</>}
             </p>
           </LegalSection>

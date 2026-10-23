@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
-import type { Album } from "../../content/schemas";
+import type { Album, AlbumSummary, Photo } from "../../content/schemas";
 import { formatDate } from "../../lib/dates";
 import { ChevronLeftIcon, ChevronRightIcon } from "../icons";
 import { IrisDialog } from "../IrisDialog";
@@ -187,7 +187,7 @@ export function PhotoViewer({ album, open, index, onIndex, onClose }: Props) {
                 onClick={() => onIndex(i)}
                 className={`h-11 w-16 flex-none cursor-pointer overflow-hidden rounded-sm border-2 bg-nuit-raised p-0 transition-[border-color,transform] duration-200 ${on ? "-translate-y-1 border-lotus" : "border-line hover:border-border"}`}
               >
-                <img src={p.src} alt="" loading="lazy" decoding="async" draggable={false} className="size-full object-cover" />
+                <img src={p.thumb ?? p.src} alt="" loading="lazy" decoding="async" draggable={false} className="size-full object-cover" />
               </button>
             );
           })}
@@ -198,16 +198,34 @@ export function PhotoViewer({ album, open, index, onIndex, onClose }: Props) {
 }
 
 /** État de la visionneuse : garde le dernier album pendant l’iris de fermeture ; l’ouverture repart de la photo demandée. */
+const albumPhotos = new Map<string, Promise<Photo[]>>();
+
+/** Photos d’un album, chargées une seule fois (fichier JSON pré-rendu). */
+function loadPhotos(slug: string): Promise<Photo[]> {
+  let photos = albumPhotos.get(slug);
+  if (!photos) {
+    photos = fetch(`/galerie/albums/${slug}.json`).then((res) => (res.ok ? (res.json() as Promise<Photo[]>) : Promise.reject(new Error(String(res.status)))));
+    photos.catch(() => albumPhotos.delete(slug));
+    albumPhotos.set(slug, photos);
+  }
+  return photos;
+}
+
 export function usePhotoViewer() {
   const [album, setAlbum] = useState<Album | null>(null);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   return {
-    open: (a: Album, start = 0) => {
-      if (a.photos.length === 0) return;
-      setAlbum(a);
-      setIndex(Math.max(0, Math.min(start, a.photos.length - 1)));
-      setOpen(true);
+    open: (a: AlbumSummary, start = 0) => {
+      if (a.count === 0) return;
+      loadPhotos(a.event).then(
+        (photos) => {
+          setAlbum({ event: a.event, title: a.title, date: a.date, photographer: a.photographer, photos });
+          setIndex(Math.max(0, Math.min(start, photos.length - 1)));
+          setOpen(true);
+        },
+        () => undefined, // Réseau coupé : l’album reste fermé, un nouveau clic réessaie.
+      );
     },
     isOpen: open,
     props: { album, open, index, onIndex: setIndex, onClose: () => setOpen(false) },

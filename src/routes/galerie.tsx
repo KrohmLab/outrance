@@ -6,6 +6,7 @@ import { PhotoViewer, usePhotoViewer } from "../components/galerie/PhotoViewer";
 import { PageHeader } from "../components/PageHeader";
 import { TabPanel, Tabs, useTabIds } from "../components/Tabs";
 import { aftermovies, galerie } from "../content/load.server";
+import type { AlbumSummary } from "../content/schemas";
 import { useHydrated } from "../lib/useHydrated";
 import { site } from "../site";
 import type { Route } from "./+types/galerie";
@@ -19,7 +20,9 @@ export const meta: Route.MetaFunction = () =>
   });
 
 export function loader() {
-  return { albums: galerie.albums, aftermovies };
+  // Seulement la couverture et le nombre de photos : un album en compte parfois plusieurs centaines.
+  const albums: AlbumSummary[] = galerie.albums.map(({ photos, ...album }) => ({ ...album, cover: photos[0] ?? null, count: photos.length }));
+  return { albums, aftermovies };
 }
 
 // L’onglet et l’album ouvert vivent dans l’URL (lus côté client) : pas besoin de recharger les données.
@@ -53,7 +56,7 @@ export default function Galerie({ loaderData }: Route.ComponentProps) {
   useEffect(() => {
     if (!hydrated) return;
     const album = albums.find((a) => a.event === params.get("album"));
-    if (album && album.photos.length > 0) viewer.open(album, Number(params.get("photo") ?? 1) - 1 || 0);
+    if (album && album.count > 0) viewer.open(album, Number(params.get("photo") ?? 1) - 1 || 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated]);
 

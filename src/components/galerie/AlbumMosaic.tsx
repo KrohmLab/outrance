@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import type { Album } from "../../content/schemas";
+import type { AlbumSummary } from "../../content/schemas";
 import { formatDate } from "../../lib/dates";
 import { Placeholder } from "../Placeholder";
 import { gridValue, LAYOUTS, mosaic } from "./mosaic";
@@ -7,7 +7,7 @@ import { gridValue, LAYOUTS, mosaic } from "./mosaic";
 // Mosaïque d’albums (Galerie.dc.html) : 4 colonnes en desktop, 3 en tablette, 2 en mobile.
 // Un album sans photo s’affiche avec le Placeholder et « Photos à venir », sans être cliquable.
 
-type Props = { albums: Album[]; onOpen: (album: Album) => void };
+type Props = { albums: AlbumSummary[]; onOpen: (album: AlbumSummary) => void };
 
 export function AlbumMosaic({ albums, onOpen }: Props) {
   const m = mosaic(albums.length, LAYOUTS.mobile.cols, LAYOUTS.mobile.pattern);
@@ -42,9 +42,8 @@ export function AlbumMosaic({ albums, onOpen }: Props) {
 
 const TILE = "relative flex min-w-0 flex-1 items-end overflow-hidden rounded-md bg-placeholder p-0 text-left text-ink";
 
-function AlbumTile({ album, onOpen }: { album: Album; onOpen: () => void }) {
-  const cover = album.photos[0];
-  const count = album.photos.length;
+function AlbumTile({ album, onOpen }: { album: AlbumSummary; onOpen: () => void }) {
+  const { cover, count } = album;
   const meta = count > 0 ? `${count} photo${count > 1 ? "s" : ""}` : "Photos à venir";
   const caption = (
     <span className="relative flex flex-col items-start gap-0.5 p-3 sm:gap-1.5 sm:p-5">

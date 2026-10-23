@@ -7,3 +7,5 @@ build/
 .DS_Store
 *.log
 .claude/
+public/meta/
+content/generated/

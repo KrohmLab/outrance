@@ -1,6 +1,7 @@
 import type { Config } from "@react-router/dev/config";
 import { readdir, readFile } from "node:fs/promises";
 import { parse } from "yaml";
+import { albumSlugs } from "./src/content/album-slugs";
 
 /** Slugs des événements publiés (hors brouillons), pour pré-rendre chaque fiche. */
 async function eventSlugs(): Promise<string[]> {
@@ -24,6 +25,12 @@ export default {
     // "/404" est rendu par la route joker (*) puis copié en build/client/404.html
     // par scripts/postbuild.mjs : Cloudflare le sert avec un statut 404.
     const slugs = await eventSlugs();
-    return [...getStaticPaths(), ...slugs.map((s) => `/evenements/${s}`), "/404"];
+    const albums = albumSlugs();
+    return [
+      ...getStaticPaths(),
+      ...slugs.map((s) => `/evenements/${s}`),
+      ...albums.map((s) => `/galerie/albums/${s}.json`),
+      "/404",
+    ];
   },
 } satisfies Config;

@@ -70,6 +70,8 @@ export const aftermovieSchema = z.strictObject({
 
 export const photoSchema = z.strictObject({
   src: z.string(),
+  /** Version réduite pour les vignettes (albums Facebook) ; sinon `src`. */
+  thumb: nullable(z.string()),
   alt: z.string(),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
@@ -88,6 +90,30 @@ export const galerieSchema = z.strictObject({
   note: z.string().optional(),
 });
 
+/** Généré au build par scripts/sync-meta.mjs (content/generated/), jamais édité à la main. */
+export const instagramPostSchema = z.strictObject({
+  id: z.string(),
+  permalink: url,
+  image: z.string(),
+  caption: z.string(),
+  video: z.boolean(),
+  date: z.string(),
+});
+
+export const facebookAlbumSchema = z.strictObject({
+  event: z.string(),
+  facebookId: z.string(),
+  name: z.string(),
+  photos: z.array(photoSchema),
+});
+
+export const facebookAlbumsOverrideSchema = z.strictObject({
+  note: z.string().optional(),
+  albums: z.record(z.string(), z.string().nullable()),
+  /** Photos retirées sur demande (droit à l’image), par identifiant Facebook. */
+  hiddenPhotos: z.array(z.string().regex(/^\d+$/, "identifiant Facebook : chiffres uniquement")).optional(),
+});
+
 export const legalSchema = z.strictObject({
   publisher: z.string(),
   address: z.string(),
@@ -95,6 +121,8 @@ export const legalSchema = z.strictObject({
   siren: z.string(),
   publicationDirector: z.string().nullable(),
   host: z.string(),
+  /** Conception, développement et maintenance du site. */
+  webmaster: z.string(),
   newsletterProvider: z.string().nullable(),
   todo: z.string().optional(),
 });
@@ -144,7 +172,11 @@ export type LineupItem = z.infer<typeof lineupItemSchema>;
 export type Artist = z.infer<typeof artistSchema>;
 export type Aftermovie = z.infer<typeof aftermovieSchema>;
 export type Galerie = z.infer<typeof galerieSchema>;
+export type InstagramPost = z.infer<typeof instagramPostSchema>;
 export type Album = Galerie["albums"][number];
+export type Photo = z.infer<typeof photoSchema>;
+/** Album sans ses photos, pour la mosaïque : les photos sont chargées à l’ouverture (/galerie/albums/{slug}.json). */
+export type AlbumSummary = Omit<Album, "photos"> & { cover: Photo | null; count: number };
 export type Legal = z.infer<typeof legalSchema>;
 export type Presse = z.infer<typeof presseSchema>;
 export type TeamMember = z.infer<typeof teamSchema>[number];

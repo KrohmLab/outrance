@@ -1,4 +1,5 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import { albumSlugs } from "./content/album-slugs";
 
 export default [
   index("routes/home.tsx"),
@@ -6,6 +7,9 @@ export default [
   route("evenements/:slug", "routes/evenement.tsx"),
   route("artistes", "routes/artistes.tsx"),
   route("galerie", "routes/galerie.tsx"),
+  // Photos d’un album en JSON, pré-rendues en fichiers statiques (/galerie/albums/{slug}.json).
+  // Seulement s’il y a des albums : en mode statique, une route à loader doit avoir au moins une page pré-rendue.
+  ...(albumSlugs().length > 0 ? [route("galerie/albums/:file", "routes/galerie-album.ts")] : []),
   route("association", "routes/association.tsx"),
   route("presse-pro", "routes/presse-pro.tsx"),
   route("mentions-legales", "routes/mentions-legales.tsx"),

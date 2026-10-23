@@ -100,6 +100,9 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
         const slide = reduced ? 1 : 1 - Math.pow(1 - Math.max(0, Math.min(1, (p.fly - 0.5) / 0.4)), 3);
         header.style.setProperty("--mark", mark.toFixed(3));
         header.style.setProperty("--slide", slide.toFixed(3));
+        // Logo décalé par la jauge : le bouton billetterie passe en icône (mobile, voir theme.css).
+        if (slide > 0.05) header.dataset.compact = "";
+        else delete header.dataset.compact;
       }
     },
     [reduced],
@@ -124,6 +127,7 @@ export function Hero({ event, upcoming, level, intro = false }: Props) {
       const header = document.querySelector<HTMLElement>("[data-home-header]");
       header?.style.removeProperty("--mark");
       header?.style.removeProperty("--slide");
+      if (header) delete header.dataset.compact;
     },
     [],
   );

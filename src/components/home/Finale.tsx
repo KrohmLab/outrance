@@ -55,7 +55,7 @@ export function Finale({ level }: { level: MotionLevel }) {
   }, [linked, reduced]);
 
   return (
-    <section ref={ref} aria-labelledby="home-finale" className="relative flex min-h-[640px] flex-col items-center justify-center overflow-hidden py-24 lg:min-h-[100vh]">
+    <section ref={ref} aria-labelledby="home-finale" className="relative flex flex-col items-center justify-center overflow-hidden py-16 sm:min-h-[640px] sm:py-24 lg:min-h-[100vh]">
       <div
         ref={lotusRef}
         aria-hidden="true"

@@ -26,7 +26,7 @@ export function BelgiumBand({ level }: { level: MotionLevel }) {
       >
         <span className="drift-b">Belgium · Belgium · Belgium · Belgium · </span>
       </span>
-      <div className="wrap relative flex flex-col items-start justify-between gap-6 py-14 sm:flex-row sm:items-center sm:py-24 lg:min-h-[420px]">
+      <div className="wrap relative flex flex-col items-start justify-between gap-6 py-12 sm:flex-row sm:items-center sm:py-24 lg:min-h-[420px]">
         <div className="flex max-w-[640px] flex-col gap-3">
           <span className="lbl text-lotus">Depuis {site.association.belgiumSince}</span>
           <h2 id="home-belgium" className="disp text-[36px] leading-none font-bold sm:text-display-l">

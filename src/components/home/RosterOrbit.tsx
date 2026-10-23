@@ -146,7 +146,7 @@ export function RosterOrbit({ artists, level }: { artists: OrbitArtist[]; level:
   );
 
   return (
-    <section ref={sectionRef} aria-labelledby="home-roster" className="relative overflow-hidden py-16 sm:py-24 lg:flex lg:min-h-[100vh] lg:items-center">
+    <section ref={sectionRef} aria-labelledby="home-roster" className="relative overflow-hidden py-12 sm:py-24 lg:flex lg:min-h-[100vh] lg:items-center">
       <div className="wrap flex flex-col items-center gap-10 lg:flex-row lg:gap-14">
         <Reveal className="flex w-full min-w-0 flex-1 flex-col gap-5 lg:gap-[22px]">
           <span className="lbl text-lotus">Artistes</span>

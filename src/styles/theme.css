@@ -69,6 +69,11 @@
 }
 
 @layer base {
+  /* Transformations des éléments SVG calculées dans le repère du viewBox, explicitement :
+     WebKit (Safari, Brave et tout navigateur iOS) ne l’applique pas toujours par défaut. */
+  svg * {
+    transform-box: view-box;
+  }
   html {
     background: var(--color-nuit);
     color: var(--color-ink);
@@ -739,9 +744,16 @@
 
 /* Header de l’accueil : fond et filet qui apparaissent avec le scroll (--hb), jauge (--mark), logo (--slide). */
 .home-header {
-  background: rgb(10 7 18 / calc(var(--hb, 0) * 0.86));
+  background: rgb(10 7 18 / calc(var(--hb, 0) * 0.92));
   border-bottom: 1px solid rgb(46 38 69 / var(--hb, 0));
-  backdrop-filter: blur(calc(var(--hb, 0) * 14px));
+}
+/* Flou d’arrière-plan constant (jamais animé : recalculer le rayon à chaque image saccade sur iOS),
+   activé une fois la page défilée, et seulement en desktop. */
+@media (min-width: 1024px) {
+  .home-header[data-scrolled] {
+    background: rgb(10 7 18 / calc(var(--hb, 0) * 0.86));
+    backdrop-filter: blur(14px);
+  }
 }
 .home-header:has([data-open]) {
   background: var(--color-nuit);
@@ -891,5 +903,25 @@ html:has(.home-intro) [data-home-header] {
   .home-intro .hero-text {
     opacity: 0;
     animation: loader-header 0.5s 1.25s ease-out forwards;
+  }
+}
+
+/* Header de l’accueil en mobile : quand la jauge pousse le logo, BILLETTERIE devient un bouton icône
+   (le libellé reste lu par les lecteurs d’écran). */
+@media (max-width: 639px) {
+  [data-home-header][data-compact] .billet-btn {
+    width: 44px;
+    padding: 0;
+  }
+  [data-home-header][data-compact] .billet-icon {
+    display: block;
+  }
+  [data-home-header][data-compact] .billet-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }

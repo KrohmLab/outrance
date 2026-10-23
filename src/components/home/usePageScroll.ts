@@ -5,6 +5,7 @@ import { useLayoutEffect, useRef, type RefObject } from "react";
  * Appelle `apply(st, top, vh)` à chaque image où le scroll change : st = scroll de la page,
  * top = position de la section dans la page (mesurée au montage et au redimensionnement), vh = hauteur
  * de fenêtre. Reprend la logique de renderVals() (positions mesurées dans le DOM plutôt que fixes).
+ * Rien n’est appliqué quand `enabled` est faux : l’élément garde son état de repos (rendu React).
  */
 export function usePageScroll(ref: RefObject<HTMLElement | null>, apply: (st: number, top: number, vh: number) => void, enabled = true) {
   const { scrollY } = useScroll();
@@ -19,6 +20,9 @@ export function usePageScroll(ref: RefObject<HTMLElement | null>, apply: (st: nu
   });
 
   useLayoutEffect(() => {
+    // Animation désactivée sur cet appareil : on ne touche à rien (sinon l’état « pas encore entré »
+    // — iris fermé, contenu transparent — resterait figé, faute de scroll lié pour le faire évoluer).
+    if (!enabled) return;
     const measure = () => {
       const el = ref.current;
       if (!el) return;

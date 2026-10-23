@@ -32,7 +32,7 @@ export function AftermoviesTrack({ movies, level }: { movies: Aftermovie[]; leve
 
   return (
     <section ref={ref} aria-labelledby="home-aftermovies" className={`relative ${pinned ? "h-[255vh]" : ""}`}>
-      <div className={`flex flex-col justify-center gap-6 py-16 sm:gap-10 sm:py-24 ${pinned ? "sticky top-0 h-[100vh] overflow-hidden py-0!" : ""}`}>
+      <div className={`flex flex-col justify-center gap-6 py-12 sm:gap-10 sm:py-24 ${pinned ? "sticky top-0 h-[100vh] overflow-hidden py-0!" : ""}`}>
         <div className="wrap relative">
           <span className="lbl text-lotus">Galerie</span>
           <div className="relative">

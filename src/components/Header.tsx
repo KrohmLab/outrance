@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router";
 import { HeaderGauge } from "./home/HeaderGauge";
 import { useTicketingHref } from "../lib/featured";
 import { logoUrl, nav } from "../site";
-import { BurgerIcon, CloseIcon } from "./icons";
+import { BurgerIcon, CloseIcon, TicketIcon } from "./icons";
 import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
@@ -50,8 +50,10 @@ export function Header() {
 
           <div className="flex items-center gap-2.5">
             {/* Le brand book garde BILLETTERIE visible en mobile et en tablette. */}
-            <Link className="btn btn-ghost min-h-11 border-lotus! px-4 sm:px-6" to={ticketingHref} prefetch="intent">
-              Billetterie
+            <Link className="billet-btn btn btn-ghost min-h-11 border-lotus! px-4 sm:px-6" to={ticketingHref} prefetch="intent">
+              {/* Accueil mobile : une fois le lotus posé dans la jauge, le bouton se réduit à son icône. */}
+              <TicketIcon className="billet-icon hidden" size={20} />
+              <span className="billet-label">Billetterie</span>
             </Link>
             <button
               ref={burgerRef}

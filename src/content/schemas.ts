@@ -170,6 +170,9 @@ export type Aftermovie = z.infer<typeof aftermovieSchema>;
 export type Galerie = z.infer<typeof galerieSchema>;
 export type InstagramPost = z.infer<typeof instagramPostSchema>;
 export type Album = Galerie["albums"][number];
+export type Photo = z.infer<typeof photoSchema>;
+/** Album sans ses photos, pour la mosaïque : les photos sont chargées à l’ouverture (/galerie/albums/{slug}.json). */
+export type AlbumSummary = Omit<Album, "photos"> & { cover: Photo | null; count: number };
 export type Legal = z.infer<typeof legalSchema>;
 export type Presse = z.infer<typeof presseSchema>;
 export type TeamMember = z.infer<typeof teamSchema>[number];

@@ -6,6 +6,8 @@ export default [
   route("evenements/:slug", "routes/evenement.tsx"),
   route("artistes", "routes/artistes.tsx"),
   route("galerie", "routes/galerie.tsx"),
+  // Photos d’un album en JSON, pré-rendues en fichiers statiques (/galerie/albums/{slug}.json).
+  route("galerie/albums/:file", "routes/galerie-album.ts"),
   route("association", "routes/association.tsx"),
   route("presse-pro", "routes/presse-pro.tsx"),
   route("mentions-legales", "routes/mentions-legales.tsx"),

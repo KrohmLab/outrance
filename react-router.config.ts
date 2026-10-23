@@ -16,6 +16,20 @@ async function eventSlugs(): Promise<string[]> {
   return slugs;
 }
 
+/** Albums qui ont des photos (saisies à la main ou récupérées sur Facebook), pour pré-rendre leur JSON. */
+async function albumSlugs(): Promise<string[]> {
+  const read = async (path: string) => {
+    try {
+      return JSON.parse(await readFile(new URL(path, import.meta.url), "utf8")) as unknown;
+    } catch {
+      return null;
+    }
+  };
+  const manual = ((await read("./content/galerie.json")) as { albums: { event: string; photos: unknown[] }[] }).albums;
+  const facebook = ((await read("./content/generated/facebook-albums.json")) ?? []) as { event: string; photos: unknown[] }[];
+  return [...new Set([...manual, ...facebook].filter((a) => a.photos.length > 0).map((a) => a.event))];
+}
+
 export default {
   appDirectory: "src",
   // Site 100 % statique : chaque route est pré-rendue au build, aucun serveur à l’exécution.
@@ -24,6 +38,12 @@ export default {
     // "/404" est rendu par la route joker (*) puis copié en build/client/404.html
     // par scripts/postbuild.mjs : Cloudflare le sert avec un statut 404.
     const slugs = await eventSlugs();
-    return [...getStaticPaths(), ...slugs.map((s) => `/evenements/${s}`), "/404"];
+    const albums = await albumSlugs();
+    return [
+      ...getStaticPaths(),
+      ...slugs.map((s) => `/evenements/${s}`),
+      ...albums.map((s) => `/galerie/albums/${s}.json`),
+      "/404",
+    ];
   },
 } satisfies Config;

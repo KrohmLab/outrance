@@ -15,7 +15,8 @@ export function StatsBand({ stats }: { stats: Stat[] }) {
       </h2>
       <ul className="wrap m-0 grid list-none grid-cols-2 gap-x-4 gap-y-6 py-12 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 sm:py-14 lg:grid-cols-[repeat(auto-fit,minmax(min(100%,160px),1fr))] lg:py-16">
         {shown.map((s) => (
-          <li key={s.label} className="flex flex-col sm:gap-1">
+          // Mobile (2 colonnes) : un dernier chiffre seul sur sa ligne est centré.
+          <li key={s.label} className="flex flex-col sm:gap-1 max-sm:odd:last:col-span-2 max-sm:odd:last:items-center">
             <span className={`disp text-[40px] leading-none font-extrabold sm:text-[52px] lg:text-[64px] ${s.index > 2 ? "text-lotus" : "text-ink"}`}>
               {number.format(s.value)}
             </span>

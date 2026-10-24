@@ -96,7 +96,7 @@ export function StatsIris({ stats, founded, level }: { stats: Stat[]; founded: s
                 ref={(el) => {
                   boxRefs.current[i] = el;
                 }}
-                className="flex flex-col items-center gap-2"
+                className="flex flex-col items-center gap-2 max-sm:odd:last:col-span-2"
               >
                 <span
                   ref={(el) => {

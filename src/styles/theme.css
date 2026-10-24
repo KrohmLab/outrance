@@ -1006,6 +1006,26 @@
   opacity: 1;
 } }
 
+/* Hero, appareils tactiles : un coup de pouce lancé fait défiler plus que tout le hero (≈ 1 écran). Ce repère,
+   placé à 64 % du parcours (fleur ouverte, événement affiché, avant l’envol : heroPhases), est un point d’arrêt
+   que le défilement ne peut pas sauter : l’éclosion se joue pendant la décélération et la page s’y pose.
+   Un second geste repart normalement. Rien sur desktop (molette, trackpad) ni en mouvement réduit.
+   Parcours du hero = hauteur de la section − hauteur de l’écran (useScroll, offset start/end). */
+.hero-snap {
+  position: absolute;
+  inset-inline: 0;
+  top: calc(0.64 * (195svh - 100lvh));
+  height: 1px;
+  pointer-events: none;
+}
+@media (min-width: 1024px) {
+  .hero-snap { top: calc(0.64 * (267vh - 100lvh)); }
+}
+@media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  html:has(.hero-snap) { scroll-snap-type: y proximity; }
+  .hero-snap { scroll-snap-align: start; scroll-snap-stop: always; }
+}
+
 /* Chargement de l’accueil (≈ 1,6 s) sur le lotus du hero lui-même : tracé des pétales, remplissage,
    cœur, onde, puis le voile nuit se referme en iris. Le header apparaît ensuite. */
 .home-intro-veil {

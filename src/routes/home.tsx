@@ -79,7 +79,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <div ref={rootRef} data-motion={level} className={`relative isolate ${intro ? "home-intro" : ""}`}>
-      <Hero event={featured?.event ?? null} upcoming={featured?.upcoming ?? false} intro={intro} />
+      <Hero event={featured?.event ?? null} upcoming={featured?.upcoming ?? false} level={level} intro={intro} />
       <RosterMarquee names={loaderData.roster.map((a) => a.name)} level={level} />
       <HomeAgenda featured={featured?.event ?? null} upcoming={featured?.upcoming ?? false} past={past} />
       <StatsIris stats={loaderData.stats} founded={loaderData.founded} level={level} />

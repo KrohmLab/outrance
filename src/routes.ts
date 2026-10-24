@@ -13,6 +13,8 @@ export default [
   route("association", "routes/association.tsx"),
   route("presse-pro", "routes/presse-pro.tsx"),
   route("mentions-legales", "routes/mentions-legales.tsx"),
+  // Arrivée depuis l’e-mail de confirmation de la newsletter (beehiiv), non indexée.
+  route("newsletter/confirmee", "routes/newsletter-confirmee.tsx"),
   // Route joker : toute URL inconnue. Pré-rendue sous /404 (voir react-router.config.ts).
   route("*", "routes/not-found.tsx"),
 ] satisfies RouteConfig;

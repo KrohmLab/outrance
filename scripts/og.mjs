@@ -41,9 +41,9 @@ const lotusUri = `data:image/svg+xml;base64,${Buffer.from(lotusSvg).toString("ba
 const h = (type, style, children) => ({ type, props: { style, children } });
 const img = (src, style) => ({ type: "img", props: { src, style } });
 
-async function render(node, file) {
-  const svg = await satori(node, { width: W, height: H, fonts });
-  const png = new Resvg(svg, { fitTo: { mode: "width", value: W } }).render().asPng();
+async function render(node, file, width = W, height = H) {
+  const svg = await satori(node, { width, height, fonts });
+  const png = new Resvg(svg, { fitTo: { mode: "width", value: width } }).render().asPng();
   await writeFile(file, png);
 }
 
@@ -65,6 +65,21 @@ await render(
     0.75,
   ),
   new URL("outrance.png", out),
+);
+
+// En-tête des e-mails beehiiv (confirmation d’inscription…), sur le fond nuit-raised du message.
+// Adresse stable : /og/email-entete.png, importée dans beehiiv par son URL.
+await render(
+  h("div", { width: W, height: 400, display: "flex", position: "relative", background: "#161022", overflow: "hidden" }, [
+    img(lotusUri, { position: "absolute", right: -230, top: -180, width: 760, height: 760, opacity: 0.7 }),
+    h("div", { display: "flex", flexDirection: "column", justifyContent: "center", gap: 26, padding: "0 72px", width: 760 }, [
+      img(logo, { width: 600, height: Math.round((600 * 233) / 1600) }),
+      h("div", { fontFamily: "JetBrains Mono", fontSize: 20, letterSpacing: 4, color: C.lotus, textTransform: "uppercase" }, "Newsletter"),
+    ]),
+  ]),
+  new URL("email-entete.png", out),
+  W,
+  400,
 );
 
 // Une image par événement publié.

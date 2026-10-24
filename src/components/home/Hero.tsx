@@ -1,9 +1,9 @@
-import { useMotionValueEvent, useScroll } from "motion/react";
+import { useMotionValueEvent, useScroll, useSpring } from "motion/react";
 import { useCallback, useEffect, useLayoutEffect, useRef, type CSSProperties } from "react";
 import { Link } from "react-router";
 import type { LineupItem, OutranceEvent } from "../../content/schemas";
 import { formatDate } from "../../lib/dates";
-import { useReducedMotion } from "../../lib/useMotionLevel";
+import { useReducedMotion, type MotionLevel } from "../../lib/useMotionLevel";
 import { logoSrcSet, logoUrl, site } from "../../site";
 import { Lotus } from "./Lotus";
 import { heroPhases, lerp } from "./motion-math";
@@ -22,6 +22,7 @@ export type HeroEvent = Pick<
 type Props = {
   event: HeroEvent | null;
   upcoming: boolean;
+  level: MotionLevel;
   /** Premier chargement de la page : voile nuit sous le lotus, qui se dessine puis s’ouvre en iris. */
   intro?: boolean;
 };
@@ -32,7 +33,7 @@ function splitTitle(e: HeroEvent): [string | null, string] {
   return m ? [m[1] ?? null, m[2] ?? e.title] : [null, e.title];
 }
 
-export function Hero({ event, upcoming, intro = false }: Props) {
+export function Hero({ event, upcoming, level, intro = false }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const lotusRef = useRef<HTMLDivElement>(null);
   const haloRef = useRef<HTMLDivElement>(null);
@@ -43,6 +44,12 @@ export function Hero({ event, upcoming, intro = false }: Props) {
   const reduced = useReducedMotion();
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+  // Desktop : la chorégraphie suit le scroll à travers un ressort amorti. Les crans de molette deviennent un
+  // mouvement continu et un scroll brusque donne une éclosion d’environ une demi-seconde au lieu d’un saut.
+  // Au toucher, le scroll natif est déjà fluide : on le suit tel quel (la fleur ne traîne pas sous le doigt).
+  const smoothed = useSpring(scrollYProgress, { stiffness: 220, damping: 34, restDelta: 0.0005 });
+  const smooth = level === "full";
+  const progress = smooth ? smoothed : scrollYProgress;
 
   // Position de la jauge du header par rapport au centre de l’écran (cible de l’envol).
   const measure = useCallback(() => {
@@ -109,18 +116,72 @@ export function Hero({ event, upcoming, intro = false }: Props) {
     [reduced],
   );
 
-  useMotionValueEvent(scrollYProgress, "change", apply);
+  // Tactile : un coup de pouce lancé depuis le haut traverse tout le hero en une fraction de seconde. Le
+  // repère .hero-snap (fleur ouverte, événement affiché) arrête l’élan au passage, une fois par geste parti
+  // d’au-dessus ; tant que le doigt touche l’écran, rien n’intervient. Complète scroll-snap-stop (CSS), que
+  // tous les navigateurs ne respectent pas en mode « proximity ».
+  useEffect(() => {
+    if (level !== "mobile" && level !== "tablet") return;
+    const marker = sectionRef.current?.querySelector<HTMLElement>(".hero-snap");
+    if (!marker) return;
+    const root = document.documentElement;
+    let touching = false;
+    let startY = 0;
+    let done = false;
+    let unlock: ReturnType<typeof setTimeout> | undefined;
+    const release = () => {
+      clearTimeout(unlock);
+      unlock = undefined;
+      root.style.overflow = "";
+    };
+    const snapY = () => marker.getBoundingClientRect().top + window.scrollY;
+    const onStart = () => {
+      if (unlock) release();
+      touching = true;
+      startY = window.scrollY;
+      done = false;
+    };
+    const onEnd = () => {
+      touching = false;
+    };
+    const onScroll = () => {
+      if (touching || done) return;
+      const y = snapY();
+      if (startY < y - 4 && window.scrollY > y) {
+        // Le défilement reste bloqué 400 ms, le temps que l’élan s’éteigne (sinon il repart) ; un nouveau
+        // contact du doigt le libère aussitôt.
+        done = true;
+        root.style.overflow = "hidden";
+        window.scrollTo(0, y);
+        unlock = setTimeout(release, 400);
+      }
+    };
+    window.addEventListener("touchstart", onStart, { passive: true });
+    window.addEventListener("touchend", onEnd, { passive: true });
+    window.addEventListener("touchcancel", onEnd, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", onStart);
+      window.removeEventListener("touchend", onEnd);
+      window.removeEventListener("touchcancel", onEnd);
+      window.removeEventListener("scroll", onScroll);
+      if (unlock) release();
+    };
+  }, [level]);
+
+  useMotionValueEvent(smoothed, "change", (v) => smooth && apply(v));
+  useMotionValueEvent(scrollYProgress, "change", (v) => !smooth && apply(v));
 
   useLayoutEffect(() => {
     measure();
-    apply(scrollYProgress.get());
+    apply(progress.get());
     const onResize = () => {
       measure();
-      apply(scrollYProgress.get());
+      apply(progress.get());
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [apply, measure, scrollYProgress]);
+  }, [apply, measure, progress]);
 
   // En quittant l’accueil, la jauge reste visible et le logo à sa place normale.
   useEffect(
@@ -142,6 +203,8 @@ export function Hero({ event, upcoming, intro = false }: Props) {
       {/* Fond à la hauteur maximale de l’écran (lvh) : quand la barre d’adresse se replie sur mobile, la scène
           couvre tout l’écran. Le contenu (lotus, cercles, textes) est positionné, lui, dans la zone toujours
           visible (svh) : il reste centré et ne passe pas sous les barres d’outils du navigateur. */}
+      {/* Tactile : point d’arrêt du scroll sur la fleur ouverte, événement affiché (voir .hero-snap). */}
+      <div aria-hidden="true" className="hero-snap" />
       <div className="sticky top-0 h-[100lvh] overflow-hidden">
         {/* Halo, ondes et cercles concentriques. */}
         {/* Au-dessus du voile de chargement : ses cercles naissent du bouton au premier battement. */}

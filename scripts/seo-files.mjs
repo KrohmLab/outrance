@@ -20,7 +20,9 @@ async function pages(dir, prefix = "") {
   return found;
 }
 
-const paths = ["/", ...(await pages(client)).sort()];
+// Pages non indexées (noindex) : jamais dans le sitemap.
+const NOINDEX = new Set(["/newsletter", "/newsletter/confirmee"]);
+const paths = ["/", ...(await pages(client)).filter((p) => !NOINDEX.has(p)).sort()];
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${paths.map((p) => `  <url><loc>${origin}${p === "/" ? "/" : p}</loc></url>`).join("\n")}

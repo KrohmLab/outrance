@@ -100,10 +100,10 @@ export default function MentionsLegales({ loaderData }: Route.ComponentProps) {
               transmets sert seulement à te répondre. Ces informations ne sont jamais revendues.
             </p>
             <p>
-              Le formulaire de newsletter ne te demande que ton adresse e-mail. Il n’est pas encore en service : rien n’est
-              enregistré pour l’instant. Une fois ouvert, ton adresse servira uniquement à t’informer de nos événements. La
-              newsletter sera gérée par <strong>{legal.newsletterProvider ?? "[prestataire à préciser]"}</strong>, et tu
-              pourras te désinscrire à tout moment depuis chaque e-mail.
+              Le formulaire de newsletter ne te demande que ton adresse e-mail. Elle sert uniquement à t’informer de nos
+              événements et n’est jamais revendue. La newsletter est gérée par{" "}
+              <strong>{legal.newsletterProvider ?? "[prestataire à préciser]"}</strong>, qui conserve les adresses pour notre
+              compte, aux États-Unis. Tu peux te désinscrire à tout moment depuis chaque e-mail.
             </p>
             <p>
               Conformément au RGPD, tu disposes d’un droit d’accès, de rectification et de suppression de tes données : écris

@@ -7,9 +7,13 @@
   "preview_urls": true,
   // Requis par `wrangler preview` (Worker Previews, commande de preview des branches dans Workers Builds).
   "previews": {},
-  // Site statique pré-rendu par React Router : pas de script Worker, uniquement des assets.
+  // Site statique pré-rendu par React Router. Un seul script Worker, pour /api/newsletter (inscription
+  // beehiiv, clé gardée côté Cloudflare) ; toutes les autres requêtes sont servies directement en assets.
+  "main": "./worker/index.ts",
   "assets": {
     "directory": "./build/client",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
   }

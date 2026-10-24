@@ -3,14 +3,17 @@ import { site } from "../site";
 import { AlertIcon, CheckIcon } from "./icons";
 
 // Newsletter avec ses quatre états (repos, envoi, succès, erreur), d’après Composants.dc.html.
-// Aucun prestataire n’est choisi (site.newsletter.provider = null) : le formulaire n’est pas branché
-// et aboutit à l’état d’erreur, sans rien envoyer nulle part.
+// L’adresse part vers /api/newsletter (worker/index.ts), qui l’inscrit dans beehiiv : rien n’est chargé
+// depuis beehiiv dans le navigateur. Le champ « website », invisible, piège les robots.
 type State = "idle" | "sending" | "success" | "error";
 
-async function subscribe(email: string): Promise<void> {
-  void email;
-  await new Promise((r) => setTimeout(r, 900));
-  throw new Error("Newsletter non branchée");
+async function subscribe(email: string, website: string): Promise<void> {
+  const res = await fetch("/api/newsletter", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ email, website, page: window.location.pathname }),
+  });
+  if (!res.ok) throw new Error(`Inscription refusée (${res.status})`);
 }
 
 export function Newsletter({ id, className = "" }: { id?: string; className?: string }) {
@@ -23,6 +26,7 @@ export function Newsletter({ id, className = "" }: { id?: string; className?: st
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const input = event.currentTarget.elements.namedItem("email") as HTMLInputElement;
+    const trap = event.currentTarget.elements.namedItem("website") as HTMLInputElement | null;
     if (!input.validity.valid) {
       setInvalid(true);
       input.focus();
@@ -31,7 +35,7 @@ export function Newsletter({ id, className = "" }: { id?: string; className?: st
     setInvalid(false);
     setState("sending");
     try {
-      await subscribe(input.value);
+      await subscribe(input.value, trap?.value ?? "");
       setState("success");
     } catch {
       setState("error");
@@ -76,6 +80,8 @@ export function Newsletter({ id, className = "" }: { id?: string; className?: st
         </div>
       ) : (
         <form noValidate onSubmit={onSubmit} className="flex flex-wrap items-end gap-3">
+          {/* Piège à robots : hors écran, ignoré des lecteurs d’écran et de la tabulation. */}
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] size-px opacity-0" />
           <label className="field min-w-0 flex-[1_1_260px]" htmlFor={inputId}>
             <span className="field-label">E-mail</span>
             <input

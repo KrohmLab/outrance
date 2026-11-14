@@ -17,6 +17,34 @@ const TOKEN = process.env.META_PAGE_TOKEN;
 const INSTAGRAM_POSTS = 6;
 
 const log = (msg) => console.log(`sync-meta: ${msg}`);
+const started = Date.now();
+
+/**
+ * Limiteur de concurrence partagé : au plus `n` tâches en cours à la fois, toutes sources confondues.
+ * Les ~10 000 images (deux tailles par photo) passent par une seule file, au lieu d’albums traités un par un.
+ */
+function limiter(n) {
+  let active = 0;
+  const queue = [];
+  const next = () => {
+    if (active >= n || queue.length === 0) return;
+    active++;
+    const { task, resolve, reject } = queue.shift();
+    task()
+      .then(resolve, reject)
+      .finally(() => {
+        active--;
+        next();
+      });
+  };
+  return (task) =>
+    new Promise((resolve, reject) => {
+      queue.push({ task, resolve, reject });
+      next();
+    });
+}
+const downloads = limiter(32); // images (fbcdn)
+const requests = limiter(6); // appels au Graph API
 
 async function graph(path, params = {}) {
   const url = new URL(`${GRAPH}/${path}`);
@@ -42,29 +70,23 @@ async function graphAll(path, params) {
   }
 }
 
-/** Télécharge une image une seule fois (le fichier déjà présent est gardé). */
-async function download(src, file) {
+/** Télécharge une image une seule fois (le fichier déjà présent est gardé), avec une seconde chance. */
+function download(src, file) {
   const target = new URL(file, MEDIA);
-  if (existsSync(target)) return;
-  const res = await fetch(src, { signal: AbortSignal.timeout(30_000) });
-  if (!res.ok) throw new Error(`image HTTP ${res.status}`);
-  await mkdir(new URL(".", target), { recursive: true });
-  await writeFile(target, Buffer.from(await res.arrayBuffer()));
-}
-
-/** Exécute les tâches avec au plus `n` en parallèle. */
-async function pool(tasks, n = 8) {
-  const results = [];
-  let i = 0;
-  await Promise.all(
-    Array.from({ length: Math.min(n, tasks.length) }, async () => {
-      while (i < tasks.length) {
-        const k = i++;
-        results[k] = await tasks[k]();
+  if (existsSync(target)) return Promise.resolve();
+  return downloads(async () => {
+    for (let attempt = 1; ; attempt++) {
+      try {
+        const res = await fetch(src, { signal: AbortSignal.timeout(30_000) });
+        if (!res.ok) throw new Error(`image HTTP ${res.status}`);
+        await mkdir(new URL(".", target), { recursive: true });
+        await writeFile(target, Buffer.from(await res.arrayBuffer()));
+        return;
+      } catch (err) {
+        if (attempt >= 2) throw err;
       }
-    }),
-  );
-  return results;
+    }
+  });
 }
 
 async function writeJson(name, data) {
@@ -167,38 +189,46 @@ async function syncAlbums(pageId) {
   const events = await readEvents();
   const albums = await graphAll(`${pageId}/albums`, { fields: "id,name,created_time,count,type", limit: 100 });
 
-  const out = [];
   const ignored = [];
-  for (const album of albums) {
-    if (album.type && album.type !== "normal") continue; // photos de profil, couvertures, mobile…
+  const matched = albums.flatMap((album) => {
+    if (album.type && album.type !== "normal") return []; // photos de profil, couvertures, mobile…
     const slug = matchEvent(album, events, overrides);
-    if (!slug) {
-      ignored.push(`${album.id} « ${album.name} »`);
-      continue;
-    }
-    const photos = (await graphAll(`${album.id}/photos`, { fields: "id,images,name", limit: 100 })).filter((p) => !hidden.has(p.id));
-    const items = await pool(
-      photos.map((p) => async () => {
-        const { full, thumb } = pickSizes(p.images ?? []);
-        if (!full) return null;
-        try {
-          await download(full.source, `facebook/${album.id}/${p.id}.jpg`);
-          if (thumb !== full) await download(thumb.source, `facebook/${album.id}/${p.id}-t.jpg`);
-        } catch (err) {
-          log(`photo ${p.id} ignorée (${err.message})`);
-          return null;
-        }
-        return {
-          src: `/meta/facebook/${album.id}/${p.id}.jpg`,
-          thumb: thumb !== full ? `/meta/facebook/${album.id}/${p.id}-t.jpg` : null,
-          alt: (p.name ?? "").trim().slice(0, 140),
-          width: full.width,
-          height: full.height,
-        };
-      }),
-    );
-    out.push({ event: slug, facebookId: album.id, name: album.name, photos: items.filter(Boolean) });
-  }
+    if (!slug) ignored.push(`${album.id} « ${album.name} »`);
+    return slug ? [{ album, slug }] : [];
+  });
+
+  // Tous les albums en parallèle : listes de photos (6 appels Graph à la fois), puis téléchargements
+  // dans la file commune. L’ordre des albums et des photos est conservé.
+  const out = await Promise.all(
+    matched.map(async ({ album, slug }) => {
+      const photos = (await requests(() => graphAll(`${album.id}/photos`, { fields: "id,images,name", limit: 100 }))).filter(
+        (p) => !hidden.has(p.id),
+      );
+      const items = await Promise.all(
+        photos.map(async (p) => {
+          const { full, thumb } = pickSizes(p.images ?? []);
+          if (!full) return null;
+          try {
+            await Promise.all([
+              download(full.source, `facebook/${album.id}/${p.id}.jpg`),
+              thumb !== full ? download(thumb.source, `facebook/${album.id}/${p.id}-t.jpg`) : null,
+            ]);
+          } catch (err) {
+            log(`photo ${p.id} ignorée (${err.message})`);
+            return null;
+          }
+          return {
+            src: `/meta/facebook/${album.id}/${p.id}.jpg`,
+            thumb: thumb !== full ? `/meta/facebook/${album.id}/${p.id}-t.jpg` : null,
+            alt: (p.name ?? "").trim().slice(0, 140),
+            width: full.width,
+            height: full.height,
+          };
+        }),
+      );
+      return { event: slug, facebookId: album.id, name: album.name, photos: items.filter(Boolean) };
+    }),
+  );
   await writeJson("facebook-albums.json", out);
   log(`${out.length} albums Facebook rattachés à un événement, ${out.reduce((n, a) => n + a.photos.length, 0)} photos`);
   if (ignored.length) log(`albums sans événement (ignorés) :\n  ${ignored.join("\n  ")}`);
@@ -217,15 +247,12 @@ if (!TOKEN) {
     log(`jeton refusé par Meta (${err.message}) : rien n’est synchronisé`);
   }
   if (pageId) {
-    for (const [label, run] of [
-      ["Instagram", syncInstagram],
-      ["albums Facebook", syncAlbums],
-    ]) {
-      try {
-        await run(pageId);
-      } catch (err) {
-        log(`${label} non synchronisés : ${err.message}`);
-      }
-    }
+    await Promise.all(
+      [
+        ["Instagram", syncInstagram],
+        ["albums Facebook", syncAlbums],
+      ].map(([label, run]) => run(pageId).catch((err) => log(`${label} non synchronisés : ${err.message}`))),
+    );
   }
+  log(`terminé en ${((Date.now() - started) / 1000).toFixed(1)} s`);
 }

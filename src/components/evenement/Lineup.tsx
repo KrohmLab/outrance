@@ -20,7 +20,13 @@ function Card({ item, slug }: { item: LineupItem; slug: string | null }) {
   const extra = [item.label, item.note].filter(Boolean).join(" — ");
   const body = (
     <>
-      <Placeholder motif="lineup" label="[Photo artiste]" zoom={Boolean(slug)} className="aspect-[4/5] w-full" />
+      {item.photo ? (
+        <span className="block aspect-[4/5] w-full overflow-hidden bg-placeholder">
+          <img src={item.photo} alt={`Visuel de ${item.name}`} width={520} height={650} loading="lazy" decoding="async" className={`size-full object-cover ${slug ? "zoom" : ""}`} />
+        </span>
+      ) : (
+        <Placeholder motif="lineup" label="[Photo artiste]" zoom={Boolean(slug)} className="aspect-[4/5] w-full" />
+      )}
       <span className="flex flex-col gap-1 p-3.5 pb-4 sm:gap-2 sm:p-5">
         <span className="disp text-[15px] leading-[1.15] font-semibold sm:text-[18px] lg:text-[20px]">{item.name}</span>
         {meta.length > 0 && (

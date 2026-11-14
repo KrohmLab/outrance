@@ -13,6 +13,8 @@ export const lineupItemSchema = z.strictObject({
   format: nullable(z.enum(["Live", "DJset", "B2B"])),
   genre: nullable(z.string()),
   label: nullable(z.string()),
+  /** Visuel de l’artiste pour cette soirée (affiche 4:5), servi par le site. */
+  photo: nullable(z.string()),
   note: nullable(z.string()),
 });
 

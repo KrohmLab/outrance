@@ -10,7 +10,8 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
-  // Accueil : header transparent posé sur le hero, avec la jauge de lecture qui reçoit le lotus.
+  // Même header partout : transparent en haut de page, fond et jauge de lecture au scroll. Sur l’accueil,
+  // il est posé sur le hero (fixed) et la jauge reçoit le lotus ; ailleurs, il garde sa place (sticky).
   const isHome = useLocation().pathname === "/";
 
   return (
@@ -18,17 +19,17 @@ export function Header() {
       <header
         ref={headerRef}
         data-home-header={isHome || undefined}
-        className={`top-0 z-40 ${isHome ? "home-header fixed inset-x-0" : "sticky border-b border-line bg-nuit/90 backdrop-blur-[14px]"}`}
+        className={`home-header top-0 z-40 ${isHome ? "fixed inset-x-0" : "sticky"}`}
       >
         <div className="flex h-[68px] items-center justify-between gap-4 px-4 sm:h-[76px] sm:px-8 lg:wrap">
           <Link to="/" className="relative flex min-h-11 items-center">
-            {isHome && <HeaderGauge headerRef={headerRef} />}
+            <HeaderGauge headerRef={headerRef} auto={!isHome} />
             <img
               src={logoUrl}
               alt="Outrance — accueil"
               width={1600}
               height={233}
-              className={`block h-5 w-auto sm:h-6 lg:h-[26px] ${isHome ? "home-logo" : ""}`}
+              className="home-logo block h-5 w-auto sm:h-6 lg:h-[26px]"
             />
           </Link>
 
